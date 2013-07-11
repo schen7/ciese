@@ -14,4 +14,8 @@ class User < ActiveRecord::Base
   validates :admin, inclusion: { in: [true, false] }
   validates :staff, inclusion: { in: [true, false] }
   validates :active, inclusion: { in: [true, false] }
+  validates :password, length: { minimum: 10 }
+  validates :password_confirmation, length: { minimum: 10 }
+
+  has_secure_password
 end

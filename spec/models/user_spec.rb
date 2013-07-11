@@ -8,6 +8,8 @@ describe User do
   it { should respond_to(:username) }
   it { should respond_to(:email) }
   it { should respond_to(:password_digest) }
+  it { should respond_to(:password) }
+  it { should respond_to(:password_confirmation) }
   it { should respond_to(:admin) }
   it { should respond_to(:staff) }
   it { should respond_to(:active) }
@@ -123,6 +125,39 @@ describe User do
         user.save
         expect(user.reload.email).to eq 'amixedcase@none.com'
       end
+    end
+  end
+
+  describe "#password" do
+    context "when not supplied" do
+      let(:user) { build(:user, password: '') }
+
+      it { should_not be_valid }
+    end
+
+    context "when password does not match confirmation" do
+      before { user.password_confirmation = 'wrong_pass' }
+
+      it { should_not be_valid }
+    end
+
+    context "when password is too short" do
+      before { user.password = user.password_confirmation = 'a' * 9 }
+
+      it { should_not be_valid }
+    end
+  end
+
+  describe "#authenticate" do
+    before { user.save }
+    let(:found_user) { User.find(user.id) }
+
+    it "should return the user when password is valid" do
+      expect(found_user.authenticate(user.password)).to eq user
+    end
+
+    it "should return false when password is invalid" do
+      expect(found_user.authenticate('bad_password')).to be_false
     end
   end
 
