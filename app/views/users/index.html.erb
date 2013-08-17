@@ -1,0 +1,26 @@
+<% provide(:title, 'Users') %>
+
+<h1>Users</h1>
+
+<table id="users">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Admin?</th>
+      <th>Staff?</th>
+      <th>Active?</th>
+    <tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.username, user %></td>
+        <td><%= user.email %></td>
+        <td><%= user.admin ? 'Y' : 'N' %></td>
+        <td><%= user.staff ? 'Y' : 'N' %></td>
+        <td><%= user.active ? 'Y' : 'N' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
