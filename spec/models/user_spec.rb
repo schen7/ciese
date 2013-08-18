@@ -13,6 +13,7 @@ describe User do
   it { should respond_to(:admin) }
   it { should respond_to(:staff) }
   it { should respond_to(:active) }
+  it { should respond_to(:profiles) }
 
   it { should be_valid }
 

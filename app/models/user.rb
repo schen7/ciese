@@ -18,4 +18,6 @@ class User < ActiveRecord::Base
   validates :password_confirmation, length: { minimum: 10 }
 
   has_secure_password
+
+  has_many :profiles, inverse_of: :user
 end
