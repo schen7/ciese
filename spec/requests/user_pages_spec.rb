@@ -35,4 +35,18 @@ describe "UserPages" do
 
 	it{ should have_link('activate', href: activate_user_path(user.id)) }
   end
+  
+  describe "user info" do
+	let!(:user) { create(:user) }
+    before { visit user_path(user) }
+	
+	subject{ page }
+
+    it { should have_content(user.username) }
+    it { should have_content(user.email) }
+	it { should have_content(user.admin) }
+	it { should have_content(user.staff) }
+	it { should have_content(user.active) }
+	it { should have_link('edit', href: edit_user_path(user))}
+  end
 end

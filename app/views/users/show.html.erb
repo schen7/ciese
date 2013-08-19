@@ -1,0 +1,26 @@
+<% provide(:title, 'User Info') %>
+
+<table id="user_info">
+  <tr>
+    <td>Username:</td>
+    <td><%= @user.username %></td>
+  </tr>
+  <tr>
+    <td>Email:</td>
+    <td><%= @user.email%></td>
+  </tr>
+  <tr>
+    <td>Admin</td>
+    <td><%= @user.admin%></td>
+  </tr>
+  <tr>
+    <td>Staff</td>
+    <td><%= @user.staff%></td>
+  </tr>
+  <tr>
+    <td>Active</td>
+    <td><%= @user.active%></td>
+  </tr>
+</table>
+
+<p><%= link_to "edit", edit_user_path(@user) %></p>
