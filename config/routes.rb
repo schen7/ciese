@@ -1,5 +1,12 @@
 Ciese::Application.routes.draw do
-  resources :users
+  resources :users do
+	get 'deactivate', on: :member
+	get 'activate', on: :member
+  end
+  
+  #get "users/deactivate/:id" => "users#deactivate"
+  #get "users/activate/:id" => "users#activate"
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

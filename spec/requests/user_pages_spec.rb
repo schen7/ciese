@@ -17,4 +17,22 @@ describe "UserPages" do
       end
     end
   end
+  
+  context "when user is active" do
+	let!(:user) { create(:user) }
+    before { visit users_path }
+	
+	subject{ page }
+
+	it{ should have_link('deactivate', href: deactivate_user_path(user.id)) }
+  end
+  
+  context "when user is not active" do
+	let!(:user) { create(:user, active: false) }
+    before { visit users_path }
+	
+	subject{ page }
+
+	it{ should have_link('activate', href: activate_user_path(user.id)) }
+  end
 end

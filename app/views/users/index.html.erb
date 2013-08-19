@@ -10,6 +10,7 @@
       <th>Admin?</th>
       <th>Staff?</th>
       <th>Active?</th>
+	  <th></th>
     <tr>
   </thead>
   <tbody>
@@ -20,6 +21,13 @@
         <td><%= user.admin ? 'Y' : 'N' %></td>
         <td><%= user.staff ? 'Y' : 'N' %></td>
         <td><%= user.active ? 'Y' : 'N' %></td>
+		<td>
+			<% if user.active %>
+			<%= link_to "deactivate", deactivate_user_path(user.id) %>
+			<% else %>
+			<%= link_to "activate", activate_user_path(user.id) %>
+			<% end %>
+		</td>
       </tr>
     <% end %>
   </tbody>
