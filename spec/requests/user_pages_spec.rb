@@ -49,4 +49,38 @@ describe "UserPages" do
 	it { should have_content(user.active) }
 	it { should have_link('edit', href: edit_user_path(user))}
   end
+  
+  describe "edit" do
+    let!(:user) { create(:user) }
+    before { visit edit_user_path(user) }
+	
+	subject{ page }
+
+    it { should have_title("Edit user") }
+    
+    context "with invalid information" do
+      before { click_button "Save changes" }
+
+      it { should have_content('error') }
+    end
+	
+	context "with valid information" do
+      let(:new_username)  { "NewUsername" }
+      let(:new_email) { "new@example.com" }
+      before do
+        fill_in "Username",         with: new_username
+        fill_in "Email",            with: new_email
+        fill_in "Password",         with: user.password
+        fill_in "Confirm Password", with: user.password
+		check "Admin"
+		check "Staff"
+		check "Active"
+        click_button "Save changes"
+      end
+
+      specify { expect(user.reload.username).to eq new_username }
+      specify { expect(user.reload.email).to eq new_email }
+    end
+	
+  end
 end
