@@ -4,11 +4,8 @@ ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 gem 'pg', '0.16.0'
-gem 'bootstrap-sass', '2.3.1.0'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'will_paginate', '3.0.4'
-gem 'bootstrap-will_paginate', '0.0.9'
-gem 'jquery-rails', '2.2.1'
 gem 'turbolinks', '1.0.0'
 gem 'jbuilder', '1.0.2'
 # gem 'rmagick', '2.13.2'
@@ -16,15 +13,18 @@ gem 'jbuilder', '1.0.2'
 # gem 'active_model_serializers', '0.8.1'
 # gem 'ejs', '1.1.1'
 
-group :assets do
-  gem 'sass-rails',   '~> 4.0.0'
-  gem 'coffee-rails', '~> 4.0.0'
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', platforms: :ruby
-  gem 'uglifier', '2.0.1'
-  # gem 'jquery-fileupload-rails', '0.4.1'
-  gem 'angularjs-rails', '1.0.7'
-end
+# Assets
+gem 'jquery-rails', '2.2.1'
+gem 'bootstrap-sass', '2.3.1.0'
+gem 'bootstrap-will_paginate', '0.0.9'
+gem 'sass-rails',   '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+gem 'uglifier', '2.0.1'
+# gem 'jquery-fileupload-rails', '0.4.1'
+gem 'angularjs-rails', '1.0.7'
+gem 'zurb-foundation', '4.3.1'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
