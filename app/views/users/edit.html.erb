@@ -1,44 +1,45 @@
-<% provide(:title, 'Edit user') %>
-<h1>Update your profile</h1>
+<% provide(:title, 'Edit User') %>
 
-<div class="row">
-    <%= form_for(@user) do |f| %>
-      <%= render 'shared/error_messages' %>
-	  
-	  <table id="user_edit">
-		<tr>
-			<td><%= f.label :username %>: </td>
-			<td><%= f.text_field :username %></td>
-		</tr>
-		<tr>
-			<td><%= f.label :email %>: </td>
-			<td><%= f.text_field :email %></td>
-		</tr>
-		<tr>
-			<td><%= f.label :password %>: </td>
-			<td><%= f.password_field :password %></td>
-		</tr>
-		<tr>
-			<td><%= f.label :password_confirmation, "Confirm Password" %>: </td>
-			<td><%= f.password_field :password_confirmation %></td>
-		</tr>
-		<tr>
-			<td><%= f.label :admin %>: </td>
-			<td><%= f.check_box :admin, {}, "true", "false" %></td>
-		</tr>
-		<tr>
-			<td><%= f.label :staff %>: </td>
-			<td><%= f.check_box :staff, {}, "true", "false" %></td>
-		</tr>
-		<tr>
-			<td><%= f.label :active %>: </td>
-			<td><%= f.check_box :active, {}, "true", "false" %></td>
-		</tr>
-	  </table>
-		  
-	  <br><br>
+<h1>Edit User</h1>
 
-      <%= f.submit "Save changes"%>
-    <% end %>
+<%= form_for(@user) do |f| %>
+<%= render 'shared/error_messages' %>
 
-</div>
+<table id="user_edit">
+  <tr>
+    <td><%= f.label :username %></td>
+    <td><%= f.text_field :username %></td>
+  </tr>
+  <tr>
+    <td><%= f.label :email %></td>
+    <td><%= f.text_field :email %></td>
+  </tr>
+  <tr>
+    <td><%= f.label :password %></td>
+    <td><%= f.password_field :password %></td>
+  </tr>
+  <tr>
+    <td><%= f.label :password_confirmation, "Confirm Password" %></td>
+    <td><%= f.password_field :password_confirmation %></td>
+  </tr>
+  <tr>
+    <td><%= f.label :admin %></td>
+    <td><%= f.check_box :admin, {}, "true", "false" %></td>
+  </tr>
+  <tr>
+    <td><%= f.label :staff %></td>
+    <td><%= f.check_box :staff, {}, "true", "false" %></td>
+  </tr>
+  <tr>
+    <td><%= f.label :active %></td>
+    <td><%= f.check_box :active, {}, "true", "false" %></td>
+  </tr>
+</table>
+
+<p>
+  <%= f.submit "Save changes" %>
+  <%= link_to "Cancel", @user %>
+</p>
+
+<% end %>
+

@@ -130,9 +130,19 @@ describe User do
 
   describe "#password" do
     context "when not supplied" do
-      let(:user) { build(:user, password: '') }
 
-      it { should_not be_valid }
+      context "on create" do
+        let(:user) { build(:user, password: '') }
+
+        it { should_not be_valid }
+      end
+
+      context "on update" do
+        let(:user) { create(:user) }
+        before { user.update_attributes(password: '') }
+
+        it { should be_valid }
+      end
     end
 
     context "when password does not match confirmation" do

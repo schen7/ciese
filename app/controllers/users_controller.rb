@@ -5,15 +5,15 @@ class UsersController < ApplicationController
   end
   
   def deactivate
-	@user = User.find(params[:id])
-	@user.update_attribute(:active, false)
-	redirect_to users_url
+    @user = User.find(params[:id])
+    @user.update_attribute(:active, false)
+    redirect_to users_url
   end
   
   def activate
-	@user = User.find(params[:id])
-	@user.update_attribute(:active, true)
-	redirect_to users_url
+    @user = User.find(params[:id])
+    @user.update_attribute(:active, true)
+    redirect_to users_url
   end
   
   def show
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = "Profile updated."
       redirect_to @user
     else
       render 'edit'
@@ -36,7 +36,8 @@ class UsersController < ApplicationController
   
   private
   
-    def user_params
-	  params.require(:user).permit(:username, :email, :password, :password_confirmation, :admin, :staff, :active)
+  def user_params
+	  params.require(:user).permit(:username, :email, :password,
+                                 :password_confirmation, :admin, :staff, :active)
 	end
 end

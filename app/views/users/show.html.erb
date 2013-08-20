@@ -1,26 +1,31 @@
-<% provide(:title, 'User info') %>
+<% provide(:title, 'User Info') %>
+
+<h1>User Info</h1>
 
 <table id="user_info">
   <tr>
-    <td>Username:</td>
+    <th>Username:</th>
     <td><%= @user.username %></td>
   </tr>
   <tr>
-    <td>Email:</td>
+    <th>Email:</th>
     <td><%= @user.email%></td>
   </tr>
   <tr>
-    <td>Admin</td>
+    <th>Admin</th>
     <td><%= @user.admin%></td>
   </tr>
   <tr>
-    <td>Staff</td>
+    <th>Staff</th>
     <td><%= @user.staff%></td>
   </tr>
   <tr>
-    <td>Active</td>
+    <th>Active</th>
     <td><%= @user.active%></td>
   </tr>
 </table>
 
-<p><%= link_to "edit", edit_user_path(@user) %></p>
+<p>
+  <%= link_to "Edit", edit_user_path(@user) %>
+  <%= link_to "Done", users_path %>
+</p>
