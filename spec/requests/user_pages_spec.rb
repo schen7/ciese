@@ -38,7 +38,7 @@ describe "UserPages" do
   describe "show user page" do
     let!(:user) { create(:user) }
     before { visit user_path(user) }
-	
+  
     it "should have title, header, list appropriate user info, and have an edit link" do
       expect(page).to have_title(full_title('User Info'))
       expect(page).to have_selector('h1', 'User Info')
@@ -54,7 +54,7 @@ describe "UserPages" do
   describe "edit user page" do
     let!(:user) { create(:user) }
     before { visit edit_user_path(user) }
-	
+  
     it "should have title, header, and editing form" do
       expect(page).to have_title(full_title("Edit User"))
       expect(page).to have_selector('h1', 'Edit User')
