@@ -1,8 +1,10 @@
 Ciese::Application.routes.draw do
   resources :users do
-  get 'deactivate', on: :member
-  get 'activate', on: :member
+    get 'deactivate', on: :member
+    get 'activate', on: :member
   end
+
+  resources :profiles
   
   #get "users/deactivate/:id" => "users#deactivate"
   #get "users/activate/:id" => "users#activate"

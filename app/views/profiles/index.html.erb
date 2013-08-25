@@ -1,0 +1,29 @@
+<% provide(:title, 'Profiles') %>
+
+<% provide :js do %>
+  <%= javascript_include_tag "profiles", "data-turbolinks-track" => true %>
+  <script type="text/javascript">
+    angular
+      .module('ProfilesApp')
+      .factory('ProfilesAppGlobals', function() {
+          return {
+            authenticityToken: '<%= form_authenticity_token() %>',
+            profileFields: <%= profile_fields.to_json.html_safe %>
+          };
+      });
+  </script>
+<% end %>
+
+<div id="profiles-app" class="row">
+  <div class="small-12 columns">
+    <h1>CIESE Participant Profiles</h1>
+
+    <div ng-view></div>
+
+    <% ['profiles_index', 'filters', 'sort', 'columns', 'activities'].each do |template_name| %>
+      <script type="text/ng-template" id="<%= template_name %>.html">
+        <%= render template_name %>
+      </script>
+    <% end %>
+  </div>
+</div>

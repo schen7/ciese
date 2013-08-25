@@ -14,8 +14,13 @@
     <title><%= full_title(yield(:title)) %></title>
 
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    <%= yield :css %>
+
     <%= javascript_include_tag "vendor/custom.modernizr" %>
+
     <%= csrf_meta_tags %>
+
+    <%= yield :header %>
   </head>
 
   <body>
@@ -27,5 +32,6 @@
     <%= yield %>
     
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= yield :js %>
   </body>
 </html>

@@ -34,9 +34,9 @@ group :development, :test do
   gem 'childprocess', '0.3.9'
   # gem 'meta_request'
   gem 'factory_girl_rails', '4.2.1'
-  gem 'faker', '1.1.2'
+  gem 'faker', '1.2.0'
   # gem 'database_cleaner', '1.0.1'
-  # gem 'capybara-webkit', '1.0.0'
+  gem 'capybara-webkit', '1.0.0'
   # gem 'jasmine'
 end
 
