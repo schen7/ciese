@@ -1,4 +1,24 @@
 class ProfilesController < ApplicationController
+  FILTER_KINDS = ["Keep only", "Leave out"]
+
+  FILTER_ON_OPTIONS = ["all", "any"]
+
+  PROFILE_FIELDS = Profile.attribute_names.reject do |name|
+    ['id', 'user_id', 'created_at', 'updated_at'].include?(name)
+  end
+
+  STRING_COMPARISON_OPTIONS = {
+    "starts with" => "ILIKE ? || '%'",
+    "ends with" => "ILIKE '%' || ?",
+    "contains" => "ILIKE '%' || ? || '%'",
+    "is" => "ILIKE ?"
+  }
+
+  DATE_COMPARISON_OPTIONS = {
+    "is after" => ">",
+    "is before" => "<",
+    "is" => "="
+  }
 
   def index
     respond_to do |format|
@@ -12,42 +32,49 @@ class ProfilesController < ApplicationController
 
   private
 
-  def profiles_params
-    params.permit(filters: [:kind, :on, conditions: [:field, :condition, :value]])
-  end
-
   def filters_params
     params.permit(:filters)[:filters] || '[]'
   end
 
   def filter(filters)
-    puts "Filters: #{filters}"
     @profiles = Profile.all
     filters.each do |filter|
-      puts "Filter: #{filter}"
-      conditions = filter["conditions"].map do |condition|
-        ["#{check_field(condition["field"])} #{check_comparison(condition["comparison"])}", condition["value"]]
+      condition_strings = []
+      values = []
+      filter["conditions"].each do |condition|
+        field = clean_field(condition["field"])
+        comparison = clean_comparison(condition["comparison"], field)
+        next if field.nil? || comparison.nil?
+        condition_strings.push("#{field} #{comparison}")
+        values.push(condition["value"])
       end
-      templates, values = conditions.transpose
-      template = templates.join(filter["on"] == 'all' ? ' and ' : ' or ')
-      filter_arr = values.unshift(template)
-      @profiles = filter["kind"] == 'include' ? @profiles.where(filter_arr) : @profiles.where.not(filter_arr)
+      next if condition_strings.empty?
+      filter_string = combine_condition_strings(condition_strings, filter["on"])
+      @profiles = apply_filter(filter["kind"], filter_string, values)
     end
   end
 
-  def check_field(field)
-    field
+  def apply_filter(kind, filter_string, values)
+    if kind == FILTER_KINDS[0]
+      @profiles.where(filter_string, *values)
+    elsif kind == FILTER_KINDS[1]
+      @profiles.where.not(filter_string, *values)
+    end
   end
 
-  def check_comparison(comparison)
-    puts comparison
-    mapping = {
-      "starts with" => "ilike ? || '%'",
-      "ends with" => "ilike '%' || ?",
-      "contains" => "ilike '%' || ? || '%'",
-      "is" => "ilike ?"
-    }
-    puts mapping[comparison]
-    mapping[comparison] || mapping["starts with"]
+  def combine_condition_strings(condition_strings, filter_on)
+    condition_strings.join(filter_on == FILTER_ON_OPTIONS[0] ? ' AND ' : ' OR ')
+  end
+
+  def clean_field(field)
+    PROFILE_FIELDS.include?(field) ? field : nil
+  end
+
+  def clean_comparison(comparison, field)
+    if field.include?("date")
+      DATE_COMPARISON_OPTIONS[comparison]
+    else
+      STRING_COMPARISON_OPTIONS[comparison]
+    end
   end
 end

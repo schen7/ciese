@@ -8,7 +8,7 @@
       .factory('ProfilesAppGlobals', function() {
           return {
             authenticityToken: '<%= form_authenticity_token() %>',
-            profileFields: <%= profile_fields.to_json.html_safe %>
+            profileFields: <%= ProfilesController::PROFILE_FIELDS.to_json.html_safe %>
           };
       });
   </script>

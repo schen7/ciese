@@ -10,7 +10,7 @@ gem 'turbolinks', '1.0.0'
 gem 'jbuilder', '1.0.2'
 # gem 'rmagick', '2.13.2'
 # gem 'carrierwave', '0.8.0'
-# gem 'active_model_serializers', '0.8.1'
+gem 'active_model_serializers', '0.8.1'
 # gem 'ejs', '1.1.1'
 
 # Assets

@@ -19,13 +19,14 @@ angular
     $scope.dirty = false
 
     $scope.filterRecords = ->
+      $scope.dirty = false
       $scope.dataLoaded = false
       $scope.profiles = Profile.query {filters: angular.toJson($scope.filters)}, ->
         $scope.dataLoaded = true
 
     $scope.addFilter = ->
       $scope.filters.push
-        kind: 'include'
+        kind: 'Keep only'
         on: 'all'
         conditions: [
           field: 'last_name'
@@ -55,7 +56,7 @@ angular
       $scope.showing.splice(@$index, 1)
 
     $scope.toggleFilterKind = ->
-      @filter.kind = if @filter.kind is 'include' then 'exclude' else 'include'
+      @filter.kind = if @filter.kind is 'Keep only' then 'Leave out' else 'Keep only'
 
     $scope.toggleFilterOn = ->
       @filter.on = if @filter.on is 'all' then 'any' else 'all'
