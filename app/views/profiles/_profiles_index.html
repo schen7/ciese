@@ -1,46 +1,24 @@
 <div id="profiles-index" class="row">
   <div class="large-12 columns">
     <ul class="button-group">
-      <li><a href="#" class="button" data-dropdown="filters">Filters</a></li>
-      <div id="filters" class="f-dropdown content large" data-dropdown-content ng-include="'filters.html'"></div>
-      <li><a href="#" class="button" data-dropdown="sort">Sort</a></li>
-      <div id="sort" class="f-dropdown content medium" data-dropdown-content ng-include="'sort.html'"></div>
-      <li><a href="#" class="button" data-dropdown="columns">Columns</a></li>
-      <div id="columns" class="f-dropdown content medium" data-dropdown-content ng-include="'columns.html'"></div>
-      <li><a href="#" class="button" data-dropdown="activities">Activities</a></li>
-      <div id="activities" class="f-dropdown content medium" data-dropdown-content ng-include="'activities.html'"></div>
+      <li><a href="/profiles/filter" class="button">Filter</a></li>
+      <li><a href="/profiles/sort" class="button">Sort</a></li>
+      <li><a href="/profiles/columns" class="button">Columns</a></li>
+      <li><a href="#" class="button">Programs</a></li>
     </ul>
 
     <div id="profile-list">
       <table>
         <thead>
-          <th ng-repeat="field in showing">{{ field | titleize }}</th>
+          <th ng-repeat="field in columns">{{ field | titleize }}</th>
         </thead>
         <tbody>
-          <tr ng-repeat="profile in profiles">
-            <td ng-repeat="field in showing">{{ profile[field] }}</td>
+          <tr ng-repeat="profile in profileData.data">
+            <td ng-repeat="field in columns">{{ profile[field] }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+</div>
 
-  <h3 class="subheader">Sorting</h3>
-  <div id="sorting" class="panel">
-  </div>
-
-  <h3 class="subheader">Show</h3>
-  <div id="showing" class="panel">
-    <ul>
-      <li ng-repeat="field in showing">
-        {{ field | titleize }}
-        <button type="button" class="tiny button secondary radius" ng-click="removeShowing()">X</button>
-      </li>
-    </ul>
-  </div>
-  <p id="addShowField">
-  <select ng-model="newShowField" ng-options="field | titleize for field in availableShowFields()">
-    <option value="">-----</option>
-  </select>
-  <button type="button" class="tiny button secondary radius" ng-click="addShowing()">Add Field</button>
-  </p>

@@ -1,4 +1,4 @@
-#profiles-index {
+#profiles-index, #profiles-filters {
   font-size: 0.9em;
   #profile-list {
     overflow-x: auto;
@@ -8,57 +8,55 @@
     }
   }
 
-  #filters {
-    #filters-list {
-      display: inline-block;
-      text-align: center;
-      margin-bottom: 1.25em;
-      #filter-all_records {
-        table {
-          width: 100%;
-        }
+  #filters-list {
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 1.25em;
+    #filter-all_records {
+      table {
+        width: 100%;
       }
-      .filter {
-        table {
-          margin-bottom: 0;
-          text-align: left;
-          th {
-            position: relative;
-            padding-right: 4em;
-            a {
-              color: #222;
-              text-decoration: underline;
-            }
-            a.remove_filter_button {
-              position: absolute;
-              top: 0;
-              right: 0;
-              text-decoration: none;
-              color: #aaa;
-              font-size: 1.25em;
-              padding: 0 2px;
-            }
+    }
+    .filter {
+      table {
+        margin-bottom: 0;
+        text-align: left;
+        th {
+          position: relative;
+          padding-right: 4em;
+          a {
+            color: #222;
+            text-decoration: underline;
           }
-          td {
-            select {
-              margin: 0;
-            }
-            button {
-              margin: 0;
-            }
+          a.remove_filter_button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            text-decoration: none;
+            color: #aaa;
+            font-size: 1.25em;
+            padding: 0 2px;
+          }
+        }
+        td {
+          select {
+            margin: 0;
+          }
+          button {
+            margin: 0;
           }
         }
       }
-      .filter-separator {
-        margin: .5em 0;
+    }
+    .filter-separator {
+      margin: .5em 0;
+    }
+    .filter-conditions {
+      select {
+        width: auto;
       }
-      .filter-conditions {
-        select {
-          width: auto;
-        }
-        input {
-          width: auto;
-        }
+      input {
+        width: auto;
       }
     }
   }

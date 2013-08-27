@@ -4,7 +4,13 @@ Ciese::Application.routes.draw do
     get 'activate', on: :member
   end
 
-  resources :profiles
+  resources :profiles do
+    collection do
+      get 'filter', to: :index
+      get 'sort', to: :index
+      get 'columns', to: :index
+    end
+  end
   
   #get "users/deactivate/:id" => "users#deactivate"
   #get "users/activate/:id" => "users#activate"

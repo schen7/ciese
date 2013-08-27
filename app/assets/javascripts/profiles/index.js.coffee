@@ -12,6 +12,15 @@ catch error
                 .when '/profiles',
                     templateUrl: 'profiles_index.html'
                     controller: 'ProfilesIndexCtrl'
+                .when '/profiles/filter',
+                    templateUrl: 'filters.html'
+                    controller: 'ProfilesFiltersCtrl'
+                .when '/profiles/sort',
+                    templateUrl: 'sort.html'
+                    controller: 'ProfilesSortCtrl'
+                .when '/profiles/columns',
+                    templateUrl: 'columns.html'
+                    controller: 'ProfilesColumnsCtrl'
 
             $locationProvider.html5Mode(true)
         ])
