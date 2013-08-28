@@ -24,8 +24,10 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
+        @profiles = Profile.all
         filter(ActiveSupport::JSON.decode(filters_params))
-        render json: @profiles
+        sort(ActiveSupport::JSON.decode(sort_params))
+        render json: @profiles, root: false
       end
     end
   end
@@ -36,9 +38,12 @@ class ProfilesController < ApplicationController
     params.permit(:filters)[:filters] || '[]'
   end
 
-  def filter(filters)
-    @profiles = Profile.all
-    filters.each do |filter|
+  def sort_params
+    params.permit(:sort)[:sort] || '[]'
+  end
+
+  def filter(filter_params)
+    filter_params.each do |filter|
       condition_strings = []
       values = []
       filter["conditions"].each do |condition|
@@ -76,5 +81,13 @@ class ProfilesController < ApplicationController
     else
       STRING_COMPARISON_OPTIONS[comparison]
     end
+  end
+  
+  def sort(sort_params)
+    return if sort_params.empty?
+    order_strings = sort_params.map do |sort_item|
+      "#{sort_item['field']} #{sort_item['order'].chomp('ending').upcase}"
+    end
+    @profiles = @profiles.order(*order_strings)
   end
 end
