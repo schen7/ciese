@@ -9,8 +9,10 @@ Ciese::Application.routes.draw do
       get 'filter', to: :index
       get 'sort', to: :index
       get 'columns', to: :index
+      resources :programs, only: [:index, :create, :update]
     end
   end
+
   
   #get "users/deactivate/:id" => "users#deactivate"
   #get "users/activate/:id" => "users#activate"

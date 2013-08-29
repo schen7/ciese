@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130817211147) do
+ActiveRecord::Schema.define(version: 20130828212313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: true do |t|
+    t.integer  "profile_id"
+    t.integer  "program_id"
+    t.string   "detail"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "profiles", force: true do |t|
     t.integer  "user_id"
@@ -54,6 +64,13 @@ ActiveRecord::Schema.define(version: 20130817211147) do
     t.string   "memo1"
     t.string   "memo2"
     t.string   "memo3"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "programs", force: true do |t|
+    t.string   "name"
+    t.text     "details"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

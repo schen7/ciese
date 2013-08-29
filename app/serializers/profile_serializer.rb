@@ -5,4 +5,6 @@ class ProfileSerializer < ActiveModel::Serializer
              :city, :state, :zip, :country, :phone1, :phone2, :fax,
              :home_address_line_1, :home_address_line_2, :home_city, :home_state,
              :home_zip, :home_phone, :home_mobile, :home_fax, :memo1, :memo2, :memo3
+
+  has_many :activities
 end

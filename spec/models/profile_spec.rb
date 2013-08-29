@@ -42,6 +42,7 @@ describe Profile do
   it { should respond_to(:memo1) }
   it { should respond_to(:memo2) }
   it { should respond_to(:memo3) }
+  it { should respond_to(:activities) }
 
   it { should be_valid }
 

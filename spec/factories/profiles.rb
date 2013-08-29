@@ -39,5 +39,16 @@ FactoryGirl.define do
     memo1 { Faker::Lorem.paragraph }
     memo2 { Faker::Lorem.paragraph }
     memo3 { Faker::Lorem.paragraph }
+
+    factory :profile_with_activities do
+
+      ignore do
+        activity_count 3
+      end
+
+      after(:create) do |profile, evaluator|
+        create_list(:activity, evaluator.activity_count, profile: profile)
+      end
+    end
   end
 end

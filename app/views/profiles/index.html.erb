@@ -11,7 +11,7 @@
           profileFields: <%= ProfilesController::PROFILE_FIELDS.to_json.html_safe %>,
           stringComparisonOptions: <%= ProfilesController::STRING_COMPARISON_OPTIONS.keys.to_json.html_safe %>,
           dateComparisonOptions: <%= ProfilesController::DATE_COMPARISON_OPTIONS.keys.to_json.html_safe %>,
-          columns: ['last_name', 'first_name', 'middle_name', 'email1', 'phone1'],
+          columns: ['last_name', 'first_name', 'middle_name', 'email1', 'phone1', 'activities'],
           filterData: {dirty: false, data: []},
           sortData: {dirty: false, data: []},
           profileData: {loaded: false, data: []},

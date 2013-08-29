@@ -14,7 +14,14 @@
         </thead>
         <tbody>
           <tr ng-repeat="profile in profileData.data">
-            <td ng-repeat="field in columns">{{ profile[field] }}</td>
+            <td ng-repeat="field in columns" ng-switch="field">
+              <div ng-switch-default>{{ profile[field] }}</div>
+              <div ng-switch-when="activities">
+                <ul>
+                  <li ng-repeat="activity in profile[field]">{{ activity.program_name | uppercase }} ({{ activity.detail | uppercase }})&nbsp;&nbsp;{{ activity.start_date | date:'shortDate' }}-{{ activity.end_date | date:'shortDate' }}</li>
+                </ul>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>

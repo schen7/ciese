@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
 
   PROFILE_FIELDS = Profile.attribute_names.reject do |name|
     ['id', 'user_id', 'created_at', 'updated_at'].include?(name)
-  end
+  end + ['activities']
 
   STRING_COMPARISON_OPTIONS = {
     "starts with" => "ILIKE ? || '%'",
