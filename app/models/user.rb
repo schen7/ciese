@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :profiles, inverse_of: :user
 
   before_save { email.downcase! }
+  before_save :create_login_token
 
   VALID_USERNAME_REGEX = /\A[a-zA-Z0-9_\-.]+\z/
   validates :username, presence: true, length: { in: 3..30 }, uniqueness: true,
@@ -27,5 +28,9 @@ class User < ActiveRecord::Base
 
   def password_changed?
     !password.blank? || password_digest.blank?
+  end
+
+  def create_login_token
+    self.login_token = SecureRandom.urlsafe_base64
   end
 end
