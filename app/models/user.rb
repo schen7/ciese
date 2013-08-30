@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
 
+  has_many :profiles, inverse_of: :user
+
   before_save { email.downcase! }
+  before_save :create_login_token
 
   VALID_USERNAME_REGEX = /\A[a-zA-Z0-9_\-.]+\z/
   validates :username, presence: true, length: { in: 3..30 }, uniqueness: true,
@@ -11,19 +14,23 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false },
                     format: { with: VALID_EMAIL_REGEX }
 
-  validates :admin, inclusion: { in: [true, false] }
-  validates :staff, inclusion: { in: [true, false] }
-  validates :active, inclusion: { in: [true, false] }
-
   has_secure_password
   validates :password, length: { minimum: 10 }, on: :create
   validates :password_confirmation, presence: true, on: :create
   validates :password, length: { minimum: 10 }, on: :update, if: :password_changed?
   validates :password_confirmation, presence: true, on: :update, if: :password_changed?    
 
+  validates :admin, inclusion: { in: [true, false] }
+  validates :staff, inclusion: { in: [true, false] }
+  validates :active, inclusion: { in: [true, false] }
+
   private
 
   def password_changed?
     !password.blank? || password_digest.blank?
+  end
+
+  def create_login_token
+    self.login_token = SecureRandom.urlsafe_base64
   end
 end

@@ -13,6 +13,8 @@ describe User do
   it { should respond_to(:admin) }
   it { should respond_to(:staff) }
   it { should respond_to(:active) }
+  it { should respond_to(:profiles) }
+  it { should respond_to(:login_token) }
 
   it { should be_valid }
 
@@ -192,6 +194,25 @@ describe User do
       before { user.active = nil }
 
       it { should_not be_valid }
+    end
+  end
+
+  describe "#login_token" do
+    before do
+      user.login_token = nil
+      user.save
+    end
+
+    context "when user is first saved" do
+      its(:login_token) { should_not be_blank }
+    end
+
+    context "when user is updated" do
+      it "should change to a new string" do
+        old_token = user.login_token
+        user.save
+        expect(user.reload.login_token).not_to eq old_token
+      end
     end
   end
 end

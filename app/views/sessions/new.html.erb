@@ -1,0 +1,32 @@
+<% provide(:title, 'Log In') %>
+
+<div class="row">
+  <div class="large-12 columns">
+    <h1>Log In</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-4 columns">
+
+    <%= form_tag login_path do %>
+
+    <div>
+      <%= label_tag :username %>
+      <%= text_field_tag :username, params[:username] %>
+    </div>
+
+    <div>
+      <%= label_tag :password %>
+      <%= password_field_tag :password %>
+    </div>
+
+    <div>
+      <%= submit_tag "Log In", class: "small button" %>
+    </div>
+
+  </div>
+  <div class="large-8 columns"></div>
+</div>
+
+<% end %>

@@ -1,4 +1,10 @@
 Ciese::Application.routes.draw do
+  root "static_pages#main"
+
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
   resources :users do
   get 'deactivate', on: :member
   get 'activate', on: :member
