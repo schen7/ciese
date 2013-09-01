@@ -46,4 +46,13 @@ describe Profile do
 
   it { should be_valid }
 
+  context "when destroyed" do
+    before do
+      profile.save
+      profile.activities = create_list(:activity, 2)
+      profile.destroy
+    end
+
+    its(:activities) { should be_empty }
+  end
 end

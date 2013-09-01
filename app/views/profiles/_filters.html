@@ -38,7 +38,7 @@
             </thead>
             <tbody>
               <tr class="filter-condition" ng-repeat="condition in filter.conditions">
-                <td><select ng-model="condition.field" ng-options="field | titleize for field in profileFields"></select></td>
+                <td><select ng-model="condition.field" ng-options="field | titleize for field in filterFields"></select></td>
                 <td><select ng-model="condition.comparison" ng-options="comparison for comparison in getComparisonOptions()"></select></td>
                 <td><input ng-model="condition.value"></td>
                 <td><button type="button" class="tiny button secondary round" stop-event="click" ng-click="removeCondition()" ng-hide="$first">-</button></td>

@@ -11,20 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130828212313) do
+ActiveRecord::Schema.define(version: 20130901195155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: true do |t|
     t.integer  "profile_id"
-    t.integer  "program_id"
     t.string   "detail"
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "program"
   end
+
+  add_index "activities", ["detail"], name: "index_activities_on_detail", using: :btree
+  add_index "activities", ["program"], name: "index_activities_on_program", using: :btree
 
   create_table "profiles", force: true do |t|
     t.integer  "user_id"
@@ -61,11 +64,11 @@ ActiveRecord::Schema.define(version: 20130828212313) do
     t.string   "home_phone"
     t.string   "home_mobile"
     t.string   "home_fax"
-    t.string   "memo1"
-    t.string   "memo2"
-    t.string   "memo3"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "memo1"
+    t.text     "memo2"
+    t.text     "memo3"
   end
 
   create_table "programs", force: true do |t|
@@ -84,6 +87,7 @@ ActiveRecord::Schema.define(version: 20130828212313) do
     t.boolean  "active",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "login_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

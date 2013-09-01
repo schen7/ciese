@@ -8,7 +8,7 @@ angular
 
     $scope.availableFields = ->
       usedFields = (sortItem.field for sortItem in $scope.sortData.data)
-      (field for field in $scope.profileFields when field not in usedFields)
+      (field for field in $scope.sortFields when field not in usedFields)
 
     $scope.addSortItem = ->
       $scope.sortData.data.push({field: @field, order: 'ascending'})

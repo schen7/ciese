@@ -6,7 +6,7 @@ angular
       $scope.columns.push(@field)
 
     $scope.availableColumns = ->
-      (field for field in $scope.profileFields when field not in $scope.columns)
+      (field for field in $scope.columnFields when field not in $scope.columns)
 
     $scope.removeColumn = ->
       $scope.columns.splice(@$index, 1)

@@ -3,7 +3,15 @@ class ProfilesController < ApplicationController
 
   FILTER_ON_OPTIONS = ["all", "any"]
 
-  PROFILE_FIELDS = Profile.attribute_names.reject do |name|
+  FILTER_FIELDS = Profile.attribute_names.reject do |name|
+    ['id', 'user_id', 'created_at', 'updated_at'].include?(name)
+  end + ['program', 'detail', 'start_date', 'end_date']
+
+  SORT_FIELDS = Profile.attribute_names.reject do |name|
+    ['id', 'user_id', 'created_at', 'updated_at'].include?(name)
+  end
+
+  COLUMN_FIELDS = Profile.attribute_names.reject do |name|
     ['id', 'user_id', 'created_at', 'updated_at'].include?(name)
   end + ['activities']
 
@@ -15,19 +23,20 @@ class ProfilesController < ApplicationController
   }
 
   DATE_COMPARISON_OPTIONS = {
-    "is after" => ">",
-    "is before" => "<",
-    "is" => "="
+    "is after" => "> ?",
+    "is before" => "< ?",
+    "is" => "= ?"
   }
 
   def index
     respond_to do |format|
       format.html
       format.json do
-        @profiles = Profile.all
+        @profiles = Profile.joins(:activities).uniq
         filter(ActiveSupport::JSON.decode(filters_params))
         sort(ActiveSupport::JSON.decode(sort_params))
-        render json: @profiles, root: false
+        profile_ids = @profiles.pluck(:id)
+        render json: Profile.includes(:activities).find(profile_ids), root: false
       end
     end
   end
@@ -72,7 +81,13 @@ class ProfilesController < ApplicationController
   end
 
   def clean_field(field)
-    PROFILE_FIELDS.include?(field) ? field : nil
+    if !FILTER_FIELDS.include?(field)
+      nil
+    end
+    if ['program', 'detail', 'start_date', 'end_date'].include?(field)
+      field = "activities.#{field}"
+    end
+    field
   end
 
   def clean_comparison(comparison, field)
@@ -86,7 +101,7 @@ class ProfilesController < ApplicationController
   def sort(sort_params)
     return if sort_params.empty?
     order_strings = sort_params.map do |sort_item|
-      "#{sort_item['field']} #{sort_item['order'].chomp('ending').upcase}"
+      "profiles.#{sort_item['field']} #{sort_item['order'].chomp('ending').upcase}"
     end
     @profiles = @profiles.order(*order_strings)
   end
