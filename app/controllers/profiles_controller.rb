@@ -32,11 +32,12 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        @profiles = Profile.joins(:activities).uniq
-        filter(ActiveSupport::JSON.decode(filters_params))
-        sort(ActiveSupport::JSON.decode(sort_params))
-        profile_ids = @profiles.pluck(:id)
-        render json: Profile.includes(:activities).find(profile_ids), root: false
+        @profiles = Profile.joins(:activities)
+        filter(filters_params)
+        profile_ids = @profiles.uniq.pluck(:id)
+        @profiles = Profile.includes(:activities)
+        sort(sort_params)
+        render json: @profiles.find(profile_ids), root: false
       end
     end
   end
@@ -44,15 +45,15 @@ class ProfilesController < ApplicationController
   private
 
   def filters_params
-    params.permit(:filters)[:filters] || '[]'
+    ActiveSupport::JSON.decode(params.permit(:filters)[:filters] || '[]')
   end
 
   def sort_params
-    params.permit(:sort)[:sort] || '[]'
+    ActiveSupport::JSON.decode(params.permit(:sort)[:sort] || '[]')
   end
 
-  def filter(filter_params)
-    filter_params.each do |filter|
+  def filter(filters_params)
+    filters_params.each do |filter|
       condition_strings = []
       values = []
       filter["conditions"].each do |condition|
