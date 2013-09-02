@@ -7,8 +7,9 @@
       <li><a href="#" class="button">Programs</a></li>
     </ul>
 
-    <div id="profile-list">
-      <table>
+    <div id="profile-list" ng-show="profileData.loaded">
+      <p ng-hide="profileData.data.length > 0">No records fit your search criteria.</p>
+      <table ng-show="profileData.data.length > 0">
         <thead>
           <th ng-repeat="field in columns">{{ field | titleize }}</th>
         </thead>
@@ -18,7 +19,7 @@
               <div ng-switch-default>{{ profile[field] }}</div>
               <div ng-switch-when="activities">
                 <ul>
-                  <li ng-repeat="activity in profile[field]">{{ activity.program | uppercase }} ({{ activity.detail | uppercase }})&nbsp;&nbsp;{{ activity.start_date | date:'shortDate' }}-{{ activity.end_date | date:'shortDate' }}</li>
+                  <li ng-repeat="activity in profile[field]">{{ activity.program | uppercase }} ({{ activity.detail | uppercase }})&nbsp;&nbsp;{{ activity.start_date | dateFix:'shortDate' }}-{{ activity.end_date | dateFix:'shortDate' }}</li>
                 </ul>
               </div>
             </td>
