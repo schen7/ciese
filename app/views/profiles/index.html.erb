@@ -14,9 +14,13 @@
           stringComparisonOptions: <%= ProfilesController::STRING_COMPARISON_OPTIONS.keys.to_json.html_safe %>,
           dateComparisonOptions: <%= ProfilesController::DATE_COMPARISON_OPTIONS.keys.to_json.html_safe %>,
           columns: ['last_name', 'first_name', 'middle_name', 'email1', 'phone1', 'activities'],
-          filterData: {dirty: false, data: []},
-          sortData: {dirty: false, data: []},
           profileData: {loaded: false, data: []},
+          filterData: {dirty: false, data: []},
+          sortData: {dirty: false, data: [
+            {field: 'last_name', order: 'ascending'},
+            {field: 'first_name', order: 'ascending'},
+          ]},
+          programData: {loaded: false, data: []},
         });
       }]);
   </script>
@@ -28,9 +32,9 @@
 
     <div ng-view></div>
 
-    <% ['profiles_index', 'filters', 'sort', 'columns', 'activities'].each do |template_name| %>
+    <% ['profiles_index', 'filters', 'sort', 'columns', 'programs'].each do |template_name| %>
       <script type="text/ng-template" id="<%= template_name %>.html">
-        <%= render template_name %>
+        <%= render "profiles/#{template_name}" %>
       </script>
     <% end %>
   </div>

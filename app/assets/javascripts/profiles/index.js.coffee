@@ -21,6 +21,9 @@ catch error
                 .when '/profiles/columns',
                     templateUrl: 'columns.html'
                     controller: 'ProfilesColumnsCtrl'
+                .when '/profiles/programs',
+                    templateUrl: 'programs.html'
+                    controller: 'ProfilesProgramsCtrl'
 
             $locationProvider.html5Mode(true)
         ])
@@ -29,11 +32,21 @@ catch error
             $resource('/profiles/:id', {id: '@id'}, {update: {method: 'PUT'}})
         ])
 
-        .directive('stopEvent', ->
+        .factory('Program', ['$resource', ($resource) ->
+            $resource('/profiles/programs/:id', {id: '@id'}, {update: {method: 'PUT'}})
+        ])
+
+        .directive 'stopEvent', ->
           restrict: 'A'
           link: (scope, el, attr) ->
             $(el).on attr.stopEvent, (evt) -> evt.stopPropagation()
-        )
+
+        .directive 'modalBg', ->
+          restrict: 'C'
+          scope: false
+          link: (scope, el, attr) ->
+            $(el).on 'click', (evt) ->
+              scope.$apply -> scope.doneEditing()
 
     $(document).on 'ready page:load', ->
         angular.bootstrap($('#profiles-app').first().get(0), ['ProfilesApp'])
