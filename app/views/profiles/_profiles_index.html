@@ -19,7 +19,7 @@
               <div ng-switch-default>{{ profile[field] }}</div>
               <div ng-switch-when="activities">
                 <ul>
-                  <li ng-repeat="activity in profile[field]">{{ activity.program | uppercase }} ({{ activity.detail | uppercase }})&nbsp;&nbsp;{{ activity.start_date | dateFix:'shortDate' }}-{{ activity.end_date | dateFix:'shortDate' }}</li>
+                  <li ng-repeat="activity in profile[field]">{{ activity.program }}<span ng-show="activity.detail"> ({{ activity.detail }})</span>&nbsp;&nbsp;{{ activity.start_date | dateFix:'shortDate' }}-{{ activity.end_date | dateFix:'shortDate' }}</li>
                 </ul>
               </div>
             </td>

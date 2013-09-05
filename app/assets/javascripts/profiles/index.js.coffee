@@ -43,7 +43,6 @@ catch error
 
         .directive 'modalBg', ->
           restrict: 'C'
-          scope: false
           link: (scope, el, attr) ->
             $(el).on 'click', (evt) ->
               scope.$apply -> scope.doneEditing()

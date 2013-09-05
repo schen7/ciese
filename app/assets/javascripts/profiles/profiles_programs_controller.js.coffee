@@ -9,16 +9,23 @@ angular
         $scope.programData.loaded = true
 
     $scope.editProgram = ->
+      program = @program ? new Program(name: '', details: [''])
       $scope.programEditor.editing = true
-      $scope.programEditor.originalProgram = @program
+      $scope.programEditor.originalProgram = program
       $scope.programEditor.program =
-        name: @program.name
-        details: ({name: detail} for detail in @program.details)
+        name: program.name
+        details: ({name: detail, removed: 'no'} for detail in program.details)
 
-    $scope.saveProgram = (updateActivites = false) ->
+    $scope.saveProgram = (updateActivities = false) ->
       {originalProgram, program} = $scope.programEditor
       originalProgram.name = program.name
       originalProgram.details = (detail.name for detail in program.details)
+      if originalProgram.id?
+        originalProgram.$update({update_activities: updateActivities})
+        $scope.profileData.loaded = false
+      else
+        originalProgram.$save ->
+          $scope.programData.data.push(originalProgram)
       $scope.doneEditing()
 
     $scope.doneEditing = ->
@@ -27,10 +34,11 @@ angular
       $scope.programEditor.originalProgram = null
 
     $scope.addDetail = ->
-      $scope.programEditor.program.details.push name: ''
+      $scope.programEditor.program.details.push(name: '', removed: 'no')
 
     $scope.removeDetail = ->
-      $scope.programEditor.program.details.splice(@$index, 1)
+      @detail.name = ''
+      @detail.removed = 'yes'
 
   ]
     
