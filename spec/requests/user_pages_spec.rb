@@ -6,13 +6,16 @@ describe "UserPages" do
 
   describe "list users page" do
     let!(:users) { create_list(:user, 2) }
-    before { visit users_path }
-
+    before do
+      log_in(FactoryGirl.create(:user))
+      visit users_path
+    end
+    
     it "should list all the users and have an appropriate header and title" do
       expect(page).to have_title(full_title('Users'))
       expect(page).to have_selector('h1', 'Users')
       expect(page).to have_selector('table#users')
-      expect(page.all('table tbody tr').count).to eq 2
+      expect(page.all('table tbody tr').count).to eq 3
       users.each do |user|
         expect(page).to have_content(user.username)
         expect(page).to have_content(user.email)
@@ -53,7 +56,10 @@ describe "UserPages" do
   
   describe "edit user page" do
     let!(:user) { create(:user) }
-    before { visit edit_user_path(user) }
+    before do 
+      log_in(user)
+      visit edit_user_path(user)
+    end
   
     it "should have title, header, and editing form" do
       expect(page).to have_title(full_title("Edit User"))
