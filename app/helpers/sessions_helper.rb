@@ -26,10 +26,6 @@ module SessionsHelper
     user == current_user
   end
   
-  def admin_user?(user)
-    user.admin == true
-  end
-  
   def redirect_back_or(default)
     redirect_to(session[:return_to] || default)
     session.delete(:return_to)
@@ -37,5 +33,13 @@ module SessionsHelper
   
   def store_location
     session[:return_to] = request.url
+  end
+  
+  def is_admin?
+    if current_user.admin == true
+      return true
+    else
+      raise User::NotAuthorized
+    end
   end
 end

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update, :activate, :deactivate]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :admin_user,     only: [:activate, :deactivate]
   
   def index
     @users = User.all
@@ -51,6 +52,10 @@ class UsersController < ApplicationController
   
   def correct_user
     @user = User.find(params[:id])
-    redirect_to root_url unless current_user?(@user)
+    raise User::NotAuthorized unless current_user?(@user)
+  end
+  
+  def admin_user
+    is_admin?
   end
 end

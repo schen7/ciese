@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  class NotAuthorized < StandardError; end
 
   has_many :profiles, inverse_of: :user
 

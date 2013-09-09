@@ -9,7 +9,7 @@ module ApplicationHelper
     end
   end
   
-  def log_in(user, options={})
+  def login(user)
     visit login_path
     fill_in "Username", with: user.username
     fill_in "Password", with: user.password

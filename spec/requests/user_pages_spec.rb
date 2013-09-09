@@ -7,7 +7,7 @@ describe "UserPages" do
   describe "list users page" do
     let!(:users) { create_list(:user, 2) }
     before do
-      log_in(FactoryGirl.create(:user))
+      login(FactoryGirl.create(:user))
       visit users_path
     end
     
@@ -57,7 +57,7 @@ describe "UserPages" do
   describe "edit user page" do
     let!(:user) { create(:user) }
     before do 
-      log_in(user)
+      login(user)
       visit edit_user_path(user)
     end
   

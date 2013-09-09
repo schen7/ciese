@@ -23,7 +23,7 @@ describe "AuthenticationPages" do
 
       context "with valid info" do
         let(:user) { create(:user) }
-        before { log_in(user) }
+        before { login(user) }
 
         it "should redirect to root and show 'Log Out' link" do
           expect(current_path).to eq root_path
@@ -43,13 +43,13 @@ describe "AuthenticationPages" do
   end
   
   describe "authorization" do
-    context "for non-signed-in users" do
+    describe "for non-logged-in users" do
       let(:user) { create(:user) }
       
       context "when attempting to visit a protected page before loggin in" do
         before do
           visit edit_user_path(user)
-          log_in(user)
+          login(user)
         end
         
         context "after signing in" do
@@ -75,10 +75,10 @@ describe "AuthenticationPages" do
       end
     end
     
-    context "attempting to edit as wrong user" do
+    context "logged-in users attempt to edit other user" do
       let(:user) { create(:user) }
-      let(:wrong_user) { create(:user, email: "wrong_user@none.com") }
-      before { log_in(user) }
+      let(:wrong_user) { create(:user) }
+      before { login(user) }
       
       context "visiting user edit page" do
         before { visit edit_user_path(wrong_user) }
@@ -89,7 +89,30 @@ describe "AuthenticationPages" do
         before { patch user_path(wrong_user) }
         specify { expect(response).to redirect_to(login_path) }
       end
+    end
+    
+    describe "activate/deactivate users" do
+      context "as non-admin users" do
+        let(:user) { create(:user) }
+        let(:non_admin) { create(:user) }
+        before do 
+          login(non_admin)
+          visit deactivate_user_path(user)
+        end
+        #specify { expect(current_path).to eq root_path }
+        it { should have_text("You don't have access to this section.") }
+      end
       
+      context "as admin users" do
+        let(:user) { create(:user) }
+        let(:admin_user) { create(:admin) }
+        before do
+          login(admin_user)
+          visit deactivate_user_path(user)
+        end
+        #specify { expect(current_path).to eq users_path }
+        it { should have_link("activate") }
+      end
     end
   end
 end
