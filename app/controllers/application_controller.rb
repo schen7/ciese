@@ -4,20 +4,22 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
   
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  rescue_from User::NotAuthorized, with: :user_not_authorized
+  rescue_from User::NotAuthorized, with: :render_401_page
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404_page
+  rescue_from ActionController::RoutingError, with: :render_404_page
+  rescue_from ActiveRecord::RecordNotFound, with: :render_500_page
   
   private
   
-  def record_not_found
-    render text: "404 Not Found", status: 404
+  def render_401_page
+    render "static_pages/401.html", status: 401
+  end
+
+  def render_404_page
+    render "static_pages/404.html", status: 404
   end
   
-  def user_not_authorized
-    flash[:error] = "You don't have access to this section."
-    redirect_to :back
-    
-    rescue ActionController::RedirectBackError
-      redirect_to root_path
+  def render_500_page
+    render "static_pages/500.html", status: 500
   end
 end

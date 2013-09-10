@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130830152750) do
+ActiveRecord::Schema.define(version: 20130901220013) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "activities", force: true do |t|
+    t.integer  "profile_id"
+    t.string   "detail"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "program"
+    t.date     "start_date"
+    t.date     "end_date"
+  end
+
+  add_index "activities", ["detail"], name: "index_activities_on_detail", using: :btree
+  add_index "activities", ["program"], name: "index_activities_on_program", using: :btree
 
   create_table "profiles", force: true do |t|
     t.integer  "user_id"
@@ -48,9 +64,16 @@ ActiveRecord::Schema.define(version: 20130830152750) do
     t.string   "home_phone"
     t.string   "home_mobile"
     t.string   "home_fax"
-    t.string   "memo1"
-    t.string   "memo2"
-    t.string   "memo3"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "memo1"
+    t.text     "memo2"
+    t.text     "memo3"
+  end
+
+  create_table "programs", force: true do |t|
+    t.string   "name"
+    t.text     "details"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

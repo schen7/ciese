@@ -1,5 +1,4 @@
 module SessionsHelper
-
   def log_in(user)
     cookies[:login_token] = { value: user.login_token, httponly: true }
     self.current_user = user
@@ -26,20 +25,23 @@ module SessionsHelper
     user == current_user
   end
   
-  def redirect_back_or(default)
-    redirect_to(session[:return_to] || default)
+  def redirect_back_or(default_path)
+    redirect_to(session[:return_to] || default_path)
     session.delete(:return_to)
   end
   
-  def store_location
+  def store_current_path
     session[:return_to] = request.url
   end
   
-  def is_admin?
-    if current_user.admin == true
-      return true
-    else
-      raise User::NotAuthorized
+  def require_login
+    unless logged_in?
+      store_current_path
+      redirect_to login_path
     end
+  end
+
+  def require_admin
+    not_authorized unless current_user && current_user.admin?
   end
 end
