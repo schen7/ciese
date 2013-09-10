@@ -31,6 +31,12 @@ describe "UserPages" do
         before { log_in_and_visit(admin, path) }
         
         it { should have_link('deactivate', href: deactivate_user_path(user.id)) }
+
+        context "when deactivate link is clicked" do
+          before { click_link "deactivate", href: deactivate_user_path(user.id) }
+
+          it { should have_link('activate', href: activate_user_path(user.id)) }
+        end
       end
       
       context "when user is not active" do
@@ -38,6 +44,12 @@ describe "UserPages" do
         before { log_in_and_visit(admin, path) }
       
         it { should have_link('activate', href: activate_user_path(user.id)) }
+
+        context "when activate link is clicked" do
+          before { click_link "activate", href: activate_user_path(user.id) }
+
+          it { should have_link('deactivate', href: deactivate_user_path(user.id)) }
+        end
       end
     end
   end

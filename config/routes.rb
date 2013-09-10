@@ -6,8 +6,8 @@ Ciese::Application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   resources :users do
-  get 'deactivate', on: :member
-  get 'activate', on: :member
+    put 'deactivate', on: :member
+    put 'activate', on: :member
   end
   
   #get "users/deactivate/:id" => "users#deactivate"

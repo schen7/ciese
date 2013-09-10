@@ -1,6 +1,6 @@
 include ApplicationHelper
 
-def log_in(user)
+def fill_out_login_form(user)
   visit login_path
   fill_in "Username", with: user.username
   fill_in "Password", with: user.password
@@ -8,7 +8,7 @@ def log_in(user)
 end
 
 def log_in_and_visit(user, path)
-  log_in user
+  fill_out_login_form user
   visit path
 end
 
