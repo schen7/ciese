@@ -9,7 +9,7 @@ Ciese::Application.routes.draw do
       get 'filter', to: :index
       get 'sort', to: :index
       get 'columns', to: :index
-      resources :programs, only: [:index, :create, :update]
+      resources :programs, only: [:index, :create, :update, :destroy]
     end
   end
 

@@ -24,6 +24,16 @@ class ProgramsController < ApplicationController
     end
   end
 
+  def destroy
+    @program = Program.find(params.permit(:id)[:id])
+    old_attrs = @program.attributes
+    new_attrs = {"name" => "", "details" => old_attrs["details"].map { |d| "" }}
+    if @program.destroy
+      update_activities(old_attrs, new_attrs) if params[:update_activities] == 'true'
+      render json: @program, root: false
+    end
+  end
+
   private
 
   def programs_params

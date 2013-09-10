@@ -4,7 +4,7 @@ angular
 
     $scope.programEditor = {editing: false, program: null, originalProgram: null}
 
-    if not $scope.programData.loaded
+    $scope.loadPrograms = ->
       $scope.programData.data = Program.query ->
         $scope.programData.loaded = true
 
@@ -39,6 +39,16 @@ angular
     $scope.removeDetail = ->
       @detail.name = ''
       @detail.removed = 'yes'
+
+    $scope.deleteProgram = (updateActivities = false) ->
+      console.log $scope.programEditor.originalProgram
+      $scope.programEditor.originalProgram.$delete ->
+        $scope.doneEditing()
+        $scope.profileData.loaded = false
+        $scope.programData.loaded = false
+        $scope.loadPrograms()
+
+    $scope.loadPrograms() if not $scope.programData.loaded
 
   ]
     

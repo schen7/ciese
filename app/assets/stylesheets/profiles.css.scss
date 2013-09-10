@@ -94,6 +94,9 @@
     background-color: #fff;
     padding: 1.875em;
     margin: 0;
+    button.delete {
+      float: right;
+    }
   }
   .modal-bg {
     position: fixed;
