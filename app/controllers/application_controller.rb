@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   rescue_from User::NotAuthorized, with: :render_403_page
   rescue_from ActiveRecord::RecordNotFound, with: :render_404_page
   rescue_from ActionController::RoutingError, with: :render_404_page
-  rescue_from ActiveRecord::RecordNotFound, with: :render_500_page
+  rescue_from ActiveRecord::RecordInvalid, with: :render_500_page
 
   protected
 
