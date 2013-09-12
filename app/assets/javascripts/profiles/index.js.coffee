@@ -41,11 +41,5 @@ catch error
           link: (scope, el, attr) ->
             $(el).on attr.stopEvent, (evt) -> evt.stopPropagation()
 
-        .directive 'modalBg', ->
-          restrict: 'C'
-          link: (scope, el, attr) ->
-            $(el).on 'click', (evt) ->
-              scope.$apply -> scope.doneEditing()
-
     $(document).on 'ready page:load', ->
         angular.bootstrap($('#profiles-app').first().get(0), ['ProfilesApp'])

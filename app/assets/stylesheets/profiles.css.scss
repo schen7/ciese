@@ -83,12 +83,12 @@
 
 }
 
-#profiles-programs {
+#profiles-index, #profiles-programs {
   .modal-box {
-    position: fixed;
-    top: 10%;
-    left: 10%;
-    width: 80%;
+    position: absolute;
+    top: -2%;
+    left: 5%;
+    width: 90%;
     box-shadow: 0px 0px 10px 0px #333;
     z-index: 101;
     background-color: #fff;
@@ -107,6 +107,18 @@
     background-color: #000;
     opacity: 0.5;
     z-index: 100;
+  }
+  #view_profile_modal {
+    .field_group {
+      margin-bottom: 1.5em;
+    }
+    .field_row {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+      &.alt_row {
+        background-color: #f9f9f9;
+      }
+    }
   }
 }
 
