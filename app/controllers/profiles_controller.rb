@@ -3,17 +3,13 @@ class ProfilesController < ApplicationController
 
   FILTER_ON_OPTIONS = ["all", "any"]
 
-  FILTER_FIELDS = Profile.attribute_names.reject do |name|
-    ['id', 'user_id', 'created_at', 'updated_at'].include?(name)
-  end + ['program', 'detail', 'start_date', 'end_date']
-
   SORT_FIELDS = Profile.attribute_names.reject do |name|
     ['id', 'user_id', 'created_at', 'updated_at'].include?(name)
   end
 
-  COLUMN_FIELDS = Profile.attribute_names.reject do |name|
-    ['id', 'user_id', 'created_at', 'updated_at'].include?(name)
-  end + ['activities']
+  FILTER_FIELDS = SORT_FIELDS + ['program', 'detail', 'start_date', 'end_date']
+
+  COLUMN_FIELDS = SORT_FIELDS + ['activities']
 
   STRING_COMPARISON_OPTIONS = {
     "starts with" => "ILIKE ? || '%'",
@@ -42,7 +38,29 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def show
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: Profile.find(params[:id]), root: false }
+    end
+  end
+
+  def edit
+    render :index
+  end
+
+  def update
+    @profile = Profile.find(params.permit(:id)[:id])
+    if @profile.update_attributes(profile_params)
+      render json: @profile, root: false
+    end
+  end
+
   private
+
+  def profile_params
+    params.permit(*SORT_FIELDS)
+  end
 
   def filters_params
     ActiveSupport::JSON.decode(params.permit(:filters)[:filters] || '[]')

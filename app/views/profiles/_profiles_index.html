@@ -28,11 +28,11 @@
       </table>
     </div>
 
-    <div id="view_profile_modal" class="modal-box" ng-show="viewingProfile" ng-include="'view_profile.html'"></div>
+    <div id="view_profile_modal" class="modal-box" ng-show="viewingProfile && !editingProfile" ng-include="'view_profile.html'"></div>
 
-    <div class="modal-box" ng-show="editingProfile"></div>
+    <div id="edit_profile_modal" class="modal-box" ng-show="viewingProfile && editingProfile" ng-include="'edit_profile.html'"></div>
 
-    <div class="modal-bg" ng-show="viewingProfile || editingProfile" ng-click="doneViewing()"></div>
+    <div class="modal-bg" ng-show="viewingProfile" ng-click="doneViewing()"></div>
 
   </div>
 </div>

@@ -23,7 +23,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '2.0.1'
 # gem 'jquery-fileupload-rails', '0.4.1'
-gem 'angularjs-rails', '1.0.7'
+gem 'angularjs-rails', '1.0.8'
 gem 'zurb-foundation', '4.3.1'
 
 group :development, :test do

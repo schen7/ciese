@@ -2,28 +2,6 @@
 
 <% provide :js do %>
   <%= javascript_include_tag "profiles", "data-turbolinks-track" => true %>
-  <script type="text/javascript">
-    angular
-      .module('ProfilesApp')
-      .controller('ProfilesAppCtrl', ['$scope', function($scope) {
-        angular.extend($scope, {
-          authenticityToken: '<%= form_authenticity_token() %>',
-          filterFields: <%= ProfilesController::FILTER_FIELDS.to_json.html_safe %>,
-          sortFields: <%= ProfilesController::SORT_FIELDS.to_json.html_safe %>,
-          columnFields: <%= ProfilesController::COLUMN_FIELDS.to_json.html_safe %>,
-          stringComparisonOptions: <%= ProfilesController::STRING_COMPARISON_OPTIONS.keys.to_json.html_safe %>,
-          dateComparisonOptions: <%= ProfilesController::DATE_COMPARISON_OPTIONS.keys.to_json.html_safe %>,
-          columns: ['last_name', 'first_name', 'middle_name', 'email1', 'phone1', 'activities'],
-          profileData: {loaded: false, data: []},
-          filterData: {dirty: false, data: []},
-          sortData: {dirty: false, data: [
-            {field: 'last_name', order: 'ascending'},
-            {field: 'first_name', order: 'ascending'},
-          ]},
-          programData: {loaded: false, data: []},
-        });
-      }]);
-  </script>
 <% end %>
 
 <div id="profiles-app" class="row" ng-controller="ProfilesAppCtrl">
@@ -32,7 +10,7 @@
 
     <div ng-view></div>
 
-    <% ['profiles_index', 'view_profile', 'filters', 'sort', 'columns', 'programs'].each do |template_name| %>
+    <% ['profiles_index', 'view_profile', 'edit_profile', 'filters', 'sort', 'columns', 'programs'].each do |template_name| %>
       <script type="text/ng-template" id="<%= template_name %>.html">
         <%= render "profiles/#{template_name}" %>
       </script>

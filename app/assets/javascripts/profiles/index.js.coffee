@@ -12,6 +12,9 @@ catch error
                 .when '/profiles',
                     templateUrl: 'profiles_index.html'
                     controller: 'ProfilesIndexCtrl'
+                .when '/profiles/programs',
+                    templateUrl: 'programs.html'
+                    controller: 'ProfilesProgramsCtrl'
                 .when '/profiles/filter',
                     templateUrl: 'filters.html'
                     controller: 'ProfilesFiltersCtrl'
@@ -21,9 +24,12 @@ catch error
                 .when '/profiles/columns',
                     templateUrl: 'columns.html'
                     controller: 'ProfilesColumnsCtrl'
-                .when '/profiles/programs',
-                    templateUrl: 'programs.html'
-                    controller: 'ProfilesProgramsCtrl'
+                .when '/profiles/:id',
+                    templateUrl: 'view_profile.html'
+                    controller: 'ViewProfileCtrl'
+                .when '/profiles/:id/edit',
+                    templateUrl: 'edit_profile.html'
+                    controller: 'EditProfileCtrl'
 
             $locationProvider.html5Mode(true)
         ])
