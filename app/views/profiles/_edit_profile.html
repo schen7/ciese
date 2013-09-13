@@ -1,4 +1,4 @@
-<div id="profiles-edit" ng-show="profileLoaded">
+<div id="profiles-edit" ng-show="profileLoaded && programData.loaded">
   <h2>Edit Profile</h2>
 
   <div class="row">
@@ -46,30 +46,35 @@
   <div class="row">
     <div class="large-12 columns field_group">
       <h3 class="subheader">Activities</h3>
-      <div ng-hide="profile.activities.length > 0">No activities connected to this person.</div>
-      <div ng-show="profile.activities.length > 0">
+      <div ng-hide="getActivities().length > 0">No activities yet.</div>
+      <div ng-show="getActivities().length > 0">
         <div class="row field_row alt_row">
           <div class="small-3 columns"><strong>Program</strong></div>
           <div class="small-3 columns"><strong>Detail</strong></div>
-          <div class="small-3 columns"><strong>Start Date</strong></div>
-          <div class="small-3 columns"><strong>End Date</strong></div>
+          <div class="small-2 columns"><strong>Start Date</strong></div>
+          <div class="small-2 columns"><strong>End Date</strong></div>
+          <div class="small-2 columns"><strong>Delete?</strong></div>
         </div>
-        <div class="row field_row" ng-repeat="activity in profile.activities" ng-class-even="'alt_row'">
+        <div class="row field_row" ng-repeat="activity in getActivities()" ng-class-even="'alt_row'" ng-controller="EditActivityCtrl">
           <div class="small-3 columns">
-            {{ activity.program }}
-            <select ng-model="activity.program" ng-options="program.name as program.name for program in programData.data"></select>
+            <select ng-model="activity.program" ng-options="name for name in getProgramNames()"></select>
           </div>
           <div class="small-3 columns">
-            {{ activity.detail }}
-            <select ng-model="activity.detail" ng-options="detail for detail in getDetails()"></select>
+            <select ng-model="activity.detail" ng-options="name for name in getDetailNames()">
+              <option value="">---</option>
+            </select>
           </div>
-          <div class="small-3 columns">
+          <div class="small-2 columns">
             <input type="text" ng-model="activity.start_date">
           </div>
-          <div class="small-3 columns">
+          <div class="small-2 columns">
             <input type="text" ng-model="activity.end_date">
           </div>
+          <div class="small-2 columns">
+            <button type="button" class="small button secondary radius" ng-click="removeActivity()">&#215;</button>
+          </div>
         </div>
+        <button type="button" class="small button secondary radius" ng-click="addActivity()">Add Activity</button>
       </div>
     </div>
   </div>

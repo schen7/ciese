@@ -1,10 +1,10 @@
 angular
   .module('ProfilesApp')
-  .controller 'EditProfileCtrl', ['$scope', '$location', '$routeParams', 'Profile', 'Program', ($scope, $location, $routeParams, Profile, Program) ->
+  .controller('EditProfileCtrl', ['$scope', '$location', '$filter', '$routeParams', 'Profile', 'Program', ($scope, $location, $filter, $routeParams, Profile, Program) ->
 
     $scope.profileLoaded = false
 
-    $scope.loadProfile = ->
+    loadProfile = ->
       $scope.profile = Profile.get
         id: $routeParams.id
       , ->
@@ -12,17 +12,54 @@ angular
       , ->
         $location.path("/profiles")
 
-    $scope.loadPrograms = ->
+    loadPrograms = ->
       $scope.programData.data = Program.query ->
         $scope.programData.loaded = true
 
-    $scope.getDetails = ->
-      program = (program for program in $scope.programData.data when program.name is @activity.program)[0]
-      program.details
+    $scope.saveProfile = ->
+      $scope.profile.$update ->
+        $location.path("/profiles/#{$scope.profile.id}")
 
-    $scope.loadProfile()
-    $scope.loadPrograms()
+    $scope.getActivities = ->
+      $filter('filter')($scope.profile.activities, {_destroy: '!1'})
 
-  ]
+    $scope.removeActivity = ->
+      @activity._destroy = '1'
+
+    $scope.addActivity = ->
+      $scope.profile.activities.push
+        program: ''
+        detail: ''
+        start_date: ''
+        end_date: ''
+
+    loadProfile()
+    loadPrograms()
+
+  ])
+  .controller('EditActivityCtrl', ['$scope', '$filter', ($scope, $filter) ->
+
+    programName = $scope.activity.program
+    detailName = $scope.activity.detail
+
+    $scope.getProgramNames = ->
+      programNames = (program.name for program in $scope.programData.data)
+      if programName not in programNames
+        programNames.splice(0, 0, programName)
+      programNames
+
+    isSelectedProgram = (program) ->
+      program.name is $scope.activity.program
+
+    $scope.getDetailNames = ->
+      program = $filter('filter')($scope.programData.data, isSelectedProgram)[0]
+      detailNames = angular.copy(program?.details ? [])
+      if $scope.activity.program is programName
+        if detailName and detailName not in detailNames
+          detailNames.splice(0, 0, detailName)
+      $scope.activity.detail = '' unless $scope.activity.detail in detailNames
+      detailNames
+
+  ])
 
 

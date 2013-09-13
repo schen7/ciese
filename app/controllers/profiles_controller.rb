@@ -59,7 +59,11 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.permit(*SORT_FIELDS)
+    activities_fields = {activities: [:id, :program, :detail,
+                                      :start_date, :end_date, :_destroy]}
+    params.permit(*SORT_FIELDS, activities_fields).tap do |whitelist|
+      whitelist[:activities_attributes] = whitelist.delete(:activities)
+    end
   end
 
   def filters_params
