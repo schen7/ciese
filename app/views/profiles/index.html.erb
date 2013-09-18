@@ -10,10 +10,5 @@
 
     <div ng-view></div>
 
-    <% ['profiles_index', 'view_profile', 'edit_profile', 'filters', 'sort', 'columns', 'programs'].each do |template_name| %>
-      <script type="text/ng-template" id="<%= template_name %>.html">
-        <%= render "profiles/#{template_name}" %>
-      </script>
-    <% end %>
   </div>
 </div>
