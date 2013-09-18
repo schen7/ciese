@@ -1,0 +1,14 @@
+<% provide(:title, 'Profiles') %>
+
+<% provide :js do %>
+  <%= javascript_include_tag "profiles", "data-turbolinks-track" => true %>
+<% end %>
+
+<div id="profiles-app" class="row" ng-controller="ProfilesAppCtrl">
+  <div class="small-12 columns">
+    <h1>CIESE Participant Profiles</h1>
+
+    <div ng-view></div>
+
+  </div>
+</div>

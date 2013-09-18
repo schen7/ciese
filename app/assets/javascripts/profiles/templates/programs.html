@@ -1,0 +1,67 @@
+<div id="profiles-programs" class="row">
+  <div class="large-12 columns">
+    <ul class="button-group">
+      <li><a href="/profiles/filter" class="button">Filter</a></li>
+      <li><a href="/profiles/sort" class="button">Sort</a></li>
+      <li><a href="/profiles/columns" class="button">Columns</a></li>
+      <li><a href="/profiles" class="button secondary">Programs</a></li>
+    </ul>
+
+    <div class="row">
+      <div class="large-4 columns">
+        <h3 class="subheader">Programs</h3>
+      </div>
+      <div class="large-4 columns">
+        <h3 class="subheader">Details</h3>
+      </div>
+      <div class="large-4 columns">
+      </div>
+    </div>
+
+    <div class="row" ng-repeat="program in programData.data | orderBy:'name'">
+      <div class="large-4 columns"><a ng-click="editProgram()">{{ program.name }}</a></div>
+      <div class="large-4 columns">
+        <div ng-repeat="detail in program.details">{{ detail }}</div>
+      </div>
+      <div class="large-4 columns">
+      </div>
+    </div>
+
+    <button type="button" class="small button" ng-click="editProgram()">Add Program</button>
+
+    <div class="modal-box" ng-show="programEditor.editing">
+      <h2>Edit Program and Details</h2>
+      <div class="row">
+        <div class="large-6 columns">
+          <h3 class="subheader">Program</h3>
+          <input type="text" ng-model="programEditor.program.name" placeholder="Enter program name...">
+        </div>
+        <div class="large-6 columns">
+          <h3 class="subheader">Details</h3>
+          <div class="row collapse" ng-repeat="detail in programEditor.program.details | filter:{removed: 'no'}">
+            <div class="small-11 columns">
+              <input type="text" ng-model="detail.name" placeholder="Enter detail name...">
+            </div>
+            <div class="small-1 columns">
+              <button type="text" class="button secondary postfix" ng-click="removeDetail()">&#215;</button>
+            </div>
+          </div>
+          <button type="button" class="tiny button secondary radius" ng-click="addDetail()">Add Detail</button>
+        </div>
+      </div>
+      <hr />
+      
+      <div class="row">
+        <div class="large-12 columns">
+          <button type="submit" class="small button" ng-click="saveProgram()">Save</button>
+          <button type="submit" class="small button" ng-click="saveProgram(true)" ng-show="programEditor.originalProgram.id">Save and Update Activities</button>
+          <button type="button" class="small button secondary" ng-click="doneEditing()">Cancel</button>
+          <button type="button" class="small button alert delete" ng-click="deleteProgram()">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-bg" ng-show="programEditor.editing" ng-click="doneEditing()"></div>
+
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div id="profiles-edit" ng-show="profileLoaded && programData.loaded">
+  <h2>Edit Profile</h2>
+
+  <div class="row">
+    <div class="large-6 columns field_group">
+      <h3 class="subheader">General Information</h3>
+      <div class="row field_row" ng-repeat="field in generalFields" ng-class-odd="'alt_row'">
+        <div class="large-4 columns"><strong>{{ field | titleize }}</strong></div>
+        <div class="large-8 columns">
+          <input type="text" ng-model="profile[field]">
+        </div>
+      </div>
+    </div>
+    <div class="large-6 columns field_group">
+      <h3 class="subheader">Notes</h3>
+      <div class="row field_row" ng-repeat="field in notesFields" ng-class-odd="'alt_row'">
+        <div class="large-4 columns"><strong>{{ field | titleize }}</strong></div>
+        <div class="large-8 columns">
+          <textarea ng-model="profile[field]"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-6 columns field_group">
+      <h3 class="subheader">Work Contact Information</h3>
+      <div class="row field_row" ng-repeat="field in workFields" ng-class-odd="'alt_row'">
+        <div class="large-4 columns"><strong>{{ field | titleize }}</strong></div>
+        <div class="large-8 columns">
+          <input type="text" ng-model="profile[field]">
+        </div>
+      </div>
+    </div>
+    <div class="large-6 columns field_group">
+      <h3 class="subheader">Home Contact Information</h3>
+      <div class="row field_row" ng-repeat="field in homeFields" ng-class-odd="'alt_row'">
+        <div class="large-4 columns"><strong>{{ field.replace('home_', '') | titleize }}</strong></div>
+        <div class="large-8 columns">
+          <input type="text" ng-model="profile[field]">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns field_group">
+      <h3 class="subheader">Activities</h3>
+      <div ng-hide="getActivities().length > 0">No activities yet.</div>
+      <div ng-show="getActivities().length > 0">
+        <div class="row field_row alt_row">
+          <div class="small-3 columns"><strong>Program</strong></div>
+          <div class="small-3 columns"><strong>Detail</strong></div>
+          <div class="small-2 columns"><strong>Start Date</strong></div>
+          <div class="small-2 columns"><strong>End Date</strong></div>
+          <div class="small-2 columns"><strong>Delete?</strong></div>
+        </div>
+        <div class="row field_row" ng-repeat="activity in getActivities()" ng-class-even="'alt_row'" ng-controller="EditActivityCtrl">
+          <div class="small-3 columns">
+            <select ng-model="activity.program" ng-options="name for name in getProgramNames()"></select>
+          </div>
+          <div class="small-3 columns">
+            <select ng-model="activity.detail" ng-options="name for name in getDetailNames()">
+              <option value="">---</option>
+            </select>
+          </div>
+          <div class="small-2 columns">
+            <input type="text" ng-model="activity.start_date">
+          </div>
+          <div class="small-2 columns">
+            <input type="text" ng-model="activity.end_date">
+          </div>
+          <div class="small-2 columns">
+            <button type="button" class="small button secondary radius" ng-click="removeActivity()">&#215;</button>
+          </div>
+        </div>
+        <button type="button" class="small button secondary radius" ng-click="addActivity()">Add Activity</button>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="large-12 columns">
+      <button type="button" class="small button" ng-click="saveProfile()">Save</button>
+      <a class="small button secondary" href="/profiles/{{ profile.id }}">Cancel</a>
+      <a class="small button secondary" href="/profiles">Done</a>
+    </div>
+  </div>
+
+</div>

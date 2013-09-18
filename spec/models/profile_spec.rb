@@ -42,7 +42,17 @@ describe Profile do
   it { should respond_to(:memo1) }
   it { should respond_to(:memo2) }
   it { should respond_to(:memo3) }
+  it { should respond_to(:activities) }
 
   it { should be_valid }
 
+  context "when destroyed" do
+    before do
+      profile.save
+      profile.activities = create_list(:activity, 2)
+      profile.destroy
+    end
+
+    its(:activities) { should be_empty }
+  end
 end

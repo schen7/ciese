@@ -1,0 +1,154 @@
+#profiles-index, #profiles-filters, #profiles-sort, #profiles-columns, #profiles-programs {
+  font-size: 0.9em;
+  #profile-list {
+    overflow-x: auto;
+    margin-bottom: 1.25em;
+    table {
+      margin-bottom: 0;
+      min-width: 100%;
+      width: 100%;
+      tbody {
+        tr {
+          &:hover {
+            background-color: #ddeef9;
+          }
+          td {
+            min-width: 150px;
+            width: 150px;
+          }
+        }
+      }
+    }
+  }
+
+  #filters-list {
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 1.25em;
+    #filter-all_records {
+      table {
+        width: 100%;
+      }
+    }
+    .filter {
+      table {
+        margin-bottom: 0;
+        text-align: left;
+        th {
+          position: relative;
+          padding-right: 4em;
+          a {
+            color: #222;
+            text-decoration: underline;
+          }
+          a.remove_filter_button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            text-decoration: none;
+            color: #aaa;
+            font-size: 1.25em;
+            padding: 0 2px;
+          }
+        }
+        td {
+          select {
+            margin: 0;
+          }
+          button {
+            margin: 0;
+          }
+        }
+      }
+    }
+    .filter-separator {
+      margin: .5em 0;
+    }
+    .filter-conditions {
+      select {
+        width: auto;
+      }
+      input {
+        width: auto;
+      }
+    }
+  }
+
+  #showing {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li {
+        select {
+          width: auto;
+          margin-bottom: 0.5em;
+        }
+      }
+    }
+  }
+
+  #addShowField {
+    select {
+      width: auto;
+    }
+  }
+
+}
+
+#profiles-index, #profiles-programs {
+  .modal-box {
+    font-size: 0.8em;
+    position: absolute;
+    top: -4%;
+    left: 5%;
+    width: 90%;
+    box-shadow: 0px 0px 10px 0px #333;
+    z-index: 101;
+    background-color: #fff;
+    padding: 1.875em;
+    margin: 0;
+    button.delete {
+      float: right;
+    }
+  }
+  .modal-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.5;
+    z-index: 100;
+  }
+}
+
+#profiles-view, #profiles-edit {
+  .field_group {
+    margin-bottom: 1.5em;
+  }
+  .field_row {
+    margin-left: -0.5em;
+    margin-right: -0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    .columns {
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+    }
+    &.alt_row {
+      background-color: #f9f9f9;
+    }
+  }
+}
+#profiles-edit {
+  .field_row {
+    textarea {
+      height: 10em;
+    }
+    input[type="text"] {
+      margin-bottom: 0;
+    }
+  }
+}

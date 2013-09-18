@@ -10,21 +10,22 @@ gem 'turbolinks', '1.0.0'
 gem 'jbuilder', '1.0.2'
 # gem 'rmagick', '2.13.2'
 # gem 'carrierwave', '0.8.0'
-# gem 'active_model_serializers', '0.8.1'
+gem 'active_model_serializers', '0.8.1'
 # gem 'ejs', '1.1.1'
 
 # Assets
 gem 'jquery-rails', '2.2.1'
-gem 'bootstrap-sass', '2.3.1.0'
-gem 'bootstrap-will_paginate', '0.0.9'
+# gem 'bootstrap-sass', '2.3.1.0'
+# gem 'bootstrap-will_paginate', '0.0.9'
 gem 'sass-rails',   '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '2.0.1'
 # gem 'jquery-fileupload-rails', '0.4.1'
-gem 'angularjs-rails', '1.0.7'
+gem 'angularjs-rails', '1.0.8'
 gem 'zurb-foundation', '4.3.1'
+gem 'compass'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
@@ -34,7 +35,7 @@ group :development, :test do
   gem 'childprocess', '0.3.9'
   # gem 'meta_request'
   gem 'factory_girl_rails', '4.2.1'
-  gem 'faker', '1.1.2'
+  gem 'faker', '1.2.0'
   # gem 'database_cleaner', '1.0.1'
   # gem 'capybara-webkit', '1.0.0'
   # gem 'jasmine'
