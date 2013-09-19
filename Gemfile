@@ -25,11 +25,12 @@ gem 'uglifier', '2.0.1'
 # gem 'jquery-fileupload-rails', '0.4.1'
 gem 'angularjs-rails', '1.0.8'
 gem 'zurb-foundation', '4.3.1'
-gem 'compass'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
   gem 'guard-rspec', '3.0.0'
+  gem 'guard-livereload', '1.4.0'
+  gem 'rack-livereload', '0.3.15'
   # gem 'spork-rails', github: 'railstutorial/spork-rails'
   # gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.3.9'

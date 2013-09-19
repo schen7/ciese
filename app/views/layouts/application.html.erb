@@ -24,22 +24,95 @@
   </head>
 
   <body>
-
-    <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>"><%= value %></div>
-    <% end %>
-
-    <div>
-      <% if logged_in? %>
-        <%= link_to "Log Out", logout_path, method: "delete" %>
-      <% else %>
-        <%= link_to "Log In", login_path %>
-      <% end %>
+		<div id="header" class="row">
+      <div class="large-4 columns">
+        <%= link_to image_tag("main/ciese_logo.png", alt: "CIESE Logo"), root_path, {class: "main_ciese_logo"} %>
+      </div>
+      <div class="large-8 columns">
+        <div id="main_menu" class="row">
+          <div class="large-3 columns">
+            <div class="main_menu-item">
+              <div>About Us</div>
+              <ul>
+                <li><a href="missionvision.html">Mission / Vision</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="staff.html">Staff</a></li>
+                <li><a href="partners.html">Partners</a></li>
+                <li><a href="#">Awards</a></li>
+                <li><a href="contactus.html">Contact Us</a></li>
+                <li><a href="mailinglist.html">Join Our Mailing List</a></li>
+                <li><a href="#">Directions</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="large-3 columns">
+            <div class="main_menu-item">
+              <div>Our Work</div>
+              <ul>
+                <li><a href="#">Current Projects</a></li>
+                <li><a href="#">Past Projects</a></li>
+                <li><a href="#">Prof. Development</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="large-3 columns">
+            <div class="main_menu-item">
+              <div>Instructional Materials</div>
+              <ul>
+                <li><a href="#">K-12 Curriculum</a></li>
+                <li><a href="#">Ed. Resources</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="large-3 columns">
+            <div class="main_menu-item">
+              <div>News and Publications</div>
+              <ul>
+                <li><a href="#">CIESE in the News</a></li>
+                <li><a href="#">Press Releases</a></li>
+                <li><a href="#">Presentations</a></li>
+                <li><a href="#">Publications</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <%= yield %>
-    
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-    <%= yield :js %>
+    <div id="main_section" class="row">
+
+      <div class="large-12 columns">
+        <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+
+        <div>
+          <% if logged_in? %>
+          <%= link_to "Log Out", logout_path, method: "delete" %>
+          <% else %>
+          <%= link_to "Log In", login_path %>
+          <% end %>
+        </div>
+
+        <%= yield %>
+
+        <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+        <%= yield :js %>
+      </div>
+
+		</div>
+
+    <div id="footer" class="row">
+      <div id="footer-ciese_logo" class="large-3 columns">
+        <%= image_tag "main/ciese_logo_footer.png" %>
+      </div>
+      <div id="copyright" class="large-6 columns">
+        &copy; Copyright all rights reserved 2013. Stevens Institute of Technology.<br>
+        The Center for Innovation in Engineering and Science Education.
+      </div>
+      <div id="footer-stevens_logo" class="large-3 columns">
+        <%= image_tag "main/stevens_logo.png" %>
+      </div>
+    </div>
   </body>
 </html>

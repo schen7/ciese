@@ -1,0 +1,107 @@
+$headerHeight: 125px;
+
+body {
+	background: #006c9e url('main/bg_gradient.png') repeat-x fixed bottom;
+}
+
+#header {
+  background: #fff url('main/header.png') no-repeat top center;
+  text-align: center;
+  height: $headerHeight;
+  border-radius: 0 0 10px 10px;
+}
+
+#main_ciese_logo {
+  img {
+    margin: 17px 0;
+    width: 260px;
+  }
+}
+
+#main_menu {
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9em;
+  color: #006c9e;
+  position: absolute;
+  top: 70px;
+  left: -5px;
+  z-index: 100;
+  width: 100%;
+  & > .columns {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+.main_menu-item {
+  bottom: 0;
+  border-radius: 5px;
+  ul {
+    display: none;
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+    background: #fff;
+    text-transform: none;
+    font-weight: normal;
+    text-align: left;
+    border-radius: 0 0 5px 5px;
+    li {
+      padding: 2px 8px;
+    }
+  }
+  & > div {
+    height: 56px;
+    padding: 15px 0 0 0;
+  }
+  &:hover {
+    background: #ddd;
+    padding-bottom: 0;
+    box-shadow: 1px 1px 12px -2px #444;
+    ul {
+      display: block;
+      li:hover {
+        background: #e0f0ff;
+      }
+    }
+  }
+}
+
+#main_section {
+  margin-top: 1em;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2em 1em;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+#footer {
+  margin-top: 1em;
+  background: #335872;
+  border-radius: 10px 10px 0 0;
+  #footer-ciese_logo {
+    padding: 2em 0 2em 2em;
+    img {
+      height: 50px;
+    }
+  }
+  #copyright {
+    padding: 4em 0 1em 0;
+    text-align: center;
+    color: #ddd;
+    font-size: 0.75em;
+    font-weight: normal;
+  }
+  #footer-stevens_logo {
+    text-align: right;
+    padding: 2em 2em 2em;
+    img {
+      height: 50px;
+    }
+  }
+}

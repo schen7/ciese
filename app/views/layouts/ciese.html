@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<!--
+x-footer: separate onto 2 lines
+x-footer: thin line all the way across
+x-squarer radius on all corners
+-tab titles: align to bottom
+x-staff: leadership: deb brockway
+x-partners: major supporters -> logos
+x-option of 2x2 on index
+-index: line left edge
+x-index: more spacing around picture (padding)
+x-index: more gradual gradient
+x-index: http://colorschemedesigner.com/ (maybe add green for the headings as contrast)
+x-index: narrower break between header and body
+x-index: slider -> remove Learn More, change transparent layer (black background, white text), square corners
+
+MEETING: Tuesday, 30 July, 10:30
+
+X-change to 2x2
+X-use web (not 2 or 3 or 4)
+X-add Login link next to Search (nothing fancy)
+X-headers to blue, tabs to orange / h2 are orange, h3 to blue (heading vs subheading) & play with tab color
+-link color...not blue??
+
+-EMAILS
+-->
+
+<html lang="en-US">
+
+	<head>
+		<meta charset="utf-8" />
+		<style type="text/css" media="all">
+			@import "css/layout.css";
+			@import "css/nav.css";
+			@import "css/index.css";
+			@import "css/slider.css";
+		</style>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+		<script src="jquery/nivo-slider3.2/nivo-slider/jquery.nivo.slider.pack.js" type="text/javascript"></script>
+
+		<script type="text/javascript">
+			$(window).load(function() {
+				$('#slider').nivoSlider({
+					effect: 'fade',
+					pauseTime: 4000,
+					prevText: '<',
+					nextText: '>',
+					pauseOnHover: true
+				});
+			});
+		</script>
+
+		<title>CIESE</title>
+		
+</head>
+	
+	<body>
+		
+		<header>
+			<a href="index.html"><img id="Logo" src="images/CIESElogo.png" alt="CIESE Logo" height="100"/></a>
+			<input id="Search" type="search" placeholder="Search" />
+			<a id="LogIn" href="login.html">Login</a>
+			<nav>
+				<ul class="menu">
+					
+					<li>News and Publications
+						<ul class="menu-hover">
+							<li><a href="#">CIESE in the News</a></li>
+							<li><a href="#">Press Releases</a></li>
+							<li><a href="#">Presentations</a></li>
+							<li><a href="#">Publications</a></li>
+						</ul>
+					</li>
+					
+					<li>Instructional Materials
+						<ul class="menu-hover">
+							<li><a href="#">K-12 Curriculum</a></li>
+							<li><a href="#">Educational Resources</a></li>
+						</ul>
+					</li>
+					
+					<li>Our Work
+						<ul class="menu-hover">
+							<li><a href="#">Current Projects</a></li>
+							<li><a href="#">Past Projects</a></li>
+							<li><a href="#">Professional Development</a></li>
+						</ul>
+					</li>
+					
+					<li>About Us
+						<ul class="menu-hover">
+							<li><a href="missionvision.html">Mission / Vision</a></li>
+							<li><a href="history.html">History</a></li>
+							<li><a href="staff.html">Staff</a></li>
+							<li><a href="partners.html">Partners</a></li>
+							<li><a href="#">Awards</a></li>
+							<li><a href="contactus.html">Contact Us</a></li>
+							<li><a href="mailinglist.html">Join Our Mailing List</a></li>
+							<li><a href="#">Directions</a></li>
+						</ul>
+					</li>
+					
+				</ul>
+			</nav>
+		</header>
+		
+		<div id="Content">
+		
+			<section id="Image">
+				<br>
+				
+				<div id="wrapper">
+					<div class="slider-wrapper">
+						<div id="slider" class="nivoSlider">
+							<img src="images/chrysanthemum.jpg" alt="" title="#chrysanthemum"/>
+							<img src="images/desert.jpg" alt="" title="#desert" />
+							<img src="images/hydrangeas.jpg" alt="" title="#hydrangeas" />
+							<img src="images/lighthouse.jpg" alt="" title="#lighthouse" />
+							<img src="images/tulips.jpg" alt="" title="#tulips" />
+						</div>
+					</div>
+					<div id="chrysanthemum" class="nivo-html-caption">
+						<h3>Chrysanthemum</h3>
+						Lorem ipsum dolor sit amet, vix verear persequeris ei. Voluptua antiopam molestiae qui ut, ei vitae viderer sea. Eu mei quis alii, impedit interpretaris in qui. Usu ne omnis oblique. <a href="">Learn More</a>
+					</div>
+					<div id="desert" class="nivo-html-caption">
+						<h3>Desert</h3>
+						Lorem ipsum dolor sit amet, vix verear persequeris ei. Voluptua antiopam molestiae qui ut, ei vitae viderer sea. Eu mei quis alii, impedit interpretaris in qui. Usu ne omnis oblique. <a href="">Learn More</a>
+					</div>
+					<div id="hydrangeas" class="nivo-html-caption">
+						<h3>Hydrangeas</h3>
+						Lorem ipsum dolor sit amet, vix verear persequeris ei. Voluptua antiopam molestiae qui ut, ei vitae viderer sea. Eu mei quis alii, impedit interpretaris in qui. Usu ne omnis oblique. <a href="">Learn More</a>
+					</div>
+					<div id="lighthouse" class="nivo-html-caption">
+						<h3>Lighthouse</h3>
+						Lorem ipsum dolor sit amet, vix verear persequeris ei. Voluptua antiopam molestiae qui ut, ei vitae viderer sea. Eu mei quis alii, impedit interpretaris in qui. Usu ne omnis oblique. <a href="">Learn More</a>
+					</div>
+					<div id="tulips" class="nivo-html-caption">
+						<h3>Tulips</h3>
+						Lorem ipsum dolor sit amet, vix verear persequeris ei. Voluptua antiopam molestiae qui ut, ei vitae viderer sea. Eu mei quis alii, impedit interpretaris in qui. Usu ne omnis oblique. <a href="">Learn More</a>
+					</div>
+				</div>
+
+			</section>
+			
+			<section id="Projects">
+					<h2>Highlighted Projects</h2>
+					<article class="Projects">
+						<h3><a href="#" target="_blank">Project 1
+						<img src="images/koala.jpg" alt="Koala"/></a></h3>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mauris augue, tempus eu accumsan at, rhoncus et nunc. Nullam in tincidunt mi. Aenean faucibus, libero eleifend ullamcorper vestibulum, lorem nibh pharetra urna, eu tristique nisi lacus et odio.
+					</article>
+					<article>
+						<h3><a href="#" target="_blank">Project 2
+						<img src="images/jellyfish.jpg" alt="Jellyfish"/></a></h3>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mauris augue, tempus eu accumsan at, rhoncus et nunc. Nullam in tincidunt mi. Aenean faucibus, libero eleifend ullamcorper vestibulum, lorem nibh pharetra urna, eu tristique nisi lacus et odio.
+					</article>
+					<article class="Projects">
+						<h3><a href="#" target="_blank">Project 3
+						<img src="images/penguins.jpg" alt="Penguins"/></a></h3>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mauris augue, tempus eu accumsan at, rhoncus et nunc. Nullam in tincidunt mi. Aenean faucibus, libero eleifend ullamcorper vestibulum, lorem nibh pharetra urna, eu tristique nisi lacus et odio.
+					</article>
+					<article class="Projects">
+						<h3><a href="#" target="_blank">Project 4
+						<img src="images/lighthouse.jpg" alt="Lighthouse"/></a></h3>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mauris augue, tempus eu accumsan at, rhoncus et nunc. Nullam in tincidunt mi. Aenean faucibus, libero eleifend ullamcorper vestibulum, lorem nibh pharetra urna, eu tristique nisi lacus et odio.
+					</article>
+			</section>
+			
+			<section id="Mission">
+				<h2>Our Mission</h2>
+				<p>To catalyze and support excellence in teaching and learning of science, technology, engineering, mathematics (STEM) and other core subjects through innovative, research-based instructional strategies and use of novel technologies.</p>
+				<p>CIESE collaborates with K-12 and university educators, researchers, policymakers, and educational organizations to develop curriculum materials, conduct professional development programs, and research new methodologies to strengthen STEM education.</p>
+			</section>
+			
+			<footer>
+				<a href="index.html"><img id="CIESElogo" src="images/CIESElogoBlack.png" alt="CIESE" height="55"/></a>
+				<a href="https://www.stevens.edu"><img id="Stevenslogo" src="images/Stevenslogo.png" alt="Stevens Institute of Technology" height="55"/></a>
+				<br><small id="Copyright">&copy; Copyright all rights reserved 2013. Stevens Institute of Technology.<br />The Center for Innovation in Engineering and Science Education.</small>
+			</footer>	
+			
+		</div>
+		
+	</body>
+
+</html>
