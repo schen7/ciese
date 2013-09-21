@@ -181,6 +181,9 @@ h2 {
     left: 0;
     width: auto;
     margin-bottom: emCalc(3);
+    &:hover ul {
+      display: block;
+    }
     & > .columns {
       padding-left: 0;
       padding-right: 0;
@@ -213,25 +216,23 @@ h2 {
         }
       }
       ul {
-        display: none;
         text-align: center;
         border-radius: 0;
       }
       &.show_menu_item {
-        ul {
+        &:hover ul, ul {
           display: block;
         }
-        &:hover ul {
-          display: block;
+      }
+      &.hide_menu_item {
+        &:hover ul, ul {
+          display: none;
         }
       }
       &:hover {
         border: 1px solid transparent;
         background: transparent;
         box-shadow: none;
-        ul {
-          display: none;
-        }
       }
     }
   }
