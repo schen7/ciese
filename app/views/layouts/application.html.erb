@@ -31,9 +31,9 @@
             <%= link_to image_tag("main/ciese_logo.png", alt: "CIESE Logo"), root_path, {id: "main_ciese_logo"} %>
           </div>
           <div class="large-8 columns">
-            <div id="main_menu" class="row">
+            <div id="main_menu" class="row" ng-controller="MainMenuCtrl">
               <div class="large-3 columns">
-                <div class="main_menu-item">
+                <div class="main_menu-item" ng-class="{show_menu_item: activeMenuItem == 'about'}">
                   <div><div class="menu_item-toggle" ng-click="toggleMenuItem('about')"></div>About Us</div>
                   <ul>
                     <li><a href="missionvision.html">Mission / Vision</a></li>
@@ -48,7 +48,7 @@
                 </div>
               </div>
               <div class="large-3 columns">
-                <div class="main_menu-item">
+                <div class="main_menu-item" ng-class="{show_menu_item: activeMenuItem == 'work'}">
                   <div><div class="menu_item-toggle" ng-click="toggleMenuItem('work')"></div>Our Work</div>
                   <ul>
                     <li><a href="#">Current Projects</a></li>
@@ -58,7 +58,7 @@
                 </div>
               </div>
               <div class="large-3 columns">
-                <div class="main_menu-item">
+                <div class="main_menu-item" ng-class="{show_menu_item: activeMenuItem == 'materials'}">
                   <div><div class="menu_item-toggle" ng-click="toggleMenuItem('materials')"></div>Instructional Materials</div>
                   <ul>
                     <li><a href="#">K-12 Curriculum</a></li>
@@ -67,7 +67,7 @@
                 </div>
               </div>
               <div class="large-3 columns">
-                <div class="main_menu-item">
+                <div class="main_menu-item" ng-class="{show_menu_item: activeMenuItem == 'news'}">
                   <div><div class="menu_item-toggle" ng-click="toggleMenuItem('news')"></div>News and Publications</div>
                   <ul>
                     <li><a href="#">CIESE in the News</a></li>

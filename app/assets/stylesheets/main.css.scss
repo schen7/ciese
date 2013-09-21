@@ -1,7 +1,7 @@
 $headerHeight: 125px;
 
 body {
-	background: #266a9c url('main/bg_gradient.png') repeat-x top;
+	background: #006e99 url('main/bg_gradient.png') repeat-x top;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -180,19 +180,27 @@ h2 {
     top: 0;
     left: 0;
     width: auto;
+    margin-bottom: emCalc(3);
     & > .columns {
       padding-left: 0;
       padding-right: 0;
     }
     .columns:last-child .main_menu-item {
+      & > div {
+        border-radius: 0 0 10px 10px;
+      }
       ul {
         border-radius: 0 0 10px 10px;
         li:last-child a {
-          border-radius: 0 0 8px 8px;
+          border-radius: 0 0 5px 5px;
         }
       }
     }
+    .columns:last-child .show_menu_item > div {
+      border-radius: 0;
+    }
     .main_menu-item {
+      margin: 0;
       border-radius: 0;
       & > div {
         height: auto;
@@ -205,16 +213,24 @@ h2 {
         }
       }
       ul {
-        display: block;
+        display: none;
         text-align: center;
         border-radius: 0;
+      }
+      &.show_menu_item {
+        ul {
+          display: block;
+        }
+        &:hover ul {
+          display: block;
+        }
       }
       &:hover {
         border: 1px solid transparent;
         background: transparent;
         box-shadow: none;
         ul {
-          /* display: none; */
+          display: none;
         }
       }
     }
