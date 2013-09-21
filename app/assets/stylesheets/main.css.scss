@@ -1,69 +1,93 @@
 $headerHeight: 125px;
 
 body {
-	background: #006c9e url('main/bg_gradient.png') repeat-x fixed bottom;
+	background: #266a9c url('main/bg_gradient.png') repeat-x top;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#main_container {
+  padding: 0 2em;
 }
 
 #header {
   background: #fff url('main/header.png') no-repeat top center;
-  text-align: center;
   height: $headerHeight;
   border-radius: 0 0 10px 10px;
 }
 
 #main_ciese_logo {
+  line-height: $headerHeight;
   img {
-    margin: 17px 0;
     width: 260px;
   }
 }
 
 #main_menu {
-  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
   text-transform: uppercase;
+  font-size: emCalc(14);
   font-weight: bold;
-  font-size: 0.9em;
   color: #006c9e;
   position: absolute;
-  top: 70px;
-  left: -5px;
+  top: 65px;
+  left: 5px;
   z-index: 100;
   width: 100%;
   & > .columns {
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
   }
-}
-
-.main_menu-item {
-  bottom: 0;
-  border-radius: 5px;
-  ul {
-    display: none;
-    list-style: none;
-    padding: 4px 0;
-    margin: 0;
-    background: #fff;
-    text-transform: none;
-    font-weight: normal;
-    text-align: left;
-    border-radius: 0 0 5px 5px;
-    li {
-      padding: 2px 8px;
+  .main_menu-item {
+    bottom: 0;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    & > div {
+      height: 60px;
+      padding: 15px 0 0 0;
+      position: relative;
+      .menu_item-toggle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        cursor: pointer;
+      }
     }
-  }
-  & > div {
-    height: 56px;
-    padding: 15px 0 0 0;
-  }
-  &:hover {
-    background: #ddd;
-    padding-bottom: 0;
-    box-shadow: 1px 1px 12px -2px #444;
     ul {
-      display: block;
-      li:hover {
-        background: #e0f0ff;
+      display: none;
+      list-style: none;
+      padding: 4px 0;
+      margin: 0;
+      background: #fff;
+      text-transform: none;
+      font-weight: normal;
+      text-align: left;
+      border-radius: 0 0 5px 5px;
+      li {
+        padding: 0;
+        a {
+          padding: 3px 6px;
+          display: block;
+        }
+      }
+    }
+    &:hover {
+      background: #eee;
+      padding-bottom: 0;
+      box-shadow: 1px 1px 10px -4px #222;
+      border: 1px solid #ddd;
+      & > div {
+        border-bottom: 1px solid #ddd;
+      }
+      ul {
+        display: block;
+        li {
+          a:hover {
+            background: #e0f0ff;
+          }
+        }
       }
     }
   }
@@ -77,31 +101,151 @@ body {
 }
 
 h1 {
+  color: #006c9e;
   font-size: 2em;
+  font-weight: normal;
+  margin-bottom: 1em;
+}
+
+h2 {
+  font-size: 1.6em;
+  color: #ea6600;
 }
 
 #footer {
   margin-top: 1em;
-  background: #335872;
-  border-radius: 10px 10px 0 0;
+  margin-bottom: 1em;
+  background: #13354e;
+  border-radius: 10px;
+  line-height: 94px;
   #footer-ciese_logo {
-    padding: 2em 0 2em 2em;
     img {
-      height: 50px;
+      height: 40px;
+      margin-left: 1em;
     }
   }
   #copyright {
-    padding: 4em 0 1em 0;
     text-align: center;
     color: #ddd;
     font-size: 0.75em;
     font-weight: normal;
+    div {
+      line-height: 1.2em;
+      display: inline-block;
+      vertical-align: middle;
+      span {
+        white-space: nowrap;
+      }
+    }
   }
   #footer-stevens_logo {
     text-align: right;
-    padding: 2em 2em 2em;
     img {
+      margin-top: -6px;
       height: 50px;
+      margin-right: 1em;
+    }
+  }
+}
+
+.project_description {
+  text-align: justify;
+}
+
+
+/* Small screen and mobile settings */
+
+@media only screen and (max-width: #{$small-screen - 1}) {
+  #main_container {
+    font-size: 0.85em;
+  }
+
+  #header {
+    background: #fff;
+    height: auto;
+    /* border-radius: 0; */
+    text-align: center;
+  }
+
+  #main_ciese_logo {
+    line-height: 1em;
+    img {
+      margin: 1em 0;
+    }
+  }
+
+  #main_menu {
+    font-size: emCalc(14);
+    position: relative;
+    top: 0;
+    left: 0;
+    width: auto;
+    & > .columns {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .columns:last-child .main_menu-item {
+      ul {
+        border-radius: 0 0 10px 10px;
+        li:last-child a {
+          border-radius: 0 0 8px 8px;
+        }
+      }
+    }
+    .main_menu-item {
+      border-radius: 0;
+      & > div {
+        height: auto;
+        padding: 10px 0;
+        background: #eee;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        .menu_item-toggle {
+          display: block;
+        }
+      }
+      ul {
+        display: block;
+        text-align: center;
+        border-radius: 0;
+      }
+      &:hover {
+        border: 1px solid transparent;
+        background: transparent;
+        box-shadow: none;
+        ul {
+          /* display: none; */
+        }
+      }
+    }
+  }
+
+  #main_section {
+    /* border-radius: 0; */
+  }
+
+  #footer {
+    /* border-radius: 0; */
+    padding-top: 1em;
+    line-height: 1em;
+    #footer-ciese_logo {
+      text-align: center;
+      padding: 0 0 1em 0;
+      img {
+        margin-top: 8px;
+        margin-left: 0;
+      }
+    }
+    #copyright {
+      padding: 1em 0.5em;
+    }
+    #footer-stevens_logo {
+      text-align: center;
+      padding: 0 0 1em 0;
+      img {
+        margin-top: 0;
+        margin-right: 0;
+      }
     }
   }
 }
