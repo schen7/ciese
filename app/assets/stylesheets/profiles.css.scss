@@ -1,3 +1,34 @@
+#profiles-app {
+  #options {
+    font-size: 0.8em;
+    background-color: $crumb-bg;
+    padding: emCalc(8);
+    margin-bottom: $inline-list-bottom-margin;
+    border-radius: $crumb-radius;
+    border: $crumb-border-size $crumb-border-style $crumb-border-color;
+    width: auto;
+    display: inline-block;
+    ul {
+      margin-bottom: 0;
+      li {
+        margin-left: emCalc(2);
+      }
+    }
+    #options-label {
+        padding: emCalc(3) emCalc(10) emCalc(3) 0;
+        margin-left: - $inline-list-default-float-margin;
+    }
+    a {
+      padding: emCalc(3) emCalc(10);
+      &.highlighted, &:hover {
+        background-color: $primary-color;
+        color: white;
+        border-radius: emCalc(5);
+      }
+    }
+  }
+}
+
 #profiles-index, #profiles-filters, #profiles-sort, #profiles-columns, #profiles-programs {
   font-size: 0.9em;
   #profile-list {

@@ -1,51 +1,43 @@
-<div id="profiles-sort" class="row">
-  <div class="large-12 columns">
-    <ul class="button-group">
-      <li><a href="/profiles/filter" class="button">Filter</a></li>
-      <li><a href="/profiles" class="button secondary">Sort</a></li>
-      <li><a href="/profiles/columns" class="button">Columns</a></li>
-      <li><a href="/profiles/programs" class="button">Programs</a></li>
-    </ul>
+<div id="profiles-sort">
 
-    <div class="row">
-      <div class="large-7 columns">
-        <h3 class="subheader">Fields</h3>
-        <div class="panel">
-          <div class="row">
-            <div class="large-4 columns">
-              <div ng-repeat="field in availableFields().slice(0, 12)">
-                <button type="button" class="tiny button radius" ng-click="addSortItem()">{{ field | titleize }}</button>
-              </div>
-            </div>
-            <div class="large-4 columns">
-              <div ng-repeat="field in availableFields().slice(12, 20)">
-                <button type="button" class="tiny button radius" ng-click="addSortItem()">{{ field | titleize }}</button>
-              </div>
-            </div>
-            <div class="large-4 columns">
-              <div ng-repeat="field in availableFields().slice(20)">
-                <button type="button" class="tiny button radius" ng-click="addSortItem()">{{ field | titleize }}</button>
-              </div>
+  <div class="row">
+    <div class="large-7 columns">
+      <h3 class="subheader">Fields</h3>
+      <div class="panel">
+        <div class="row">
+          <div class="large-4 columns">
+            <div ng-repeat="field in availableFields().slice(0, 12)">
+              <button type="button" class="tiny button radius" ng-click="addSortItem()">{{ field | titleize }}</button>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="large-1 columns"> &rarr; </div>
-      <div class="large-4 columns">
-        <h3 class="subheader">Order Records By</h3>
-        <div class="panel">
-          <div ng-repeat="sortItem in sortData.data">
-            <button type="button" class="tiny button secondary radius" ng-click="sortItemUp()" ng-disabled="$first">&uarr;</button>
-            <button type="button" class="tiny button secondary radius" ng-click="sortItemDown()" ng-disabled="$last">&darr;</button>
-            <button type="button" class="tiny button success radius" ng-click="removeSortItem()">{{ sortItem.field | titleize }}</button>
-            <button type="button" class="tiny button success radius" ng-click="toggleOrder()">{{ sortItem.order | titleize }}</button>
+          <div class="large-4 columns">
+            <div ng-repeat="field in availableFields().slice(12, 20)">
+              <button type="button" class="tiny button radius" ng-click="addSortItem()">{{ field | titleize }}</button>
+            </div>
+          </div>
+          <div class="large-4 columns">
+            <div ng-repeat="field in availableFields().slice(20)">
+              <button type="button" class="tiny button radius" ng-click="addSortItem()">{{ field | titleize }}</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <button type="button" class="small button" ng-show="sortData.dirty" ng-click="applySort()">Apply</button>
-
+    <div class="large-1 columns"> &rarr; </div>
+    <div class="large-4 columns">
+      <h3 class="subheader">Order Records By</h3>
+      <div class="panel">
+        <div ng-repeat="sortItem in sortData.data">
+          <button type="button" class="tiny button secondary radius" ng-click="sortItemUp()" ng-disabled="$first">&uarr;</button>
+          <button type="button" class="tiny button secondary radius" ng-click="sortItemDown()" ng-disabled="$last">&darr;</button>
+          <button type="button" class="tiny button success radius" ng-click="removeSortItem()">{{ sortItem.field | titleize }}</button>
+          <button type="button" class="tiny button success radius" ng-click="toggleOrder()">{{ sortItem.order | titleize }}</button>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <button type="button" class="small button" ng-show="sortData.dirty" ng-click="applySort()">Apply</button>
+
 </div>
 

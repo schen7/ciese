@@ -1,48 +1,41 @@
-<div id="profiles-columns" class="row">
-  <div class="large-12 columns">
-    <ul class="button-group">
-      <li><a href="/profiles/filter" class="button">Filter</a></li>
-      <li><a href="/profiles/sort" class="button">Sort</a></li>
-      <li><a href="/profiles" class="button secondary">Columns</a></li>
-      <li><a href="/profiles/programs" class="button">Programs</a></li>
-    </ul>
+<div id="profiles-columns">
 
-    <div class="row">
-      <div class="large-7 columns">
-        <h3 class="subheader">Fields</h3>
-        <div class="panel">
-          <div class="row">
-            <div class="large-4 columns">
-              <div ng-repeat="field in availableColumns().slice(0, 12)">
-                <button type="button" class="tiny button radius" ng-click="addColumn()">{{ field | titleize }}</button>
-              </div>
-            </div>
-            <div class="large-4 columns">
-              <div ng-repeat="field in availableColumns().slice(12, 20)">
-                <button type="button" class="tiny button radius" ng-click="addColumn()">{{ field | titleize }}</button>
-              </div>
-            </div>
-            <div class="large-4 columns">
-              <div ng-repeat="field in availableColumns().slice(20)">
-                <button type="button" class="tiny button radius" ng-click="addColumn()">{{ field | titleize }}</button>
-              </div>
+  <div class="row">
+    <div class="large-7 columns">
+      <h3 class="subheader">Fields</h3>
+      <div class="panel">
+        <div class="row">
+          <div class="large-4 columns">
+            <div ng-repeat="field in availableColumns().slice(0, 12)">
+              <button type="button" class="tiny button radius" ng-click="addColumn()">{{ field | titleize }}</button>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="large-1 columns"> &rarr; </div>
-      <div class="large-4 columns">
-        <h3 class="subheader">Displayed Columns</h3>
-        <div class="panel">
-          <div ng-repeat="field in columns">
-            <button type="button" class="tiny button secondary radius" ng-click="columnUp()" ng-disabled="$first">&uarr;</button>
-            <button type="button" class="tiny button secondary radius" ng-click="columnDown()" ng-disabled="$last">&darr;</button>
-            <button type="button" class="tiny button success radius" ng-click="removeColumn()">{{ field | titleize }}</button>
+          <div class="large-4 columns">
+            <div ng-repeat="field in availableColumns().slice(12, 20)">
+              <button type="button" class="tiny button radius" ng-click="addColumn()">{{ field | titleize }}</button>
+            </div>
+          </div>
+          <div class="large-4 columns">
+            <div ng-repeat="field in availableColumns().slice(20)">
+              <button type="button" class="tiny button radius" ng-click="addColumn()">{{ field | titleize }}</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="large-1 columns"> &rarr; </div>
+    <div class="large-4 columns">
+      <h3 class="subheader">Displayed Columns</h3>
+      <div class="panel">
+        <div ng-repeat="field in columns">
+          <button type="button" class="tiny button secondary radius" ng-click="columnUp()" ng-disabled="$first">&uarr;</button>
+          <button type="button" class="tiny button secondary radius" ng-click="columnDown()" ng-disabled="$last">&darr;</button>
+          <button type="button" class="tiny button success radius" ng-click="removeColumn()">{{ field | titleize }}</button>
+        </div>
+      </div>
+    </div>
   </div>
+
 </div>
 
 

@@ -31,6 +31,18 @@
             <%= link_to image_tag("main/ciese_logo.png", alt: "CIESE Logo"), root_path, {id: "main_ciese_logo"} %>
           </div>
           <div class="large-8 columns">
+            <div id="tools_bar" class="row">
+              <div id="auth_link" class="large-6 columns">
+                <% if logged_in? %>
+                <%= link_to "Log Out", logout_path, method: "delete" %>
+                <% else %>
+                <%= link_to "Log In", login_path %>
+                <% end %>
+              </div>
+              <div id="search_bar" class="large-6 columns">
+                <input type="text" placeholder="Search...">
+              </div>
+            </div>
             <div id="main_menu" class="row" ng-controller="MainMenuCtrl">
               <div class="large-3 columns">
                 <div class="main_menu-item" ng-class="getVisibility('about')">
@@ -87,14 +99,6 @@
             <% flash.each do |key, value| %>
             <div class="alert alert-<%= key %>"><%= value %></div>
             <% end %>
-
-            <div>
-              <% if logged_in? %>
-              <%= link_to "Log Out", logout_path, method: "delete" %>
-              <% else %>
-              <%= link_to "Log In", login_path %>
-              <% end %>
-            </div>
 
             <%= yield %>
 

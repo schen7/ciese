@@ -1,6 +1,6 @@
 angular
   .module('ProfilesApp')
-  .controller 'ProfilesAppCtrl', ['$scope', 'Profile', 'Program', ($scope, Profile, Program) ->
+  .controller 'ProfilesAppCtrl', ['$scope', '$location', 'Profile', 'Program', ($scope, $location, Profile, Program) ->
 
       $scope.generalFields = [
         'ciese_id', 'last_name', 'first_name', 'middle_name', 'prefix', 'title',
@@ -46,4 +46,18 @@ angular
       ]}
 
       $scope.programData = {loaded: false, data: []}
+
+      $scope.options = [
+        {name: 'Filter', path: '/profiles/filter'},
+        {name: 'Sort', path: '/profiles/sort'},
+        {name: 'Columns', path: '/profiles/columns'},
+        {name: 'Programs', path: '/profiles/programs'}
+      ]
+
+      $scope.isHighlighted = ->
+        @option.path is $location.path()
+
+      $scope.getPath = ->
+        if @isHighlighted() then '/profiles' else @option.path
+
   ]

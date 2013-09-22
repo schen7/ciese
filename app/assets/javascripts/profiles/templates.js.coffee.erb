@@ -1,2 +1,12 @@
+//= depend_on ./templates/activities.html
+//= depend_on ./templates/columns.html
+//= depend_on ./templates/edit_profile.html
+//= depend_on ./templates/filters.html
+//= depend_on ./templates/profiles_app.html
+//= depend_on ./templates/profiles_index.html
+//= depend_on ./templates/programs.html
+//= depend_on ./templates/sort.html
+//= depend_on ./templates/view_profile.html
+
 <% environment.context_class.instance_eval { include AngularHelper } %>
 <%= include_templates 'ProfilesApp', 'app/assets/javascripts/profiles/templates' %>

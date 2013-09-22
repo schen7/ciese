@@ -15,4 +15,5 @@ angular
       $location.path("/profiles/#{@profile.id}")
 
     $scope.filterRecords() if not $scope.profileData.loaded
+
   ]
