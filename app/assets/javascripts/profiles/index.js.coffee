@@ -35,7 +35,7 @@ catch error
         ])
 
         .factory('Profile', ['$resource', ($resource) ->
-            $resource('/profiles/:id', {id: '@id'}, {update: {method: 'PUT'}})
+            $resource('/profiles/:id', {id: '@id'}, {search: {method: 'GET'}, update: {method: 'PUT'}})
         ])
 
         .factory('Program', ['$resource', ($resource) ->

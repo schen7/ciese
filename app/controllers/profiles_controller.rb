@@ -24,6 +24,8 @@ class ProfilesController < ApplicationController
     "is" => "= ?"
   }
 
+  RESULTS_PER_PAGE = 20
+
   def index
     respond_to do |format|
       format.html
@@ -33,7 +35,10 @@ class ProfilesController < ApplicationController
         profile_ids = @profiles.uniq.pluck(:id)
         @profiles = Profile.includes(:activities)
         sort(sort_params)
-        render json: @profiles.find(profile_ids), root: false
+        offset = get_offset(profile_ids.count)
+        pages = page_count(profile_ids.count)
+        @profiles = @profiles.limit(RESULTS_PER_PAGE).offset(offset).find(profile_ids)
+        render json: @profiles, meta: pages, meta_key: "pages"
       end
     end
   end
@@ -64,6 +69,16 @@ class ProfilesController < ApplicationController
     params.permit(*SORT_FIELDS, activities_fields).tap do |whitelist|
       whitelist[:activities_attributes] = whitelist.delete(:activities)
     end
+  end
+
+  def get_offset(count)
+    page = params.permit(:page)[:page].to_i
+    if page < 1
+      page = 1
+    elsif page > count
+      page = count
+    end
+    (page - 1) * RESULTS_PER_PAGE
   end
 
   def filters_params
@@ -127,5 +142,9 @@ class ProfilesController < ApplicationController
       "profiles.#{sort_item['field']} #{sort_item['order'].chomp('ending').upcase}"
     end
     @profiles = @profiles.order(*order_strings)
+  end
+
+  def page_count(record_count)
+    (record_count.to_f / RESULTS_PER_PAGE).ceil
   end
 end
