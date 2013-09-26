@@ -2,6 +2,9 @@ angular
   .module('ProfilesApp')
   .controller 'ProfilesIndexCtrl', ['$scope', '$location', 'Profile', ($scope, $location, Profile) ->
 
+    $scope.pages = 20
+    $scope.page = 1
+
     $scope.filterRecords = ->
       $scope.filterData.dirty = false
       $scope.sortData.dirty = false

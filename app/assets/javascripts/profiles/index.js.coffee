@@ -5,7 +5,7 @@ try
     angular.module('ProfilesApp')
 catch error
     angular
-        .module('ProfilesApp', ['ngResource'])
+        .module('ProfilesApp', ['ngResource', 'Common'])
 
         .config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
             $routeProvider
@@ -41,11 +41,6 @@ catch error
         .factory('Program', ['$resource', ($resource) ->
             $resource('/profiles/programs/:id', {id: '@id'}, {update: {method: 'PUT'}})
         ])
-
-        .directive 'stopEvent', ->
-          restrict: 'A'
-          link: (scope, el, attr) ->
-            $(el).on attr.stopEvent, (evt) -> evt.stopPropagation()
 
     $(document).on 'ready page:load', ->
         angular.bootstrap($('#profiles-app').first().get(0), ['ProfilesApp'])

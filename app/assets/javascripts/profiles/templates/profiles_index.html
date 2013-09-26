@@ -1,5 +1,7 @@
 <div id="profiles-index">
 
+  <div pagination pages="pages" page="page"></div>
+
   <div id="profile-list" ng-show="profileData.loaded">
     <p ng-hide="profileData.data.length > 0">No records fit your search criteria.</p>
     <table ng-show="profileData.data.length > 0">
@@ -20,13 +22,6 @@
       </tbody>
     </table>
   </div>
-
-  <div id="view_profile_modal" class="modal-box" ng-show="viewingProfile && !editingProfile" ng-include="'view_profile.html'"></div>
-
-  <div id="edit_profile_modal" class="modal-box" ng-show="viewingProfile && editingProfile" ng-include="'edit_profile.html'"></div>
-
-  <div class="modal-bg" ng-show="viewingProfile" ng-click="doneViewing()"></div>
-
 
 </div>
 

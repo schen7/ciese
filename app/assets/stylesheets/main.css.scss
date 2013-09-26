@@ -545,3 +545,42 @@ button.button.orange, a.button.orange {
     }
   }
 }
+
+ul[pagination] {
+  -webkit-user-select: none;
+  font-size: 0.8em;
+  list-style: none;
+  background: $crumb-bg;
+  padding: emCalc(8);
+  margin-bottom: $inline-list-bottom-margin;
+  border-radius: $crumb-radius;
+  border: $crumb-border-size $crumb-border-style $crumb-border-color;
+  display: inline-block;
+  width: auto;
+  li {
+    display: inline-block;
+    a {
+      padding: emCalc(6) emCalc(10);
+      &:hover {
+        background-color: $primary-color;
+        color: white;
+        border-radius: emCalc(5);
+      }
+      &[disabled] {
+        background-color: none;
+        color: $pagination-link-unavailable-font-color;
+        &:hover {
+          background-color: transparent;
+          cursor: $pagination-link-unavailable-cursor;
+        }
+      }
+    }
+    input {
+      display: inline;
+      width: auto;
+      text-align: center;
+      margin: 0;
+      width: 4em;
+    }
+  }
+}
