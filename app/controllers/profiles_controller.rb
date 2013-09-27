@@ -30,15 +30,17 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        @profiles = Profile.joins(:activities)
+        # TODO: Only do a join if filtering on an activity field
+        @profiles = Profile.joins(:activities).uniq
         filter(filters_params)
-        profile_ids = @profiles.uniq.pluck(:id)
+        record_count = @profiles.count
+        offset = get_offset(record_count)
+        pages = get_pages(record_count)
+        sort(sort_params)
+        profile_ids = @profiles.limit(RESULTS_PER_PAGE).offset(offset).map(&:id)
         @profiles = Profile.includes(:activities)
         sort(sort_params)
-        offset = get_offset(profile_ids.count)
-        pages = page_count(profile_ids.count)
-        @profiles = @profiles.limit(RESULTS_PER_PAGE).offset(offset).find(profile_ids)
-        render json: @profiles, meta: pages, meta_key: "pages"
+        render json: @profiles.find(profile_ids), meta: pages, meta_key: "pages"
       end
     end
   end
@@ -71,12 +73,12 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def get_offset(count)
+  def get_offset(record_count)
     page = params.permit(:page)[:page].to_i
     if page < 1
       page = 1
-    elsif page > count
-      page = count
+    elsif page > record_count
+      page = record_count
     end
     (page - 1) * RESULTS_PER_PAGE
   end
@@ -144,7 +146,7 @@ class ProfilesController < ApplicationController
     @profiles = @profiles.order(*order_strings)
   end
 
-  def page_count(record_count)
+  def get_pages(record_count)
     (record_count.to_f / RESULTS_PER_PAGE).ceil
   end
 end
