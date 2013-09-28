@@ -13,7 +13,7 @@
       </table>
     </div>
 
-    <div ng-repeat="filter in filterData.data">
+    <div ng-repeat="filter in newFilters">
       <div class="filter-separator">&darr;</div>
 
       <div class="filter">
@@ -53,7 +53,7 @@
 
   <hr />
 
-  <button type="button" class="button" ng-show="filterData.dirty" ng-click="applyFilters()">Apply</button>
-  <a class="button secondary" href="/profiles">Cancel</a>
+  <button type="button" class="button" ng-show="dirty" ng-click="applyFilters()">Apply</button>
+  <a class="button secondary" href="/admin/profiles">Cancel</a>
 
 </div>

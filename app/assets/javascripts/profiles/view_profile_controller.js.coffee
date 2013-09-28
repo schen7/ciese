@@ -10,7 +10,7 @@ angular
       , ->
         $scope.profileLoaded = true
       , ->
-        $location.path("/profiles")
+        $location.path("/admin/profiles")
 
     $scope.loadProfile()
 

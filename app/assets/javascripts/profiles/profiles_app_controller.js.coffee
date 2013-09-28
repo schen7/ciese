@@ -48,16 +48,16 @@ angular
       $scope.programData = {loaded: false, data: []}
 
       $scope.options = [
-        {name: 'Filter', path: '/profiles/filter'},
-        {name: 'Sort', path: '/profiles/sort'},
-        {name: 'Columns', path: '/profiles/columns'},
-        {name: 'Programs', path: '/profiles/programs'}
+        {name: 'Filter', path: '/admin/profiles/filter'},
+        {name: 'Sort', path: '/admin/profiles/sort'},
+        {name: 'Columns', path: '/admin/profiles/columns'},
+        {name: 'Programs', path: '/admin/profiles/programs'}
       ]
 
       $scope.isHighlighted = ->
         @option.path is $location.path()
 
       $scope.getPath = ->
-        if @isHighlighted() then '/profiles' else @option.path
+        if @isHighlighted() then '/admin/profiles' else @option.path
 
   ]

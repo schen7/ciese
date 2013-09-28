@@ -9,25 +9,25 @@ catch error
 
         .config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
             $routeProvider
-                .when '/profiles',
+                .when '/admin/profiles',
                     templateUrl: 'profiles_index.html'
                     controller: 'ProfilesIndexCtrl'
-                .when '/profiles/programs',
+                .when '/admin/profiles/programs',
                     templateUrl: 'programs.html'
                     controller: 'ProfilesProgramsCtrl'
-                .when '/profiles/filter',
+                .when '/admin/profiles/filter',
                     templateUrl: 'filters.html'
                     controller: 'ProfilesFiltersCtrl'
-                .when '/profiles/sort',
+                .when '/admin/profiles/sort',
                     templateUrl: 'sort.html'
                     controller: 'ProfilesSortCtrl'
-                .when '/profiles/columns',
+                .when '/admin/profiles/columns',
                     templateUrl: 'columns.html'
                     controller: 'ProfilesColumnsCtrl'
-                .when '/profiles/:id',
+                .when '/admin/profiles/:id',
                     templateUrl: 'view_profile.html'
                     controller: 'ViewProfileCtrl'
-                .when '/profiles/:id/edit',
+                .when '/admin/profiles/:id/edit',
                     templateUrl: 'edit_profile.html'
                     controller: 'EditProfileCtrl'
 
@@ -35,11 +35,11 @@ catch error
         ])
 
         .factory('Profile', ['$resource', ($resource) ->
-            $resource('/profiles/:id', {id: '@id'}, {search: {method: 'GET'}, update: {method: 'PUT'}})
+            $resource('/api/profiles/:id', {id: '@id'}, {search: {method: 'GET'}, update: {method: 'PUT'}})
         ])
 
         .factory('Program', ['$resource', ($resource) ->
-            $resource('/profiles/programs/:id', {id: '@id'}, {update: {method: 'PUT'}})
+            $resource('/api/programs/:id', {id: '@id'}, {update: {method: 'PUT'}})
         ])
 
     $(document).on 'ready page:load', ->

@@ -13,7 +13,7 @@ angular
           activity.end_date = $filter('dateFix')(activity.end_date, 'mediumDate')
         $scope.profileLoaded = true
       , ->
-        $location.path("/profiles")
+        $location.path("/admin/profiles")
 
     loadPrograms = ->
       $scope.programData.data = Program.query ->
@@ -21,7 +21,7 @@ angular
 
     $scope.saveProfile = ->
       $scope.profile.$update ->
-        $location.path("/profiles/#{$scope.profile.id}")
+        $location.path("/admin/profiles/#{$scope.profile.id}")
 
     $scope.getActivities = ->
       $filter('filter')($scope.profile.activities, {_destroy: '!1'})

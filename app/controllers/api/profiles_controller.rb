@@ -1,4 +1,4 @@
-class ProfilesController < ApplicationController
+class Api::ProfilesController < ApplicationController
   FILTER_KINDS = ["Keep only", "Leave out"]
 
   FILTER_ON_OPTIONS = ["all", "any"]
@@ -27,33 +27,24 @@ class ProfilesController < ApplicationController
   RESULTS_PER_PAGE = 20
 
   def index
-    respond_to do |format|
-      format.html
-      format.json do
-        # TODO: Only do a join if filtering on an activity field
-        @profiles = Profile.joins(:activities).uniq
-        filter(filters_params)
-        record_count = @profiles.count
-        offset = get_offset(record_count)
-        pages = get_pages(record_count)
-        sort(sort_params)
-        profile_ids = @profiles.limit(RESULTS_PER_PAGE).offset(offset).map(&:id)
-        @profiles = Profile.includes(:activities)
-        sort(sort_params)
-        render json: @profiles.find(profile_ids), meta: pages, meta_key: "pages"
-      end
-    end
+    # TODO: Only do a join if filtering on an activity field
+    @profiles = Profile.joins(:activities).uniq
+    filter(filters_params)
+    record_count = @profiles.count
+    offset = get_offset(record_count)
+    pages = get_pages(record_count)
+    sort(sort_params)
+    profile_ids = @profiles.limit(RESULTS_PER_PAGE).offset(offset).map(&:id)
+    @profiles = Profile.includes(:activities)
+    sort(sort_params)
+    render json: @profiles.find(profile_ids), meta: pages, meta_key: "pages"
   end
 
+  def create
+  end
+  
   def show
-    respond_to do |format|
-      format.html { render :index }
-      format.json { render json: Profile.find(params[:id]), root: false }
-    end
-  end
-
-  def edit
-    render :index
+    render json: Profile.find(params[:id]), root: false
   end
 
   def update

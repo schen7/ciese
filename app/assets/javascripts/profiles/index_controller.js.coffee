@@ -19,7 +19,7 @@ angular
         $scope.profileData.loaded = true
 
     $scope.viewProfile = ->
-      $location.path("/profiles/#{@profile.id}")
+      $location.path("/admin/profiles/#{@profile.id}")
 
     $scope.quickSort = (newField) ->
       if $scope.sortData.data.length > 0

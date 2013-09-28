@@ -1,13 +1,16 @@
 angular
   .module('ProfilesApp')
   .controller 'ProfilesFiltersCtrl', ['$scope', '$location', ($scope, $location) ->
-    
+
+    $scope.newFilters = angular.copy($scope.filterData.data)
+    $scope.dirty = false
+
     $scope.applyFilters = ->
-      $scope.profileData.loaded = false
-      $location.path '/profiles'
+      $scope.filterData.data = $scope.newFilters
+      $location.path '/admin/profiles'
 
     $scope.addFilter = ->
-      $scope.filterData.data.push
+      $scope.newFilters.push
         kind: 'Keep only'
         on: 'all'
         conditions: [
@@ -17,11 +20,11 @@ angular
         ]
 
     $scope.removeFilter = ->
-      $scope.filterData.data.splice(@$index, 1)
+      $scope.newFilters.splice(@$index, 1)
       $scope.checkFilters()
 
     $scope.checkFilters = ->
-      $scope.addFilter() if $scope.filterData.data.length == 0
+      $scope.addFilter() if $scope.newFilters.length == 0
 
     $scope.addCondition = ->
       @filter.conditions.push
@@ -48,8 +51,9 @@ angular
 
     $scope.checkFilters()
 
-    $scope.$watch 'filterData.data', (newVal, oldVal) ->
-      $scope.filterData.dirty = true if newVal isnt oldVal
+    $scope.$watch 'newFilters', (newVal, oldVal) ->
+      $scope.dirty = true if newVal isnt oldVal
+      console.log $scope.dirty
     , true
 
   ]
