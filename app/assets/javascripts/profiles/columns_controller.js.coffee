@@ -2,6 +2,20 @@ angular
   .module('ProfilesApp')
   .controller 'ProfilesColumnsCtrl', ['$scope', '$location', ($scope, $location) ->
 
+    $scope.notesAndActivitiesFields = $scope.notesFields.concat(['activities'])
+
+    $scope.availableGeneralFields = ->
+      (f for f in $scope.generalFields when f not in $scope.columns)
+
+    $scope.availableWorkFields = ->
+      (f for f in $scope.workFields when f not in $scope.columns)
+
+    $scope.availableHomeFields = ->
+      (f for f in $scope.homeFields when f not in $scope.columns)
+
+    $scope.availableNotesAndActivitiesFields = ->
+      (f for f in $scope.notesAndActivitiesFields when f not in $scope.columns)
+
     $scope.addColumn = ->
       $scope.columns.push(@field)
 

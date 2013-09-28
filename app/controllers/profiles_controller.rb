@@ -74,13 +74,14 @@ class ProfilesController < ApplicationController
   end
 
   def get_offset(record_count)
-    page = params.permit(:page)[:page].to_i
-    if page < 1
-      page = 1
-    elsif page > record_count
-      page = record_count
+    offset = (params.permit(:page)[:page].to_i - 1) * RESULTS_PER_PAGE
+    if offset < 0
+      0
+    elsif offset > record_count
+      record_count
+    else
+      offset
     end
-    (page - 1) * RESULTS_PER_PAGE
   end
 
   def filters_params

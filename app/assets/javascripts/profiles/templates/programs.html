@@ -1,36 +1,40 @@
 <div id="profiles-programs">
 
+  <h2>Current Programs and Details</h2>
+
   <div class="row">
     <div class="large-4 columns">
-      <h3 class="subheader">Programs</h3>
-    </div>
-    <div class="large-4 columns">
-      <h3 class="subheader">Details</h3>
-    </div>
-    <div class="large-4 columns">
+      <table>
+        <thead>
+          <tr>
+            <th>Program</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="program in programData.data | orderBy: 'name'">
+            <td><a ng-click="editProgram()">{{ program.name }}</a></td>
+            <td>
+              <div ng-repeat="detail in program.details">{{ detail }}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <div class="row" ng-repeat="program in programData.data | orderBy:'name'">
-    <div class="large-4 columns"><a ng-click="editProgram()">{{ program.name }}</a></div>
-    <div class="large-4 columns">
-      <div ng-repeat="detail in program.details">{{ detail }}</div>
-    </div>
-    <div class="large-4 columns">
-    </div>
-  </div>
-
-  <button type="button" class="small orange button" ng-click="editProgram()">Add Program</button>
+  <button type="button" class="button" ng-click="editProgram()">Add Program</button>
+  <a class="button secondary" href="/profiles">Cancel</a>
 
   <div class="modal-box" ng-show="programEditor.editing">
     <h2>Edit Program and Details</h2>
     <div class="row">
       <div class="large-6 columns">
-        <h3 class="subheader">Program</h3>
+        <h2 class="subheader">Program</h2>
         <input type="text" ng-model="programEditor.program.name" placeholder="Enter program name...">
       </div>
       <div class="large-6 columns">
-        <h3 class="subheader">Details</h3>
+        <h2 class="subheader">Details</h2>
         <div class="row collapse" ng-repeat="detail in programEditor.program.details | filter:{removed: 'no'}">
           <div class="small-11 columns">
             <input type="text" ng-model="detail.name" placeholder="Enter detail name...">

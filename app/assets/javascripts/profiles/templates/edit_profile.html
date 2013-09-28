@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="large-6 columns field_group">
-      <h3 class="subheader">General Information</h3>
+      <h2 class="subheader">General Information</h2>
       <div class="row field_row" ng-repeat="field in generalFields" ng-class-odd="'alt_row'">
         <div class="large-4 columns"><strong>{{ field | titleize }}</strong></div>
         <div class="large-8 columns">
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="large-6 columns field_group">
-      <h3 class="subheader">Notes</h3>
+      <h2 class="subheader">Notes</h2>
       <div class="row field_row" ng-repeat="field in notesFields" ng-class-odd="'alt_row'">
         <div class="large-4 columns"><strong>{{ field | titleize }}</strong></div>
         <div class="large-8 columns">
@@ -24,7 +24,7 @@
 
   <div class="row">
     <div class="large-6 columns field_group">
-      <h3 class="subheader">Work Contact Information</h3>
+      <h2 class="subheader">Work Contact Information</h2>
       <div class="row field_row" ng-repeat="field in workFields" ng-class-odd="'alt_row'">
         <div class="large-4 columns"><strong>{{ field | titleize }}</strong></div>
         <div class="large-8 columns">
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="large-6 columns field_group">
-      <h3 class="subheader">Home Contact Information</h3>
+      <h2 class="subheader">Home Contact Information</h2>
       <div class="row field_row" ng-repeat="field in homeFields" ng-class-odd="'alt_row'">
         <div class="large-4 columns"><strong>{{ field.replace('home_', '') | titleize }}</strong></div>
         <div class="large-8 columns">
@@ -45,7 +45,7 @@
 
   <div class="row">
     <div class="large-12 columns field_group">
-      <h3 class="subheader">Activities</h3>
+      <h2 class="subheader">Activities</h2>
       <div ng-hide="getActivities().length > 0">No activities yet.</div>
       <div ng-show="getActivities().length > 0">
         <div class="row field_row alt_row">
@@ -83,9 +83,9 @@
 
   <div class="row">
     <div class="large-12 columns">
-      <button type="button" class="small button" ng-click="saveProfile()">Save</button>
-      <a class="small button secondary" href="/profiles/{{ profile.id }}">Cancel</a>
-      <a class="small button secondary" href="/profiles">Done</a>
+      <button type="button" class="button" ng-click="saveProfile()">Save</button>
+      <a class="button secondary" href="/profiles/{{ profile.id }}">Cancel</a>
+      <a class="button secondary" href="/profiles">Cancel and Back to List</a>
     </div>
   </div>
 

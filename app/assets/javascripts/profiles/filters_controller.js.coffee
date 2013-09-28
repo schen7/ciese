@@ -18,6 +18,10 @@ angular
 
     $scope.removeFilter = ->
       $scope.filterData.data.splice(@$index, 1)
+      $scope.checkFilters()
+
+    $scope.checkFilters = ->
+      $scope.addFilter() if $scope.filterData.data.length == 0
 
     $scope.addCondition = ->
       @filter.conditions.push
@@ -41,6 +45,8 @@ angular
         options = $scope.stringComparisonOptions
       @condition.comparison = options[0] if @condition.comparison not in options
       options
+
+    $scope.checkFilters()
 
     $scope.$watch 'filterData.data', (newVal, oldVal) ->
       $scope.filterData.dirty = true if newVal isnt oldVal

@@ -8,6 +8,9 @@ angular
       $scope.profile = Profile.get
         id: $routeParams.id
       , ->
+        for activity in $scope.profile.activities
+          activity.start_date = $filter('dateFix')(activity.start_date, 'mediumDate')
+          activity.end_date = $filter('dateFix')(activity.end_date, 'mediumDate')
         $scope.profileLoaded = true
       , ->
         $location.path("/profiles")

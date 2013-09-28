@@ -1,40 +1,81 @@
 <div id="profiles-columns">
 
+  <h2>Column Selection</h2>
+
   <div class="row">
+
     <div class="large-7 columns">
-      <h3 class="subheader">Fields</h3>
-      <div class="panel">
-        <div class="row">
-          <div class="large-4 columns">
-            <div ng-repeat="field in availableColumns().slice(0, 12)">
-              <button type="button" class="tiny button radius" ng-click="addColumn()">{{ field | titleize }}</button>
-            </div>
-          </div>
-          <div class="large-4 columns">
-            <div ng-repeat="field in availableColumns().slice(12, 20)">
-              <button type="button" class="tiny button radius" ng-click="addColumn()">{{ field | titleize }}</button>
-            </div>
-          </div>
-          <div class="large-4 columns">
-            <div ng-repeat="field in availableColumns().slice(20)">
-              <button type="button" class="tiny button radius" ng-click="addColumn()">{{ field | titleize }}</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h2 class="subheader">Available Fields</h2>
+      <table id="column-fields">
+        <thead>
+          <tr>
+            <th>General</th>
+            <th>Work Info</th>
+            <th>Home Info</th>
+            <th>Notes &amp; Activities</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div ng-repeat="field in availableGeneralFields()">
+                <a ng-click="addColumn()">{{ field | titleize }}</a>
+              </div>
+            </td>
+            <td>
+              <div ng-repeat="field in availableWorkFields()">
+                <a ng-click="addColumn()">{{ field | titleize }}</a>
+              </div>
+            </td>
+            <td>
+              <div ng-repeat="field in availableHomeFields()">
+                <a ng-click="addColumn()">{{ field | titleize }}</a>
+              </div>
+            </td>
+            <td>
+              <div ng-repeat="field in availableNotesAndActivitiesFields()">
+                <a ng-click="addColumn()">{{ field | titleize }}</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="large-1 columns"> &rarr; </div>
-    <div class="large-4 columns">
-      <h3 class="subheader">Displayed Columns</h3>
-      <div class="panel">
-        <div ng-repeat="field in columns">
-          <button type="button" class="tiny button secondary radius" ng-click="columnUp()" ng-disabled="$first">&uarr;</button>
-          <button type="button" class="tiny button secondary radius" ng-click="columnDown()" ng-disabled="$last">&darr;</button>
-          <button type="button" class="tiny button success radius" ng-click="removeColumn()">{{ field | titleize }}</button>
+
+    <div class="large-5 columns">
+      <div class="row">
+        <div class="large-2 columns side_arrow">
+          <h2 class="subheader">&nbsp;</h2>
+          <div>&rarr;</div>
+        </div>
+
+        <div class="large-10 columns">
+          <h2 class="subheader">Displayed Columns</h2>
+          <div ng-hide="columns.length > 0">No columns selected.</div>
+          <table id="column-order" ng-show="columns.length > 0">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="field in columns">
+                <td>{{ field | titleize }}</td>
+                <td>
+                  <button type="button" class="tiny button secondary radius" ng-click="columnUp()" ng-disabled="$first">&uarr;</button>
+                  <button type="button" class="tiny button secondary radius" ng-click="columnDown()" ng-disabled="$last">&darr;</button>
+                  <button class="tiny button secondary radius" ng-click="removeColumn()">-</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
+
+  <a href="/profiles" class="button">Done</a>
 
 </div>
 

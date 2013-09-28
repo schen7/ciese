@@ -2,6 +2,7 @@ angular
   .module('ProfilesApp')
   .controller 'ProfilesIndexCtrl', ['$scope', '$location', 'Profile', ($scope, $location, Profile) ->
 
+    $scope.profileData.loaded = false
     $scope.pages = null
     $scope.page = 1
 
@@ -20,9 +21,16 @@ angular
     $scope.viewProfile = ->
       $location.path("/profiles/#{@profile.id}")
 
-    $scope.filterRecords() if not $scope.profileData.loaded
+    $scope.quickSort = (newField) ->
+      if $scope.sortData.data.length > 0
+        {field, order} = $scope.sortData.data[0]
+        if newField is field
+          order = if order is 'ascending' then 'descending' else 'ascending'
+        else
+          order = 'ascending'
+      $scope.sortData.data = [{field: newField, order: order ? 'ascending'}]
+      $scope.filterRecords()
 
     $scope.$watch 'page', $scope.filterRecords
-
 
   ]

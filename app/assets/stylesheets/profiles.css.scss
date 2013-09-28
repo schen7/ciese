@@ -1,6 +1,5 @@
 #profiles-app {
   #options {
-    font-size: 0.8em;
     background-color: $crumb-bg;
     padding: emCalc(8);
     margin-bottom: $inline-list-bottom-margin;
@@ -34,7 +33,7 @@
     overflow-x: auto;
     margin-bottom: 1.25em;
     table {
-      margin-bottom: 0;
+    margin-bottom: 0;
       min-width: 100%;
       width: 100%;
       tbody {
@@ -43,8 +42,17 @@
             background-color: #ddeef9;
           }
           td {
+            font-size: emCalc(12);
             min-width: 150px;
             width: 150px;
+            ul.activities {
+              padding: 0;
+              margin: 0;
+              list-style: none;
+              li {
+                white-space: nowrap;
+              }
+            }
           }
         }
       }
@@ -67,17 +75,12 @@
         th {
           position: relative;
           padding-right: 4em;
-          a {
-            color: #222;
-            text-decoration: underline;
-          }
           a.remove_filter_button {
             position: absolute;
             top: 0;
             right: 0;
             text-decoration: none;
             color: #aaa;
-            font-size: 1.25em;
             padding: 0 2px;
           }
         }
@@ -126,9 +129,66 @@
 
 }
 
-#profiles-index, #profiles-programs {
+#profiles-index {
+  .pagination-top {
+    float: right;
+  }
+}
+
+#profiles-sort {
+  table#sort-fields {
+    width: 100%;
+    td {
+      vertical-align: top;
+      line-height: 1.6;
+    }
+  }
+  .columns.side_arrow {
+    text-align: center;
+  }
+  table#sort-order {
+    width: 100%;
+    button {
+      margin-bottom: 0;
+      &:last-child {
+        float: right;
+      }
+    }
+  }
+}
+
+#profiles-columns {
+  table#column-fields {
+    width: 100%;
+    td {
+      vertical-align: top;
+      line-height: 1.6;
+    }
+  }
+  .columns.side_arrow {
+    text-align: center;
+  }
+  table#column-order {
+    width: 100%;
+    button {
+      margin-bottom: 0;
+      &:last-child {
+        float: right;
+      }
+    }
+  }
+}
+
+#profiles-programs {
+  table {
+    width: 100%;
+    tr td {
+      padding-right: emCalc(30);
+      line-height: 1.2;
+      vertical-align: top;
+    }
+  }
   .modal-box {
-    font-size: 0.8em;
     position: absolute;
     top: -4%;
     left: 5%;

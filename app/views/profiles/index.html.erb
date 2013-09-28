@@ -9,13 +9,6 @@
 
   <h1>CIESE Participant Profiles</h1>
 
-  <div id="options">
-    <ul class="inline-list">
-      <li id="options-label">Options:</li>
-      <li ng-repeat="option in options"><a href="{{ getPath() }}" ng-class="{highlighted: isHighlighted()}" ng-bind="option.name" ng-disabled="isHighlighted()"></a></li>
-    </ul>
-  </div>
-
   <div ng-view></div>
 
 </div>
