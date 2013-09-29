@@ -46,7 +46,7 @@
   <div class="row">
     <div class="large-12 columns field_group">
       <h2 class="subheader">Activities</h2>
-      <div ng-hide="getActivities().length > 0">No activities yet.</div>
+      <p ng-hide="getActivities().length > 0">No activities yet.</p>
       <div ng-show="getActivities().length > 0">
         <div class="row field_row alt_row">
           <div class="small-3 columns"><strong>Program</strong></div>
@@ -74,6 +74,8 @@
             <button type="button" class="small button secondary radius" ng-click="removeActivity()">&#215;</button>
           </div>
         </div>
+      </div>
+      <div>
         <button type="button" class="small button secondary radius" ng-click="addActivity()">Add Activity</button>
       </div>
     </div>

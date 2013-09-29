@@ -48,6 +48,7 @@ angular
       $scope.programData = {loaded: false, data: []}
 
       $scope.options = [
+        {name: 'New', path: '/admin/profiles/new'},
         {name: 'Filter', path: '/admin/profiles/filter'},
         {name: 'Sort', path: '/admin/profiles/sort'},
         {name: 'Columns', path: '/admin/profiles/columns'},

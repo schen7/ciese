@@ -11,7 +11,8 @@ Ciese::Application.routes.draw do
   end
 
   namespace :admin do
-    get "profiles/*extra", to: "profiles#index", as: :profiles
+    get "profiles", to: "profiles#index", as: :profiles
+    get "profiles/*extra", to: "profiles#index", as: :profiles_sub
   end
 
   namespace :api do

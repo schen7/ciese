@@ -1,29 +1,21 @@
 class Api::ProfilesController < ApplicationController
   FILTER_KINDS = ["Keep only", "Leave out"]
-
   FILTER_ON_OPTIONS = ["all", "any"]
-
   SORT_FIELDS = Profile.attribute_names.reject do |name|
     ['id', 'user_id', 'created_at', 'updated_at'].include?(name)
   end
-
   FILTER_FIELDS = SORT_FIELDS + ['program', 'detail', 'start_date', 'end_date']
-
-  COLUMN_FIELDS = SORT_FIELDS + ['activities']
-
   STRING_COMPARISON_OPTIONS = {
     "starts with" => "ILIKE ? || '%'",
     "ends with" => "ILIKE '%' || ?",
     "contains" => "ILIKE '%' || ? || '%'",
     "is" => "ILIKE ?"
   }
-
   DATE_COMPARISON_OPTIONS = {
     "is after" => "> ?",
     "is before" => "< ?",
     "is" => "= ?"
   }
-
   RESULTS_PER_PAGE = 20
 
   def index
@@ -41,8 +33,12 @@ class Api::ProfilesController < ApplicationController
   end
 
   def create
+    @profile = Profile.new(profile_params)
+    if @profile.save
+      render json: @profile, root: false
+    end
   end
-  
+
   def show
     render json: Profile.find(params[:id]), root: false
   end

@@ -4,6 +4,11 @@ angular
 
     $scope.profileLoaded = false
 
+    newProfile = ->
+      $scope.profile = new Profile()
+      $scope.profile.activities = []
+      $scope.profileLoaded = true
+
     loadProfile = ->
       $scope.profile = Profile.get
         id: $routeParams.id
@@ -20,8 +25,12 @@ angular
         $scope.programData.loaded = true
 
     $scope.saveProfile = ->
-      $scope.profile.$update ->
-        $location.path("/admin/profiles/#{$scope.profile.id}")
+      if $scope.profile.id
+        $scope.profile.$update ->
+          $location.path("/admin/profiles/#{$scope.profile.id}")
+      else
+        $scope.profile.$save ->
+          $location.path("/admin/profiles/#{$scope.profile.id}")
 
     $scope.getActivities = ->
       $filter('filter')($scope.profile.activities, {_destroy: '!1'})
@@ -36,7 +45,11 @@ angular
         start_date: ''
         end_date: ''
 
-    loadProfile()
+    if $routeParams.id
+      loadProfile()
+    else
+      newProfile()
+      
     loadPrograms()
 
   ])

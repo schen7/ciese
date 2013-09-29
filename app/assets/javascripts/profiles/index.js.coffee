@@ -24,6 +24,9 @@ catch error
                 .when '/admin/profiles/columns',
                     templateUrl: 'columns.html'
                     controller: 'ProfilesColumnsCtrl'
+                .when '/admin/profiles/new',
+                    templateUrl: 'edit_profile.html'
+                    controller: 'EditProfileCtrl'
                 .when '/admin/profiles/:id',
                     templateUrl: 'view_profile.html'
                     controller: 'ViewProfileCtrl'
