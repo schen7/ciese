@@ -31,7 +31,6 @@ guard :rspec, all_on_start: false, all_after_pass: false, zeus: false, bundler: 
   end
 end
 
-
 guard 'livereload' do
   watch(%r{app/views/.+\.(erb|haml|slim)$})
   watch(%r{app/helpers/.+\.rb})

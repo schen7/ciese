@@ -1,5 +1,11 @@
 <% provide(:title, 'Log In') %>
 
+<% provide :js do %>
+  <script type="text/javascript">
+    $(function() { $("#username").focus(); });
+  </script>
+<% end %>
+
 <div class="row">
   <div class="large-12 columns">
     <h1>Log In</h1>
@@ -24,9 +30,9 @@
     <div>
       <%= submit_tag "Log In", class: "small button" %>
     </div>
+    
+    <% end %>
 
   </div>
-  <div class="large-8 columns"></div>
+  <div class="large-8 columns">&nbsp;</div>
 </div>
-
-<% end %>

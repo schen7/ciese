@@ -41,7 +41,18 @@ module SessionsHelper
     end
   end
 
+  def require_staff
+    not_authorized unless current_user && current_user.active? &&
+    current_user.staff?
+  end
+
   def require_admin
-    not_authorized unless current_user && current_user.active? && current_user.admin?
+    not_authorized unless current_user && current_user.active? &&
+    current_user.admin?
+  end
+
+  def require_staff_or_admin
+    not_authorized unless current_user && current_user.active? &&
+    (current_user.staff?  || current_user.admin?)
   end
 end

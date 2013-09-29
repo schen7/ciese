@@ -18,7 +18,7 @@ describe "AuthenticationPages" do
       context "with invalid info" do
         before { click_button "Log In" }
 
-        it { should have_selector('div.alert.alert-error', text: "Your username/password combination is not correct.") }
+        it { should have_selector('div.alert-box.alert', text: "Your username/password combination is not correct.") }
       end
 
       context "with valid info" do

@@ -18,6 +18,9 @@ class Api::ProfilesController < ApplicationController
   }
   RESULTS_PER_PAGE = 20
 
+  before_action :require_login
+  before_action :require_staff_or_admin
+
   def index
     # TODO: Only do a join if filtering on an activity field
     @profiles = Profile.joins(:activities).uniq

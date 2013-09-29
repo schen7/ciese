@@ -7,7 +7,7 @@ describe "UserPages" do
   describe "list users page" do
     let(:path) { users_path }
 
-    it_behaves_like "a page that requires an admin user"
+    it_behaves_like "a page that requires an active admin user"
 
     context "when visited by an admin user" do
       let(:admin) { create(:admin) }
@@ -58,7 +58,7 @@ describe "UserPages" do
     let(:user) { create(:user) }
     let(:path) { user_path(user) }
 
-    it_behaves_like "a page that requires an admin user"
+    it_behaves_like "a page that requires an active admin user"
 
     context "when visited by an admin user" do
       let(:admin) { create(:admin) }
@@ -81,7 +81,7 @@ describe "UserPages" do
     let(:user) { create(:user) }
     let(:path) { edit_user_path(user) }
 
-    it_behaves_like "a page that requires an admin user"
+    it_behaves_like "a page that requires an active admin user"
 
     context "when visited by an admin user" do
       let(:admin) { create(:admin) }
@@ -98,7 +98,7 @@ describe "UserPages" do
         context "without any changes" do
           before { click_button "Save" }
 
-          it { should have_selector('.alert-success', text: 'Profile updated.') }
+          it { should have_selector('.success', text: 'Profile updated.') }
         end
 
         context "with invalid information" do
@@ -108,7 +108,7 @@ describe "UserPages" do
             click_button "Save"
           end
 
-          it { should have_selector('.alert-error', text: 'error') }
+          it { should have_selector('.alert', text: 'error') }
         end
       
         context "with valid information" do
@@ -124,7 +124,7 @@ describe "UserPages" do
           end
 
           it "should be successful" do
-            expect(page).to have_selector('.alert-success', text: 'Profile updated.')
+            expect(page).to have_selector('.success', text: 'Profile updated.')
             expect(page).to have_content('new.username')
             expect(page).to have_content('new.email@none.com')
           end

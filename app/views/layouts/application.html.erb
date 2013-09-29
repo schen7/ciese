@@ -97,7 +97,7 @@
 
           <div class="large-12 columns">
             <% flash.each do |key, value| %>
-            <div class="alert alert-<%= key %>"><%= value %></div>
+            <div class="alert-box <%= key %>"><%= value %></div>
             <% end %>
 
             <%= yield %>

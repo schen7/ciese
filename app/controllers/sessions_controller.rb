@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       log_in(user)
       redirect_back_or(root_path)
     else
-      flash.now[:error] = "Your username/password combination is not correct."
+      flash.now[:alert] = "Your username/password combination is not correct."
       render :new
     end
   end

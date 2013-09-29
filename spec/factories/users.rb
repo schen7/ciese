@@ -11,9 +11,12 @@ FactoryGirl.define do
     staff false
     active true
   
+    factory :staff do
+      staff true
+    end
+
     factory :admin do
       admin true
-      staff true
     end
   end
 end
