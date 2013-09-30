@@ -7,7 +7,7 @@ describe Api::ProfilesController do
     let(:action) { :index }
     let(:params) { }
 
-    it_behaves_like "an action that requires an active staff or admin user"
+    it_behaves_like "an api action that requires an active staff or admin user"
 
     context "when accessed by an authorized user" do
       let(:staff) { create(:staff) }
@@ -31,7 +31,7 @@ describe Api::ProfilesController do
     let(:action) { :create }
     let(:params) { }
 
-    it_behaves_like "an action that requires an active staff or admin user"
+    it_behaves_like "an api action that requires an active staff or admin user"
   end
 
   describe "GET #show" do
@@ -39,7 +39,7 @@ describe Api::ProfilesController do
     let(:action) { :show }
     let(:params) { {id: 1} }
 
-    it_behaves_like "an action that requires an active staff or admin user"
+    it_behaves_like "an api action that requires an active staff or admin user"
   end
 
   describe "PUT #update" do
@@ -47,7 +47,7 @@ describe Api::ProfilesController do
     let(:action) { :update }
     let(:params) { {id: 1} }
 
-    it_behaves_like "an action that requires an active staff or admin user"
+    it_behaves_like "an api action that requires an active staff or admin user"
   end
 
 end

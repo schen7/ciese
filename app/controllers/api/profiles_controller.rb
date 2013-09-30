@@ -18,8 +18,8 @@ class Api::ProfilesController < ApplicationController
   }
   RESULTS_PER_PAGE = 20
 
-  before_action :require_login
-  before_action :require_staff_or_admin
+  before_action :api_require_login
+  before_action :api_require_staff_or_admin
 
   def index
     # TODO: Only do a join if filtering on an activity field
