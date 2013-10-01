@@ -25,7 +25,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '2.2.1'
 # gem 'jquery-fileupload-rails', '0.4.1'
 gem 'angularjs-rails', '1.0.8'
-gem 'compass-rails', '1.0.3'
+# gem 'compass-rails', '1.0.3'
 gem 'zurb-foundation', '4.3.1'
 
 group :development, :test do
