@@ -4,7 +4,7 @@ server "155.246.234.183", :web, :app, :db, primary: true
 
 set :application, "ciese"
 set :user, "ciese"
-set :deply_to, "/var/website/rails/ciese"
+set :deploy_to, "/var/website/rails/ciese"
 set :deploy_via, :remote_cache
 set :user_sudo, false
 
@@ -13,7 +13,7 @@ set :repository,  "git@bitbucket.org:jsayres/ciese.git"
 set :branch, "master"
 
 default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
+# ssh_options[:forward_agent] = true
 
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
