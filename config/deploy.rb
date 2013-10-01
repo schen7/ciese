@@ -6,7 +6,7 @@ set :application, "ciese"
 set :user, "ciese"
 set :deploy_to, "/var/website/rails/ciese"
 set :deploy_via, :remote_cache
-set :user_sudo, false
+set :use_sudo, false
 
 set :scm, "git"
 set :repository,  "git@bitbucket.org:jsayres/ciese.git"
