@@ -12,6 +12,7 @@ gem 'jbuilder', '1.0.2'
 # gem 'carrierwave', '0.8.0'
 gem 'active_model_serializers', '0.8.1'
 # gem 'ejs', '1.1.1'
+gem 'faker', '1.2.0'
 
 # Assets
 gem 'jquery-rails', '2.2.1'
@@ -37,7 +38,6 @@ group :development, :test do
   gem 'childprocess', '0.3.9'
   # gem 'meta_request'
   gem 'factory_girl_rails', '4.2.1'
-  gem 'faker', '1.2.0'
   # gem 'database_cleaner', '1.0.1'
   # gem 'capybara-webkit', '1.0.0'
   # gem 'jasmine'
