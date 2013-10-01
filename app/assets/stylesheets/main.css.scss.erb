@@ -2,7 +2,7 @@ $headerHeight: 125px;
 $orange: #ea6600;
 
 body {
-	background: #006c9e url('main/bg_gradient.png') repeat-x top;
+	background: #006c9e url(<%= asset_path 'main/bg_gradient.png' %>) repeat-x top;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -11,7 +11,7 @@ body {
 }
 
 #header {
-  background: #fff url('main/header.png') no-repeat top center;
+  background: #fff url(<%= asset_path 'main/header.png' %>) no-repeat top center;
   height: $headerHeight;
   border-radius: 0 0 10px 10px;
 }
