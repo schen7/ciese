@@ -23,7 +23,7 @@ class Api::ProfilesController < ApplicationController
 
   def index
     # TODO: Only do a join if filtering on an activity field
-    @profiles = Profile.joins(:activities).uniq
+    @profiles = Profile.joins("LEFT JOIN activities ON profiles.id = activities.profile_id").uniq
     filter(filters_params)
     record_count = @profiles.count
     offset = get_offset(record_count)
