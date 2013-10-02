@@ -16,7 +16,7 @@ angular
       if typeof(date) isnt "string"
         $filter('date')(date, format)
       else
-        offset = (new Date()).getTimezoneOffset() / 60
+        offset = new Date(Date.parse(date)).getTimezoneOffset() / 60
         offsetString = switch
           when Math.abs(offset) > 9 then "#{offset}"
           else "0#{offset}"
