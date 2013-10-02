@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130901220013) do
+ActiveRecord::Schema.define(version: 20131002045422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,19 @@ ActiveRecord::Schema.define(version: 20130901220013) do
     t.text     "memo2"
     t.text     "memo3"
   end
+
+  add_index "profiles", ["affiliation"], name: "index_profiles_on_affiliation", using: :btree
+  add_index "profiles", ["ciese_id"], name: "index_profiles_on_ciese_id", using: :btree
+  add_index "profiles", ["city"], name: "index_profiles_on_city", using: :btree
+  add_index "profiles", ["district"], name: "index_profiles_on_district", using: :btree
+  add_index "profiles", ["email1"], name: "index_profiles_on_email1", using: :btree
+  add_index "profiles", ["email2"], name: "index_profiles_on_email2", using: :btree
+  add_index "profiles", ["first_name"], name: "index_profiles_on_first_name", using: :btree
+  add_index "profiles", ["home_city"], name: "index_profiles_on_home_city", using: :btree
+  add_index "profiles", ["home_state"], name: "index_profiles_on_home_state", using: :btree
+  add_index "profiles", ["last_name", "first_name"], name: "index_profiles_on_last_name_and_first_name", using: :btree
+  add_index "profiles", ["last_name"], name: "index_profiles_on_last_name", using: :btree
+  add_index "profiles", ["state"], name: "index_profiles_on_state", using: :btree
 
   create_table "programs", force: true do |t|
     t.string   "name"

@@ -4,7 +4,8 @@ class Api::ProfilesController < ApplicationController
   SORT_FIELDS = Profile.attribute_names.reject do |name|
     ['id', 'user_id', 'created_at', 'updated_at'].include?(name)
   end
-  FILTER_FIELDS = SORT_FIELDS + ['program', 'detail', 'start_date', 'end_date']
+  ACTIVITY_FIELDS = ['program', 'detail', 'start_date', 'end_date']
+  FILTER_FIELDS = SORT_FIELDS + ACTIVITY_FIELDS
   STRING_COMPARISON_OPTIONS = {
     "starts with" => "ILIKE ? || '%'",
     "ends with" => "ILIKE '%' || ?",
@@ -23,7 +24,12 @@ class Api::ProfilesController < ApplicationController
 
   def index
     # TODO: Only do a join if filtering on an activity field
-    @profiles = Profile.joins("LEFT JOIN activities ON profiles.id = activities.profile_id").uniq
+    @profiles = Profile.uniq
+    if filters_use_activities_fields
+      @profiles = @profiles.joins(
+        "LEFT JOIN activities ON profiles.id = activities.profile_id"
+      )
+    end
     filter(filters_params)
     record_count = @profiles.count
     offset = get_offset(record_count)
@@ -54,6 +60,13 @@ class Api::ProfilesController < ApplicationController
   end
 
   private
+
+  def filters_use_activities_fields
+    filter_fields = filters_params.flat_map do |f|
+      f['conditions'].map { |c| c['field'] }
+    end
+    !filter_fields.select { |f| ACTIVITY_FIELDS.include?(f) }.empty?
+  end
 
   def profile_params
     activities_fields = {activities: [:id, :program, :detail,
@@ -115,7 +128,7 @@ class Api::ProfilesController < ApplicationController
     if !FILTER_FIELDS.include?(field)
       nil
     end
-    if ['program', 'detail', 'start_date', 'end_date'].include?(field)
+    if ACTIVITY_FIELDS.include?(field)
       field = "activities.#{field}"
     end
     field

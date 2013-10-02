@@ -5,19 +5,24 @@ angular
     $scope.newFilters = angular.copy($scope.filterData.data)
     $scope.dirty = false
 
+    defaultFilter =
+      kind: 'Keep only'
+      on: 'all'
+      conditions: [
+        field: 'last_name'
+        comparison: 'starts with'
+        value: ''
+      ]
+
     $scope.applyFilters = ->
-      $scope.filterData.data = $scope.newFilters
+      $scope.filterData.data = if filtersBlank() then [] else $scope.newFilters
       $location.path '/admin/profiles'
 
+    filtersBlank = ->
+      angular.equals($scope.newFilters[0], defaultFilter)
+
     $scope.addFilter = ->
-      $scope.newFilters.push
-        kind: 'Keep only'
-        on: 'all'
-        conditions: [
-          field: 'last_name'
-          comparison: 'starts with'
-          value: ''
-        ]
+      $scope.newFilters.push(angular.copy(defaultFilter))
 
     $scope.removeFilter = ->
       $scope.newFilters.splice(@$index, 1)
@@ -53,7 +58,6 @@ angular
 
     $scope.$watch 'newFilters', (newVal, oldVal) ->
       $scope.dirty = true if newVal isnt oldVal
-      console.log $scope.dirty
     , true
 
   ]
