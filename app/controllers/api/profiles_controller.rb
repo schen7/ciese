@@ -24,14 +24,18 @@ class Api::ProfilesController < ApplicationController
 
   def index
     # TODO: Only do a join if filtering on an activity field
-    @profiles = Profile.uniq
+    @profiles = Profile
     if filters_use_activities_fields
       @profiles = @profiles.joins(
         "LEFT JOIN activities ON profiles.id = activities.profile_id"
       )
+      filter(filters_params)
+      record_count = @profiles.uniq.count
+      @profiles = @profiles.group('profiles.id')
+    else
+      filter(filters_params)
+      record_count = @profiles.count
     end
-    filter(filters_params)
-    record_count = @profiles.count
     offset = get_offset(record_count)
     pages = get_pages(record_count)
     sort(sort_params)
@@ -61,16 +65,10 @@ class Api::ProfilesController < ApplicationController
 
   private
 
-  def filters_use_activities_fields
-    filter_fields = filters_params.flat_map do |f|
-      f['conditions'].map { |c| c['field'] }
-    end
-    !filter_fields.select { |f| ACTIVITY_FIELDS.include?(f) }.empty?
-  end
-
   def profile_params
-    activities_fields = {activities: [:id, :program, :detail,
-                                      :start_date, :end_date, :_destroy]}
+    activities_fields = {
+      activities: [:id, :program, :detail, :start_date, :end_date, :_destroy]
+    }
     params.permit(*SORT_FIELDS, activities_fields).tap do |whitelist|
       whitelist[:activities_attributes] = whitelist.delete(:activities)
     end
@@ -88,11 +86,22 @@ class Api::ProfilesController < ApplicationController
   end
 
   def filters_params
-    ActiveSupport::JSON.decode(params.permit(:filters)[:filters] || '[]')
+    @filter_params ||= ActiveSupport::JSON.decode(
+      params.permit(:filters)[:filters] || '[]'
+    )
   end
 
   def sort_params
-    ActiveSupport::JSON.decode(params.permit(:sort)[:sort] || '[]')
+    @sort_params ||= ActiveSupport::JSON.decode(
+      params.permit(:sort)[:sort] || '[]'
+    )
+  end
+
+  def filters_use_activities_fields
+    filter_fields = filters_params.flat_map do |f|
+      f['conditions'].map { |c| c['field'] }
+    end
+    !filter_fields.select { |f| ACTIVITY_FIELDS.include?(f) }.empty?
   end
 
   def filter(filters_params)
