@@ -60,7 +60,7 @@ end
 # end
 
 gem 'unicorn'
-gem 'capistrano'
+gem 'capistrano', '~> 2'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
