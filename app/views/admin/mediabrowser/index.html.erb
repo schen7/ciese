@@ -1,0 +1,13 @@
+<% provide(:title, 'Media Browser') %>
+
+<% provide :js do %>
+  <%= javascript_include_tag "mediabrowser", "data-turbolinks-track" => true %>
+<% end %>
+
+<div id="mediabrowser-app" ng-controller="MediaBrowserAppCtrl">
+
+  <h1>Media Browser</h1>
+
+  <div ng-view></div>
+
+</div>

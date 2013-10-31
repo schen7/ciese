@@ -1,0 +1,4 @@
+//= depend_on ./templates/mediabrowser_index.html
+
+<% environment.context_class.instance_eval { include AngularHelper } %>
+<%= include_templates 'MediaBrowserApp', 'app/assets/javascripts/mediabrowser/templates' %>
