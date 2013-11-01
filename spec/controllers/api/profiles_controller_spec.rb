@@ -5,7 +5,7 @@ describe Api::ProfilesController do
   describe "GET #index" do
     let(:method) { :get }
     let(:action) { :index }
-    let(:params) { }
+    let(:params) { {} }
 
     it_behaves_like "an api action that requires an active staff or admin user"
 
@@ -29,7 +29,7 @@ describe Api::ProfilesController do
   describe "POST #create" do
     let(:method) { :post }
     let(:action) { :create }
-    let(:params) { }
+    let(:params) { {} }
 
     it_behaves_like "an api action that requires an active staff or admin user"
   end

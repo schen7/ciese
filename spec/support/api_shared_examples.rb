@@ -2,7 +2,7 @@
 
 shared_examples "an api action that requires a logged-in user" do
   context "when attempted by a logged-out user" do
-    before { send(method, action, params) }
+    before { send(method, action, params.merge({format: :json})) }
 
     it "should result in a 403 error with an appropriate json message" do
       expect(response.code).to eq "403"
@@ -16,7 +16,7 @@ shared_examples "an api action that rejects a regular user" do
   context "when attempted by a regular user" do
     before do
       controller.log_in(create(:user))
-      send(method, action, params)
+      send(method, action, params.merge({format: :json}))
     end
 
     it "should result in a 403 error with an appropriate json message" do
@@ -31,7 +31,7 @@ shared_examples "an api action that rejects a non-active regular user" do
   context "when attempted by a non-active regular user" do
     before do
       controller.log_in(create(:user, active: false))
-      send(method, action, params)
+      send(method, action, params.merge({format: :json}))
     end
 
     it "should result in a 403 error with an appropriate json message" do
@@ -46,7 +46,7 @@ shared_examples "an api action that rejects a staff user" do
   context "when attempted by a staff user" do
     before do
       controller.log_in(create(:staff))
-      send(method, action, params)
+      send(method, action, params.merge({format: :json}))
     end
 
     it "should result in a 403 error with an appropriate json message" do
@@ -61,7 +61,7 @@ shared_examples "an api action that rejects a non-active staff user" do
   context "when attempted by a non-active staff user" do
     before do
       controller.log_in(create(:staff, active: false))
-      send(method, action, params)
+      send(method, action, params.merge({format: :json}))
     end
 
     it "should result in a 403 error with an appropriate json message" do
@@ -76,7 +76,7 @@ shared_examples "an api action that rejects an admin user" do
   context "when attempted by an admin user" do
     before do
       controller.log_in(create(:admin))
-      send(method, action, params)
+      send(method, action, params.merge({format: :json}))
     end
 
     it "should result in a 403 error with an appropriate json message" do
@@ -91,7 +91,7 @@ shared_examples "an api action that rejects a non-active admin user" do
   context "when attempted by a non-active admin user" do
     before do
       controller.log_in(create(:admin, active: false))
-      send(method, action, params)
+      send(method, action, params.merge({format: :json}))
     end
 
     it "should result in a 403 error with an appropriate json message" do
