@@ -13,7 +13,8 @@ Ciese::Application.routes.draw do
   namespace :admin do
     get "profiles", to: "profiles#index", as: :profiles
     get "profiles/*extra", to: "profiles#index", as: :profiles_sub
-    # get "mediabrowser", to: "mediabrowser#index", as: :mediabrowser
+    get "mediabrowser", to: "mediabrowser#index", as: :mediabrowser
+    get "mediabrowser/*extra", to: "mediabrowser#index", as: :mediabrowser_sub
   end
 
   namespace :api do

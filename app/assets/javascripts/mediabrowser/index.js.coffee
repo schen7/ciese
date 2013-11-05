@@ -5,12 +5,15 @@ try
     angular.module('MediaBrowserApp')
 catch error
     angular
-        .module('MediaBrowserApp')
+        .module('MediaBrowserApp', ['ngRoute', 'ngResource'])
 
         .config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
             $routeProvider
                 .when '/admin/mediabrowser/:mediapath*',
-                    templateUrl: 'mediabrowser.html'
+                    templateUrl: 'mediabrowser_index.html'
+                    controller: 'MediaBrowserCtrl'
+                .when '/admin/mediabrowser',
+                    templateUrl: 'mediabrowser_index.html'
                     controller: 'MediaBrowserCtrl'
 
             $locationProvider.html5Mode(true)

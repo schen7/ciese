@@ -4,10 +4,14 @@
   <%= javascript_include_tag "mediabrowser", "data-turbolinks-track" => true %>
 <% end %>
 
-<div id="mediabrowser-app" ng-controller="MediaBrowserAppCtrl">
+<div id="mediabrowser-app" ng-controller="MediaBrowserCtrl">
 
   <h1>Media Browser</h1>
 
-  <div ng-view></div>
+  <div class="row">
+    <div class="large-12 columns">
+      <div ng-view></div>
+    </div>
+  </div>
 
 </div>

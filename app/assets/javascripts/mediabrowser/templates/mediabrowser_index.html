@@ -1,7 +1,27 @@
 <div id="mediabrowser-index">
 
-  <div class="row">
-  </div>
+  <ul class="breadcrumbs">
+    <li ng-class="{current: path == ''}"><a href="/admin/mediabrowser">media</a></li>
+    <li ng-repeat="folder in breadcrumbs" ng-class="{current: $last}"><a href="{{ folder.url }}">{{ folder.name }}</a></li>
+  </ul>
+
+  <table ng-if="ready">
+    <tr>
+      <th>Name</th>
+      <th>Preview</th>
+      <th>Size</th>
+      <th>Last Modified</th>
+    </tr>
+    <tr ng-repeat="file in files track by $index">
+      <td>
+        <a href="{{ setPath('/admin/mediabrowser/', path, file.name) }}" ng-if="file.type == 'directory'">{{ file.name }}</a>
+        <span ng-if="file.type == 'file'">{{ file.name }}</span>
+      </td>
+      <td><img class="image_preview" ng-src="{{ file.url }}" ng-if="isImage(file.name)"></td>
+      <td>{{ formatSize(file.size) }}</td>
+      <td>{{ file.modified | date:'MMM d, y h:mm a' }}</td>
+    </tr>
+  </table>
 
 </div>
 

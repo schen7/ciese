@@ -1,0 +1,17 @@
+#mediabrowser-app {
+  table {
+    th {
+      text-align: left;
+    }
+    td {
+      padding-right: 2em;
+      &:last-child {
+        padding-right: 1em;
+      }
+      img.image_preview {
+        width: 100px;
+        height: auto;
+      }
+    }
+  }
+}

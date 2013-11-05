@@ -24,7 +24,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '2.2.1'
 # gem 'jquery-fileupload-rails', '0.4.1'
-gem 'angularjs-rails', '1.0.8'
+# gem 'angularjs-rails', '1.0.8'
 # gem 'compass-rails', '1.0.3'
 gem 'zurb-foundation', '4.3.1'
 
@@ -33,14 +33,13 @@ group :development, :test do
   gem 'guard-rspec', '3.0.3'
   gem 'guard-livereload', '1.4.0'
   gem 'rack-livereload', '0.3.15'
-  # gem 'spork-rails', github: 'railstutorial/spork-rails'
-  # gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.3.9'
   # gem 'meta_request'
   gem 'factory_girl_rails', '4.2.1'
-  # gem 'database_cleaner', '1.0.1'
+  gem 'database_cleaner', '1.2.0'
   # gem 'capybara-webkit', '1.0.0'
   # gem 'jasmine'
+  gem 'poltergeist', '1.4.1'
 end
 
 group :development do
@@ -49,7 +48,7 @@ group :development do
 end
 
 group :test do
-    # gem 'selenium-webdriver', '2.0'
+    # gem 'selenium-webdriver', '2.37.0'
     gem 'capybara', '2.1.0'
     gem 'zeus', '0.13.3'
 end

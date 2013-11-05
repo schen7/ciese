@@ -5,7 +5,7 @@ try
     angular.module('ProfilesApp')
 catch error
     angular
-        .module('ProfilesApp', ['ngResource', 'Common'])
+        .module('ProfilesApp', ['ngRoute', 'ngResource', 'Common'])
 
         .config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
             $routeProvider

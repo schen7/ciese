@@ -21,7 +21,7 @@ class Api::MediabrowserController < ApplicationController
     files = non_dot_files.map do |file|
       stat = File.stat(full_path.join(file))
       url = "/media/#{path}/#{file}".gsub("//", "/")
-      {"url" => url, "size" => stat.size, "modified" => stat.mtime,
+      {"name" => file, "url" => url, "size" => stat.size, "modified" => stat.mtime,
        "type" => stat.directory? ? "directory" : "file"}
     end
     {"files" => files}
