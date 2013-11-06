@@ -1,35 +1,25 @@
 angular
   .module('MediaBrowserApp')
-  .controller 'MediaBrowserCtrl', ['$scope', '$location', '$http', '$routeParams', ($scope, $location, $http, $routeParams) ->
+  .controller 'MediaBrowserCtrl', ['$scope', '$window', '$location', '$http', ($scope, $window, $location, $http) ->
 
-    $scope.ready = false
-    $scope.path = $routeParams.mediapath ? ''
-    subpaths = $scope.path.split('/')
-    $scope.breadcrumbs = for name, i in subpaths
-      url: "/admin/mediabrowser/#{subpaths[0..i].join('/')}"
-      name: name
+    rootPath = "/admin/mediabrowser"
 
-    getFiles = () ->
-      $scope.ready = false
+    setPath = (newPath, oldPath) ->
+      $scope.path = newPath.replace(rootPath, '').replace(/^\/+/, '')
+      subpaths = $scope.path.split('/')
+      $scope.breadcrumbs = for name, i in subpaths
+        mbPath: "#{rootPath}/#{subpaths[0..i].join('/')}"
+        name: name
       $http.get('/api/mediabrowser.json', params: path: $scope.path).success (data, status) ->
+        for file in data.files
+          file.mbPath = "#{rootPath}/#{$scope.path}/#{file.name}".replace(/\/+/g, '/')
         $scope.files = data.files
-        $scope.ready = true
-
-    $scope.formatSize = (size) ->
-      sizeInt = parseInt(size)
-      prefixes = ['GB', 'MB', 'KB', 'B']
-      n = prefixes.length
-      formatted_size = while n -= 1
-        if sizeInt < 1024
-          break
-        sizeInt /= 1024
-      "#{Math.round(sizeInt)} #{prefixes[n]}"
 
     $scope.isImage = (name) ->
       Boolean(name.match(/[.](png|jpg|jpeg|gif)$/))
 
-    $scope.setPath = (root, p1, p2) -> "#{root}/#{p1}/#{p2}".replace(/[/]+/g, '/')
+    $scope.$watch((-> $location.path()), setPath)
 
-    getFiles()
+    setPath($location.path())
 
   ]

@@ -24,11 +24,21 @@ describe "MediaBrowserPages" do
       end
       
       let(:user) { create(:staff) }
+      let(:test_dir_name) { File.basename(@test_dir) }
+      let(:test_file_name) { File.basename(@test_file) }
       before { log_in_and_visit(user, path) }
 
       it "should render the angular app and list files in media root path", js: true do
         expect(page).to have_content("Media Browser")
-        expect(page).to have_content(File.basename(@test_dir))
+        expect(page).to have_content(test_dir_name)
+      end
+
+      context "when a folder link is clicked", js: true do
+        before { click_link test_dir_name }
+
+        it "should show the contents of that folder" do
+          expect(page).to have_content(test_file_name)
+        end
       end
     end
   end

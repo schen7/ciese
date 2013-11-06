@@ -1,24 +1,24 @@
-<div id="mediabrowser-index">
+<div id="mediabrowser-index" ng-controller="MediaBrowserCtrl">
 
   <ul class="breadcrumbs">
     <li ng-class="{current: path == ''}"><a href="/admin/mediabrowser">media</a></li>
-    <li ng-repeat="folder in breadcrumbs" ng-class="{current: $last}"><a href="{{ folder.url }}">{{ folder.name }}</a></li>
+    <li ng-repeat="folder in breadcrumbs" ng-class="{current: $last}"><a href="{{ folder.mbPath }}">{{ folder.name }}</a></li>
   </ul>
 
-  <table ng-if="ready">
+  <table>
     <tr>
       <th>Name</th>
       <th>Preview</th>
       <th>Size</th>
       <th>Last Modified</th>
     </tr>
-    <tr ng-repeat="file in files track by $index">
+    <tr ng-repeat="file in files | orderBy:['type', 'name']">
       <td>
-        <a href="{{ setPath('/admin/mediabrowser/', path, file.name) }}" ng-if="file.type == 'directory'">{{ file.name }}</a>
+        <a href="{{ file.mbPath }}" ng-if="file.type == 'directory'">{{ file.name }}</a>
         <span ng-if="file.type == 'file'">{{ file.name }}</span>
       </td>
-      <td><img class="image_preview" ng-src="{{ file.url }}" ng-if="isImage(file.name)"></td>
-      <td>{{ formatSize(file.size) }}</td>
+      <td><a target="_blank" ng-href="{{ file.path }}" ng-if="isImage(file.name)"><img class="image_preview" ng-src="{{ file.path }}"></a></td>
+      <td>{{ file.size | formatSize }}</td>
       <td>{{ file.modified | date:'MMM d, y h:mm a' }}</td>
     </tr>
   </table>

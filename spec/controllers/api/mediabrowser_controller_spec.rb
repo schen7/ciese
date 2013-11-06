@@ -56,7 +56,7 @@ describe Api::MediabrowserController do
           expect(response.code).to eq "200"
           data = ActiveSupport::JSON.decode(response.body)
           url = "/media/#{File.basename(@test_dir)}/#{File.basename(@test_file)}"
-          expect(data["files"][0]["url"]).to eq url
+          expect(data["files"][0]["path"]).to eq url
           expect(data["files"][0]["size"]).to eq 0
           expect(data["files"][0]["type"]).to eq "file"
         end
