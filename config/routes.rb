@@ -21,6 +21,7 @@ Ciese::Application.routes.draw do
     resources :profiles, only: [:index, :create, :show, :update, :destroy]
     resources :programs, only: [:index, :create, :show, :update, :destroy]
     get "mediabrowser", to: "mediabrowser#index", as: :mediabrowser
+    post "mediabrowser/upload", to: "mediabrowser#upload", as: :mediabrowser_upload
   end
 
 end

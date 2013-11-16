@@ -13,6 +13,12 @@ class Api::MediabrowserController < ApplicationController
     end
   end
 
+  def upload
+    respond_to do |format|
+      format.json { render json: save_uploaded_file(upload_params) }
+    end
+  end
+
   private
 
   def get_file_list(path)
@@ -20,8 +26,8 @@ class Api::MediabrowserController < ApplicationController
     non_dot_files = Dir.new(full_path).reject { |file| file[0] == '.' }
     files = non_dot_files.map do |file|
       stat = File.stat(full_path.join(file))
-      path = "/media/#{path}/#{file}".gsub("//", "/")
-      {"name" => file, "path" => path, "size" => stat.size, "modified" => stat.mtime,
+      file_path = "/media/#{path}/#{file}".gsub("//", "/")
+      {"name" => file, "path" => file_path, "size" => stat.size, "modified" => stat.mtime,
        "type" => stat.directory? ? "directory" : "file"}
     end
     {"files" => files}
@@ -33,6 +39,17 @@ class Api::MediabrowserController < ApplicationController
 
   def not_directory
     render json: {"error" =>  "Path is not a directory."}, status: 400
+  end
+
+  def save_uploaded_file(info)
+    File.open(MEDIA_ROOT.join(info['path'], info['file'].original_filename), 'wb') do |file|
+      file.write(info['file'].read)
+    end
+    {"status" => "File successfully saved."}
+  end
+
+  def upload_params
+    params.permit(:path, :file)
   end
 
 end

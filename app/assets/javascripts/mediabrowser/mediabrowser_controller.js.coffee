@@ -12,7 +12,8 @@ angular
         name: name
       $http.get('/api/mediabrowser.json', params: path: $scope.path).success (data, status) ->
         for file in data.files
-          file.mbPath = "#{rootPath}/#{$scope.path}/#{file.name}".replace(/\/+/g, '/')
+          if file.type is 'directory'
+            file.mbPath = "#{rootPath}/#{$scope.path}/#{file.name}".replace(/\/+/g, '/')
         $scope.files = data.files
 
     $scope.isImage = (name) ->

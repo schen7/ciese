@@ -15,13 +15,19 @@
     <tr ng-repeat="file in files | orderBy:['type', 'name']">
       <td>
         <a href="{{ file.mbPath }}" ng-if="file.type == 'directory'">{{ file.name }}</a>
-        <span ng-if="file.type == 'file'">{{ file.name }}</span>
+        <span ng-if="(file.type == 'file') || (file.type == 'upload')">{{ file.name }}</span>
       </td>
-      <td><a target="_blank" ng-href="{{ file.path }}" ng-if="isImage(file.name)"><img class="image_preview" ng-src="{{ file.path }}"></a></td>
-      <td>{{ file.size | formatSize }}</td>
-      <td>{{ file.modified | date:'MMM d, y h:mm a' }}</td>
+      <td colspan="3" ng-if="file.uploading">
+        <div class="progress"><span class="meter" style="width: {{ file.progress }}%"></span></div>
+      </td>
+      <td ng-if="!file.uploading"><a target="_blank" ng-href="{{ file.path }}" ng-if="isImage(file.name)"><img class="image_preview" ng-src="{{ file.path }}"></a></td>
+      <td ng-if="!file.uploading">{{ file.size | formatSize }}</td>
+      <td ng-if="!file.uploading">{{ file.modified | date:'MMM d, y h:mm a' }}</td>
     </tr>
   </table>
 
+  <button class="small button">Upload Files</button>
+
+  <div uploader files="files" path="path"></div>
 </div>
 
