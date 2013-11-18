@@ -8,15 +8,11 @@ class Api::MediabrowserController < ApplicationController
   rescue_from Errno::ENOTDIR, with: :not_directory
 
   def index
-    respond_to do |format|
-      format.json { render json: get_file_list(params[:path] || "") }
-    end
+    render json: get_file_list(params[:path] || "")
   end
 
   def upload
-    respond_to do |format|
-      format.json { render json: save_uploaded_file(upload_params) }
-    end
+    render json: save_uploaded_file(upload_params)
   end
 
   private

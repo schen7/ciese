@@ -9,40 +9,50 @@ angular
       path: '='
     link: (scope, el, attr) ->
 
+      uploadQueue = []
+      uploadsInProgress = 0
+      maxSimultaneousUploads = 3
       input = el.find('input[type=file]')
       csrf_token = $cookies['XSRF-TOKEN']
 
       updateProgress = (file, progress, total) ->
         scope.$apply -> file.progress = progress / total * 100
 
-      uploadFile = (upload) ->
-        file =
-          type: 'file'
-          name: upload.name
-          path: "/media/#{scope.path}/#{upload.name}".replace(/\/\/+/g, '/')
-          size: upload.size
-          modified: upload.lastModifiedDate
-          progress: 0
-          uploading: true
-        scope.$apply ->
-          scope.files.push(file)
-
-        formData = new FormData()
-        formData.append('path', scope.path)
-        formData.append('file', upload)
-
-        xhr = new XMLHttpRequest()
-        xhr.open('POST', "/api/mediabrowser/upload", true)
-        xhr.setRequestHeader("X-XSRF-TOKEN", csrf_token)
-        xhr.upload.onprogress = (evt) ->
-          scope.$apply ->
-            file.progress = evt.loaded / evt.total * 100 if evt.lengthComputable
-        xhr.upload.onload = (evt) ->
-          scope.$apply ->
-            file.uploading = false
-        xhr.send(formData)
+      uploadNextFile = ->
+        if uploadsInProgress < maxSimultaneousUploads and uploadQueue.length > 0
+          uploadsInProgress++
+          file = uploadQueue.shift()
+          formData = new FormData()
+          formData.append('path', scope.path)
+          formData.append('file', file.localFile)
+          xhr = new XMLHttpRequest()
+          xhr.open('POST', "/api/mediabrowser/upload", true)
+          xhr.setRequestHeader("X-XSRF-TOKEN", csrf_token)
+          xhr.upload.onprogress = (evt) ->
+            scope.$apply ->
+              file.progress = evt.loaded / evt.total * 100 if evt.lengthComputable
+          xhr.upload.onload = (evt) ->
+            scope.$apply ->
+              file.uploading = false
+            uploadsInProgress--
+            uploadNextFile()
+          xhr.send(formData)
+          uploadNextFile()
 
       input.bind 'change', (evt) ->
-        uploadFile(upload) for upload in evt.target.files
+        for localFile in evt.target.files
+          file =
+            type: 'file'
+            localFile: localFile
+            name: localFile.name
+            path: "/media/#{scope.path}/#{localFile.name}".replace(/\/\/+/g, '/')
+            size: localFile.size
+            modified: localFile.lastModifiedDate
+            progress: 0
+            uploading: true
+          scope.$apply ->
+            scope.files.push(file)
+          uploadQueue.push(file)
+        uploadNextFile()
 
   ]
