@@ -1,5 +1,8 @@
 class Api::MediabrowserController < ApplicationController
-  MEDIA_ROOT = Rails.root.join('public/media')
+  PUBLIC_ROOT = Rails.root.join('public')
+  MEDIA_ROOT = PUBLIC_ROOT.join('media')
+  THUMBNAIL_ROOT = PUBLIC_ROOT.join('thumbs')
+  IMG_EXTS = [".jpg", ".jpeg", ".png", ".gif"]
 
   before_action :api_require_login
   before_action :api_require_staff_or_admin
@@ -18,15 +21,24 @@ class Api::MediabrowserController < ApplicationController
   private
 
   def get_file_list(path)
-    full_path = MEDIA_ROOT.join(path)
-    non_dot_files = Dir.new(full_path).reject { |file| file[0] == '.' }
-    files = non_dot_files.map do |file|
-      stat = File.stat(full_path.join(file))
-      file_path = "/media/#{path}/#{file}".gsub("//", "/")
-      {"name" => file, "path" => file_path, "size" => stat.size, "modified" => stat.mtime,
-       "type" => stat.directory? ? "directory" : "file"}
+    abs_path = MEDIA_ROOT.join(path)
+    non_dot_files = Dir.new(abs_path).reject { |filename| filename[0] == '.' }
+    {"files" => non_dot_files.map { |filename| get_file_data(abs_path.join(filename)) }}
+  end
+
+  def get_file_data(abs_file_path)
+    stat = abs_file_path.stat
+    file_url = abs_file_path.sub(PUBLIC_ROOT.to_s, '')
+    file_data = {
+      "name" => abs_file_path.basename.to_s, "url" => file_url.to_s, "size" => stat.size,
+      "modified" => stat.mtime, "type" => stat.directory? ? "directory" : "file"
+    }
+    file_data
+    if IMG_EXTS.include?(abs_file_path.extname.downcase)
+      file_data.merge(get_thumbnail_data(abs_file_path))
+    else
+      file_data
     end
-    {"files" => files}
   end
 
   def bad_path
@@ -37,15 +49,34 @@ class Api::MediabrowserController < ApplicationController
     render json: {"error" =>  "Path is not a directory."}, status: 400
   end
 
-  def save_uploaded_file(info)
-    File.open(MEDIA_ROOT.join(info['path'], info['file'].original_filename), 'wb') do |file|
-      file.write(info['file'].read)
+  def get_thumbnail_data(abs_file_path)
+    thumb_path = abs_file_path.sub(MEDIA_ROOT.to_s, THUMBNAIL_ROOT.to_s)
+    if thumb_path.exist?
+      {"image" => true, "thumb_url" => thumb_path.sub(PUBLIC_ROOT.to_s, '').to_s}
+    else
+      {}
     end
-    {"status" => "File successfully saved."}
+  end
+
+  def save_uploaded_file(info)
+    file = File.new(MEDIA_ROOT.join(info['path'], info['file'].original_filename), 'wb')
+    file.write(info['file'].read)
+    file.close()
+    file_path = Pathname.new(file.path)
+    create_thumbnail(file_path, 100, 100) if IMG_EXTS.include?(file_path.extname.downcase)
+    get_file_data(file_path)
   end
 
   def upload_params
     params.permit(:path, :file)
   end
 
+  def create_thumbnail(file_path, w, h)
+    image = MiniMagick::Image.open(file_path)
+    thumb_path = file_path.sub(MEDIA_ROOT.to_s, THUMBNAIL_ROOT.to_s)
+    thumb_dir = thumb_path.dirname
+    thumb_dir.mkdir unless thumb_dir.exist?
+    image.resize("#{w}x#{h}")
+    image.write(thumb_path)
+  end
 end
