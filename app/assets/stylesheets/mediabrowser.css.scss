@@ -46,3 +46,10 @@
   }
 }
 
+i.folder {
+  @extend .fi-folder;
+  font-size: 19px;
+  color: darken($primary-color, 8%);
+  vertical-align: middle;
+  margin-right: 8px;
+}

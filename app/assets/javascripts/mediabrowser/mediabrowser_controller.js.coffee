@@ -16,9 +16,6 @@ angular
             file.mbPath = "#{rootPath}/#{$scope.path}/#{file.name}".replace(/\/+/g, '/')
         $scope.files = data.files
 
-    $scope.isImage = (name) ->
-      Boolean(name.match(/[.](png|jpg|jpeg|gif)$/))
-
     $scope.$watch((-> $location.path()), setPath)
 
     setPath($location.path())

@@ -51,7 +51,7 @@ class Api::MediabrowserController < ApplicationController
 
   def get_thumbnail_data(abs_file_path)
     thumb_path = abs_file_path.sub(MEDIA_ROOT.to_s, THUMBNAIL_ROOT.to_s)
-    if thumb_path.exist?
+    if thumb_path.exist? || create_thumbnail(abs_file_path, 100, 100)
       {"image" => true, "thumb_url" => thumb_path.sub(PUBLIC_ROOT.to_s, '').to_s}
     else
       {}
@@ -62,9 +62,8 @@ class Api::MediabrowserController < ApplicationController
     file = File.new(MEDIA_ROOT.join(info['path'], info['file'].original_filename), 'wb')
     file.write(info['file'].read)
     file.close()
-    file_path = Pathname.new(file.path)
-    create_thumbnail(file_path, 100, 100) if IMG_EXTS.include?(file_path.extname.downcase)
-    get_file_data(file_path)
+    # create_thumbnail(file_path, 100, 100) if IMG_EXTS.include?(file_path.extname.downcase)
+    get_file_data(Pathname.new(file.path))
   end
 
   def upload_params
@@ -72,11 +71,16 @@ class Api::MediabrowserController < ApplicationController
   end
 
   def create_thumbnail(file_path, w, h)
-    image = MiniMagick::Image.open(file_path)
-    thumb_path = file_path.sub(MEDIA_ROOT.to_s, THUMBNAIL_ROOT.to_s)
-    thumb_dir = thumb_path.dirname
-    thumb_dir.mkdir unless thumb_dir.exist?
-    image.resize("#{w}x#{h}")
-    image.write(thumb_path)
+    begin
+      image = MiniMagick::Image.open(file_path)
+      thumb_path = file_path.sub(MEDIA_ROOT.to_s, THUMBNAIL_ROOT.to_s)
+      thumb_dir = thumb_path.dirname
+      thumb_dir.mkdir unless thumb_dir.exist?
+      image.resize("#{w}x#{h}")
+      image.write(thumb_path)
+      true
+    rescue
+      false
+    end
   end
 end
