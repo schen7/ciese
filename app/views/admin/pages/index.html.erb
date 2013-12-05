@@ -1,0 +1,33 @@
+<% provide(:title, 'Pages') %>
+
+<h1>Pages</h1>
+
+<% if @pages.empty? %>
+  <p>There are no pages yet.</p>
+<% else %>
+  <table id="page-list">
+    <thead>
+      <tr>
+        <th>Url</th>
+        <th>Author</th>
+        <th>Last Modified</th>
+        <th>Published?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pages.each do |page| %>
+      <tr>
+        <td><a href="<%= page.url %>"><%= page.url %></a></td>
+        <td><%= page.user.username %></td>
+        <td><%= page.updated_at %></td>
+        <td><% if page.published? %><i class="fi-check"></i><% end %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<p>
+  <a class="button small" href="<%= admin_new_page_path %>">Create New Page</a>
+</p>
+

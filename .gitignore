@@ -18,3 +18,5 @@
 .DS_Store
 .zeus.sock
 /public/media
+/public/thumbs
+/selenium

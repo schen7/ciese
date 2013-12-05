@@ -1,0 +1,15 @@
+<% provide(:title, 'Pages') %>
+
+<% provide :topbar do %>
+<div class="contain-to-grid">
+  <nav class="top-bar">
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="#">Page Editor: /example/url</a></h1>
+      </li>
+    </ul>
+  </nav>
+</div>
+<% end %>
+
+<textarea id="page-content" name="content"><%= @page.content %></textarea>

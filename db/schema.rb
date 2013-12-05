@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131002045422) do
+ActiveRecord::Schema.define(version: 20131204222910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20131002045422) do
 
   add_index "activities", ["detail"], name: "index_activities_on_detail", using: :btree
   add_index "activities", ["program"], name: "index_activities_on_program", using: :btree
+
+  create_table "pages", force: true do |t|
+    t.string   "url"
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pages", ["user_id"], name: "index_pages_on_user_id", using: :btree
 
   create_table "profiles", force: true do |t|
     t.integer  "user_id"
@@ -90,6 +100,18 @@ ActiveRecord::Schema.define(version: 20131002045422) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "published_pages", force: true do |t|
+    t.string   "url"
+    t.integer  "page_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "published_pages", ["page_id"], name: "index_published_pages_on_page_id", using: :btree
+  add_index "published_pages", ["url"], name: "index_published_pages_on_url", unique: true, using: :btree
+  add_index "published_pages", ["user_id"], name: "index_published_pages_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "username",        null: false

@@ -11,6 +11,8 @@ Ciese::Application.routes.draw do
   end
 
   namespace :admin do
+    get "pages", to: "pages#index"
+    get "pages/new", to: "pages#new", as: :new_page
     get "profiles", to: "profiles#index", as: :profiles
     get "profiles/*extra", to: "profiles#index", as: :profiles_sub
   end
