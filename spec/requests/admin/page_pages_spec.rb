@@ -22,7 +22,7 @@ describe "PagePages" do
       end
 
       context "when there is at least one page" do
-        let!(:pg) { create(:page, user: user) }
+        let!(:pg) { create(:page, user: user, latest: true) }
         before { log_in_and_visit(user, path) }
 
         it "should list the pages" do
@@ -35,15 +35,28 @@ describe "PagePages" do
       end
 
       context "when there is at least one published page" do
-        let!(:ppg) { create(:published_page, user: user) }
+        let!(:pg) { create(:page, user: user, latest: true, published: true) }
         before { log_in_and_visit(user, path) }
 
         it "should list the pages and have the published? field checked" do
           expect(page).to have_content("Pages")
-          expect(page).to have_link(ppg.url, href: ppg.url)
-          expect(page).to have_content(ppg.page.user.username)
+          expect(page).to have_link(pg.url, href: pg.url)
+          expect(page).to have_content(pg.user.username)
           expect(page).to have_selector("i.fi-check")
           expect(page).to have_link("Create New Page", href: admin_new_page_path)
+        end
+      end
+
+      context "when there are multiple versions of the same page" do
+        let!(:pg1) { create(:page) }
+        let!(:pg2) { create(:page, url: pg1.url) }
+        let!(:pg3) { create(:page, url: pg1.url, latest: true) }
+        before { log_in_and_visit(user, path) }
+
+        it "should only show the latest version" do
+          expect(page).not_to have_content(pg1.user.username)
+          expect(page).not_to have_content(pg2.user.username)
+          expect(page).to have_content(pg3.user.username)
         end
       end
     end
