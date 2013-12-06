@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131002045422) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20131205144512) do
 
   create_table "activities", force: true do |t|
     t.integer  "profile_id"
@@ -28,6 +25,29 @@ ActiveRecord::Schema.define(version: 20131002045422) do
 
   add_index "activities", ["detail"], name: "index_activities_on_detail", using: :btree
   add_index "activities", ["program"], name: "index_activities_on_program", using: :btree
+
+  create_table "boards", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "comments", force: true do |t|
+    t.integer  "post_id"
+    t.text     "content"
+    t.integer  "author"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "posts", force: true do |t|
+    t.integer  "topic_id"
+    t.string   "title"
+    t.text     "content"
+    t.integer  "author"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "profiles", force: true do |t|
     t.integer  "user_id"
@@ -87,6 +107,13 @@ ActiveRecord::Schema.define(version: 20131002045422) do
   create_table "programs", force: true do |t|
     t.string   "name"
     t.text     "details"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "topics", force: true do |t|
+    t.string   "name"
+    t.integer  "board_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
