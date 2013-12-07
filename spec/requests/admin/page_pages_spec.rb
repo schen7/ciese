@@ -81,7 +81,13 @@ describe "PagePages" do
 
       context "when the save button is clicked" do
         before do
-        
+          fill_in "url", with: "/test/url"
+          click_button "save-button"
+        end
+
+        it "should save the page" do
+          expect(page).to have_content("Page Editor")
+          expect(Page.last.url).to eq "/test/url"
         end
       end
       
