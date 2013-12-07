@@ -1,3 +1,6 @@
+//= require angular
+//= require angular-resource
+//= require common
 //= require_self
 //= require_directory .
 

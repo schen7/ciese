@@ -1,0 +1,45 @@
+<% provide(:title, 'Pages') %>
+
+<% provide :css do %>
+<%= stylesheet_link_tag "pages", media: "all", "data-turbolinks-track" => true %>
+<% end %>
+
+<div id="page-editor">
+  <div id="top-nav-bar">
+    <div class="row">
+      <div class="large-3 columns">
+        <h4>Page Editor</h4>
+      </div>
+      <div class="large-5 columns">
+        <input type="text" value="" placeholder="Enter url">
+      </div>
+      <div class="large-4 columns button-row">
+        <a class="button success small radius">Publish</a>
+        <a class="button primary small radius">Save</a>
+        <a class="button secondary small radius" href="<%= admin_pages_path %>">Done</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-content" class="editable"></div>
+</div>
+
+<% provide :js do %>
+<%= javascript_include_tag "tinymce/tinymce.min.js" %>
+<script type="text/javascript">
+  tinymce.init({
+    selector: "div.editable",
+    plugins: [
+      ["advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"],
+      ["searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"],
+      ["save table contextmenu directionality emoticons template paste"]
+    ],
+    theme: "modern",
+    add_unload_trigger: false,
+    schema: "html5",
+    inline: true,
+    toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | media",
+    statusbar: false
+  });
+</script>
+<% end %>

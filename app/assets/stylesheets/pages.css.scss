@@ -1,0 +1,85 @@
+@import "foundation_overrides";
+
+$nav-bar-height: 52px;
+$nav-bar-small-height: 113px;
+
+#top-nav-bar {
+  z-index: 1000;
+  nav {
+    margin-bottom: 0;
+    ul.title-area {
+      a {
+        font-weight: normal;
+      }
+    }
+    section.top-bar-section {
+      input {
+        /* width: emCalc(500); */
+        background-color: $secondary-color;
+      }
+    }
+  }
+}
+
+body {
+  padding-top: $nav-bar-height;
+}
+
+#top-nav-bar {
+  z-index: 1000;
+  background-color: #222;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $nav-bar-height;
+  padding: 5px 0;
+  .row {
+    margin: 0 auto;
+    width: 100%;
+    max-width: $row-width;
+    h4 {
+      white-space: nowrap;
+      color: #fff;
+      font-weight: normal;
+      margin: 5px 0;
+    }
+    input {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      background-color: $secondary-color;
+    }
+    .button-row {
+      text-align: right;
+      margin: 5px 0;
+      .button {
+        margin: 0 0 0 5px;
+        padding-left: emCalc(15);
+        padding-right: emCalc(15);
+      }
+    }
+  }
+}
+
+#page-content {
+  border: 1px dotted #bbb;
+}
+
+@media only screen and (max-width: #{$small-screen - 1}) {
+  body {
+    padding-top: $nav-bar-small-height;
+  }
+
+  #top-nav-bar {
+    height: $nav-bar-small-height;
+    .row {
+      h4 {
+        text-align: center;
+      }
+      .button-row {
+        text-align: center;
+      }
+    }
+  }
+}
+

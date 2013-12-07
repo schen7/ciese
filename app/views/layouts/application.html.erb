@@ -24,7 +24,6 @@
   </head>
 
   <body>
-    <%= yield :topbar %>
     <div class="row">
       <div id="main_container" class="large-12 columns">
         <div id="header" class="row">
@@ -44,10 +43,10 @@
                 <input type="text" placeholder="Search...">
               </div>
             </div>
-            <div id="main_menu" class="row" ng-controller="MainMenuCtrl">
+            <div id="main_menu" class="row">
               <div class="large-3 columns">
-                <div class="main_menu-item" ng-class="getVisibility('about')">
-                  <div><div class="menu_item-toggle hide_menu_item" ng-click="toggleMenuItem('about')"></div>About Us</div>
+                <div class="main_menu-item hide_menu_item">
+                  <div><div class="menu_item-toggle hide_menu_item"></div>About Us</div>
                   <ul>
                     <li><a href="about/missionvision">Mission / Vision</a></li>
                     <li><a href="about/history">History</a></li>
@@ -61,8 +60,8 @@
                 </div>
               </div>
               <div class="large-3 columns">
-                <div class="main_menu-item" ng-class="getVisibility('work')">
-                  <div><div class="menu_item-toggle hide_menu_item" ng-click="toggleMenuItem('work')"></div>Our Work</div>
+                <div class="main_menu-item hide_menu_item">
+                  <div><div class="menu_item-toggle hide_menu_item"></div>Our Work</div>
                   <ul>
                     <li><a href="work/current">Current Projects</a></li>
                     <li><a href="work/past">Past Projects</a></li>
@@ -71,8 +70,8 @@
                 </div>
               </div>
               <div class="large-3 columns">
-                <div class="main_menu-item" ng-class="getVisibility('materials')">
-                  <div><div class="menu_item-toggle hide_menu_item" ng-click="toggleMenuItem('materials')"></div>Instructional Materials</div>
+                <div class="main_menu-item hide_menu_item">
+                  <div><div class="menu_item-toggle hide_menu_item"></div>Instructional Materials</div>
                   <ul>
                     <li><a href="materials/k12">K-12 Curriculum</a></li>
                     <li><a href="materials/resources">Ed. Resources</a></li>
@@ -80,8 +79,8 @@
                 </div>
               </div>
               <div class="large-3 columns">
-                <div class="main_menu-item" ng-class="getVisibility('news')">
-                  <div><div class="menu_item-toggle hide_menu_item" ng-click="toggleMenuItem('news')"></div>News and Publications</div>
+                <div class="main_menu-item hide_menu_item">
+                  <div><div class="menu_item-toggle hide_menu_item"></div>News and Publications</div>
                   <ul>
                     <li><a href="news/recent">CIESE in the News</a></li>
                     <li><a href="news/releases">Press Releases</a></li>
