@@ -11,35 +11,20 @@
         <h4>Page Editor</h4>
       </div>
       <div class="large-5 columns">
-        <input type="text" name="url" value="" placeholder="Enter url">
+        <input id="url-editor" type="text" name="url" value="/" data-original="/" placeholder="Enter url">
       </div>
       <div class="large-4 columns button-row">
         <button id="publish-button" class="button success small radius">Publish</button>
-        <button id="save-button" class="button primary small radius">Save</button>
+        <button id="save-button" class="button primary small radius" disabled>Save</button>
         <a class="button secondary small radius" href="<%= admin_pages_path %>">Done</a>
       </div>
     </div>
   </div>
 
-  <div id="page-content" class="editable"></div>
+  <div id="content-editor" class="editable"></div>
 </form>
 
 <% provide :js do %>
 <%= javascript_include_tag "tinymce/tinymce.min.js" %>
-<script type="text/javascript">
-  tinymce.init({
-    selector: "div.editable",
-    plugins: [
-      ["advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker"],
-      ["searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking"],
-      ["save table contextmenu directionality emoticons template paste"]
-    ],
-    theme: "modern",
-    add_unload_trigger: false,
-    schema: "html5",
-    inline: true,
-    toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | media",
-    statusbar: false
-  });
-</script>
+<%= javascript_include_tag "pages", "data-turbolinks-track" => true %>
 <% end %>

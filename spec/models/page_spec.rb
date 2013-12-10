@@ -14,9 +14,29 @@ describe Page do
   it { should be_valid }
 
   describe "#url" do
-    before { page.url = "" }
+    context "when blank" do
+      before { page.url = "" }
 
-    it { should_not be_valid }
+      it { should_not be_valid }
+    end
+
+    context "when not properly formatted" do
+      it "should not be valid" do
+        ["//", "/no spaces", "needs/leading/slash", "/no//doubleslashes", "bad#char"].each do |url|
+          page.url = url
+          expect(page).not_to be_valid
+        end
+      end
+    end
+
+    context "when properly formatted" do
+      it "should be valid" do
+        ["/", "/no_spaces", "/needs/leading/slash", "/end/slash/"].each do |url|
+          page.url = url
+          expect(page).to be_valid
+        end
+      end
+    end
   end
 
   describe "#user" do

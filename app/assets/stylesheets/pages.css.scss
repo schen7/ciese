@@ -3,24 +3,6 @@
 $nav-bar-height: 52px;
 $nav-bar-small-height: 113px;
 
-#top-nav-bar {
-  z-index: 1000;
-  nav {
-    margin-bottom: 0;
-    ul.title-area {
-      a {
-        font-weight: normal;
-      }
-    }
-    section.top-bar-section {
-      input {
-        /* width: emCalc(500); */
-        background-color: $secondary-color;
-      }
-    }
-  }
-}
-
 body {
   padding-top: $nav-bar-height;
 }
@@ -61,7 +43,7 @@ body {
   }
 }
 
-#page-content {
+#content-editor {
   border: 1px dotted #bbb;
 }
 
