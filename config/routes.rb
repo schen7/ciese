@@ -15,7 +15,7 @@ Ciese::Application.routes.draw do
     get "pages/new", to: "pages#new", as: :new_page
     get "pages/edit*url", to: "pages#edit", as: :edit_page
     post "pages", to: "pages#create"
-    post "pages", to: "pages#create"
+    post "pages/:id", to: "pages#publish"
     get "profiles", to: "profiles#index", as: :profiles
     get "profiles/*extra", to: "profiles#index", as: :profiles_sub
   end

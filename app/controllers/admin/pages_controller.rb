@@ -22,9 +22,19 @@ class Admin::PagesController < ApplicationController
     Page.where(url: data[:url]).update_all(latest: false)
     page = Page.new(data)
     if page.save
-      render json: {saved: true}
+      render json: {saved: true, id: page.id}
     else
       render json: {saved: false, errors: page.errors.full_messages}
+    end
+  end
+
+  def publish
+    Page.where(url: page_params[:url]).update_all(published: false)
+    page = Page.find(params.permit(:id)[:id])
+    if page.update(published: true)
+      render json: {published: true}
+    else
+      render json: {published: false, errors: page.errors.full_messages}
     end
   end
 
