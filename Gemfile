@@ -15,7 +15,7 @@ gem 'active_model_serializers', '0.8.1'
 gem 'faker', '1.2.0'
 
 # Assets
-gem 'jquery-rails', '2.2.1'
+gem 'jquery-rails', '3.0.4'
 # gem 'bootstrap-sass', '2.3.1.0'
 # gem 'bootstrap-will_paginate', '0.0.9'
 gem 'sass-rails',   '~> 4.0.0'
@@ -24,7 +24,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '2.2.1'
 # gem 'jquery-fileupload-rails', '0.4.1'
-gem 'angularjs-rails', '1.0.8'
+# gem 'angularjs-rails', '1.0.8'
 # gem 'compass-rails', '1.0.3'
 gem 'zurb-foundation', '4.3.1'
 
@@ -38,7 +38,7 @@ group :development, :test do
   gem 'childprocess', '0.3.9'
   # gem 'meta_request'
   gem 'factory_girl_rails', '4.2.1'
-  # gem 'database_cleaner', '1.0.1'
+  gem 'database_cleaner', '1.2.0'
   # gem 'capybara-webkit', '1.0.0'
   # gem 'jasmine'
 end
@@ -52,6 +52,7 @@ group :test do
     # gem 'selenium-webdriver', '2.0'
     gem 'capybara', '2.1.0'
     gem 'zeus', '0.13.3'
+    gem 'poltergeist', '1.5.0'
 end
 
 # group :doc do

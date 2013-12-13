@@ -17,7 +17,7 @@
     <tbody>
       <% @pages.each do |page| %>
       <tr>
-        <td><a href="<%= page.url %>"><%= page.url %></a></td>
+        <td><a href="<%= admin_edit_page_path(page.url) %>"><%= page.url %></a></td>
         <td><%= page.user.username %></td>
         <td><%= page.updated_at %></td>
         <td><% if page.published? %><i class="fi-check"></i><% end %></td>

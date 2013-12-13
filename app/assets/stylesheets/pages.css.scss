@@ -30,6 +30,10 @@ body {
       margin-top: 5px;
       margin-bottom: 5px;
       background-color: $secondary-color;
+      &.error, &.error:focus {
+        color: $alert-color;
+        border-color: $alert-color;
+      }
     }
     .button-row {
       text-align: right;

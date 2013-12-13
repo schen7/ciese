@@ -8,6 +8,13 @@ class Admin::PagesController < ApplicationController
   end
 
   def new
+    @page = Page.new(url: '/', content: "<h1>Title</h1>\n<p>Content here.</p>")
+    render "editor"
+  end
+
+  def edit
+    @page = Page.find_by(url: page_params[:url], latest: true)
+    render "editor"
   end
 
   def create
@@ -17,7 +24,7 @@ class Admin::PagesController < ApplicationController
     if page.save
       render json: {saved: true}
     else
-      render json: {saved: false, errors: page.errors}
+      render json: {saved: false, errors: page.errors.full_messages}
     end
   end
 

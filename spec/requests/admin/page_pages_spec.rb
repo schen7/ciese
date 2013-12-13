@@ -73,21 +73,23 @@ describe "PagePages" do
 
       it "renders the page editor" do
         expect(page).to have_content("Page Editor")
-        expect(page).to have_selector("div#page-content")
+        expect(page).to have_selector("div#content-editor")
         expect(page).to have_content("Save")
         expect(page).to have_content("Publish")
         expect(page).to have_link("Done", href: admin_pages_path)
       end
 
-      context "when the save button is clicked" do
+      context "when the save button is clicked", js: true do
         before do
-          fill_in "url", with: "/test/url"
-          click_button "save-button"
+          fill_in "url-editor", with: "/test/url"
+          find("#save-button").click
         end
 
         it "should save the page" do
           expect(page).to have_content("Page Editor")
-          expect(Page.last.url).to eq "/test/url"
+          expect(page).to have_css("#save-button[disabled]")
+          visit admin_pages_path
+          expect(page).to have_link("/test/url")
         end
       end
       
