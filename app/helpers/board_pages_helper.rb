@@ -1,0 +1,2 @@
+module BoardPagesHelper
+end

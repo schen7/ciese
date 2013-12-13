@@ -1,0 +1,18 @@
+<% provide(:title, 'Boardsxxx') %>
+
+<h1>Boardsaaa</h1>
+
+<table id="boards">
+  <thead>
+    <tr>
+      <th>Name</th>
+    <tr>
+  </thead>
+  <tbody>
+    <% @boards.each do |board| %>
+      <tr>
+        <td><%board.name%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

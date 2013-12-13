@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :topic do
-    name "MyString"
+    name "topic name"
     board_id 1
+
   end
 end

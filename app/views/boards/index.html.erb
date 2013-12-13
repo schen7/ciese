@@ -1,0 +1,22 @@
+<% provide(:title, 'Boards') %>
+
+<h1>Boards</h1>
+
+<table id="boards">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th>Topic counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @boards.each do |board| %>
+      <tr>
+        <td><%= link_to board.name, board_path(board.id) %></td>
+        <td><%= link_to "Edit", edit_board_path(board.id) %></td>
+        <td><%= board.topics.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

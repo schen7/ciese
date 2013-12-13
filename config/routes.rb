@@ -20,4 +20,10 @@ Ciese::Application.routes.draw do
     resources :programs, only: [:index, :create, :show, :update, :destroy]
   end
 
+  resources :boards
+  get "/discussion/boards", to: "boards#index"
+  get "/discussion/boards/:id/topics", to: "boards#show"
+
+  resources :topics
+  #get "/discussion/boards/:id/topics", to: "topics#index"
 end
