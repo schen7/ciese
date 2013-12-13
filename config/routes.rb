@@ -24,6 +24,7 @@ Ciese::Application.routes.draw do
   get "/discussion/boards", to: "boards#index"
   get "/discussion/boards/:id/topics", to: "boards#show"
 
-  resources :topics
+  resources :topics, :posts, :comments
   #get "/discussion/boards/:id/topics", to: "topics#index"
+
 end

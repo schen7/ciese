@@ -19,14 +19,38 @@ describe "TopicPages" do
         expect(page).to have_selector('h1', 'Topics')
         expect(page).to have_selector('table#topics')
         expect(page.all('table tr').count).to eq 3
-        #expect(page).to have_content(topic.board_id)
 
         topics.each do |topic|
-          expect(page).to have_content(topic.name)
-          expect(page).to have_link('Edit', href: topic_path(topic.id))
+          expect(page).to have_link(topic.name, href: topic_path(topic))
+          expect(page).to have_link('Edit', href: edit_topic_path(topic))
         end
       end
     end
+  end
 
-  end  
+  describe "show topic page" do
+    let(:topic) { create(:topic) }
+    let(:path) { topic_path(topic) }
+
+    let!(:post1) { create(:post, topic_id: topic.id) }
+    let!(:post2) { create(:post, topic_id: topic.id) }
+
+    it_behaves_like "a page that requires an active admin user"
+
+    context "when visited by an admin user" do
+      let(:admin) { create(:admin) }
+      before { log_in_and_visit(admin, path) }
+
+      it "should have topic name and an edit link" do
+        expect(page).to have_title(full_title('Topic Info'))
+        expect(page).to have_selector('h1', 'Topic Info')
+        expect(page).to have_content(topic.name)
+        expect(page.all('table tr').count).to eq 3
+        
+        expect(page).to have_link(post1.title, href: post_path(post1))
+        expect(page).to have_link(post2.title, href: post_path(post2))
+      end
+    end
+  end
+  
 end

@@ -17,7 +17,7 @@ class BoardsController < ApplicationController
   
   def update
     if @board.update_attributes(board_params)
-      flash[:success] = "Profile updated."
+      flash[:success] = "Board updated."
       redirect_to @board
     else
       render 'edit'

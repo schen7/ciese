@@ -5,15 +5,17 @@
 <table id="topics">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Board ID</th>
+      <th>Topic Name</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <% @topics.each do |topic| %>
       <tr>
-        <td><%= "#{topic.name}/#{}" %></td>
-        <td><%= link_to "Edit", topic %></td>
+        <td><%= link_to topic.board_id, board_path(topic.board) %></td>
+        <td><%= link_to topic.name, topic_path(topic) %></td>
+        <td><%= link_to "Edit", edit_topic_path(topic) %></td>
       </tr>
     <% end %>
   </tbody>

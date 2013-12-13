@@ -1,0 +1,21 @@
+<% provide(:title, 'Topic Info') %>
+
+<h1>Topic Info</h1>
+<h2><%= @topic.name%></h2>
+<table id="topic">
+  <thead>
+    <tr>
+      <th>Post</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= link_to post.title, post_path(post) %></td>
+        <td><%= @topic.posts.count %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

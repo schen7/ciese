@@ -6,8 +6,10 @@ class TopicsController < ApplicationController
   def index
     @topics = Topic.all
   end
-=begin
+
   def show
+    @topic = Topic.find(params[:id])
+    @posts = @topic.posts
   end
 
   def edit
@@ -15,7 +17,7 @@ class TopicsController < ApplicationController
 
   def update
     if @topic.update_attributes(topic_params)
-      flash[:success] = "Profile updated."
+      flash[:success] = "Topic updated."
       redirect_to @topic
     else
       render 'edit'
@@ -31,6 +33,6 @@ class TopicsController < ApplicationController
   def get_topic
     @topic = Topic.find(params[:id])
   end 
-=end
+
 end
 

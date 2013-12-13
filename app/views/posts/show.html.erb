@@ -1,0 +1,21 @@
+<% provide(:title, 'Post Info') %>
+
+<h1>Post Info</h1>
+<h2><%= @post.title%></h2>
+<table id="post">
+  <thead>
+    <tr>
+      <th>Comment</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= link_to comment.content, comment_path(comment) %></td>
+        <td><%= @post.comments.count %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
