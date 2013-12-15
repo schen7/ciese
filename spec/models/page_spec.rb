@@ -5,13 +5,34 @@ describe Page do
 
   subject { page }
 
+  it { should respond_to(:page_id) }
   it { should respond_to(:url) }
   it { should respond_to(:content) }
   it { should respond_to(:user) }
-  it { should respond_to(:latest) }
-  it { should respond_to(:published) }
+  it { should respond_to(:current_page) }
+  it { should respond_to(:published_page) }
 
   it { should be_valid }
+
+  describe "#page_id" do
+    context "when empty and page is saved" do
+      before { page.save }
+
+      it "should equal the page's id" do
+        expect(page.page_id).to eq page.id
+      end
+    end
+
+    context "when set and page is saved" do
+      before { page.page_id = 1000 }
+
+      it "should not be changed" do
+        page.save
+        expect(page.page_id).to eq 1000
+      end
+    end
+  end
+
 
   describe "#url" do
     context "when blank" do
@@ -37,23 +58,20 @@ describe Page do
         end
       end
     end
+
+    context "when ending with a slash" do
+      before { page.url = "/page/" }
+
+      it "removes the trailing slash" do
+        page.save
+        expect(page.url).to eq "/page"
+      end
+    end
   end
 
   describe "#user" do
     before { page.user = nil }
 
     it { should_not be_valid }
-  end
-
-  describe "#latest" do
-    it "should have a default of false" do
-      expect(page.latest).to be_false
-    end
-  end
-
-  describe "#published" do
-    it "should have a default of false" do
-      expect(page.published).to be_false
-    end
   end
 end

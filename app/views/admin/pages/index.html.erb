@@ -12,15 +12,17 @@
         <th>Author</th>
         <th>Last Modified</th>
         <th>Published?</th>
+        <th>Previous<br>Version<br>Published?</th>
       </tr>
     </thead>
     <tbody>
       <% @pages.each do |page| %>
       <tr>
-        <td><a href="<%= admin_edit_page_path(page.url) %>"><%= page.url %></a></td>
-        <td><%= page.user.username %></td>
-        <td><%= page.updated_at %></td>
-        <td><% if page.published? %>yes<i class="fi-check"></i><% end %></td>
+        <td><a href="<%= admin_page_versions_path(page.page_id) %>"><%= page.version.url %></a></td>
+        <td><%= page.version.user.username %></td>
+        <td><%= page.version.updated_at %></td>
+        <td><% if page.published %>yes<i class="fi-check"></i><% end %></td>
+        <td><% if page.prev_published %>yes<i class="fi-check"></i><% end %></td>
       </tr>
       <% end %>
     </tbody>

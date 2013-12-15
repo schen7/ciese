@@ -4,7 +4,7 @@ class Admin::PagesController < ApplicationController
   before_action :require_staff_or_admin
 
   def index
-    @pages = Page.includes(:user).where(latest: true).order(url: :asc)
+    @pages = CurrentPage.with_publish_info.joins(:version).includes(version: [:user]).order("pages.url ASC")
   end
 
   def new
