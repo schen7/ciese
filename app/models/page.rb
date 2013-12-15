@@ -10,7 +10,7 @@ class Page < ActiveRecord::Base
   validates :user, presence: true
 
   before_save do |page|
-    page.url = page.url.chomp("/")
+    page.url = page.url.chomp("/") if page.url != '/'
   end
 
   after_save do |page|

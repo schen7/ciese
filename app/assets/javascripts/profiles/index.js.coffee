@@ -1,5 +1,5 @@
-//= require angular
-//= require angular-resource
+//= require angular/angular.min
+//= require angular/angular-resource.min
 //= require common
 //= require_self
 //= require_directory .

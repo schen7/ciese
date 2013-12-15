@@ -1,7 +1,7 @@
 <% provide(:title, 'Pages') %>
 
 <% provide :css do %>
-<%= stylesheet_link_tag "pages", media: "all" %>
+<%= stylesheet_link_tag "pages", media: "all", "data-turbolinks-track" => true %>
 <% end %>
 
 <div id="page-editor">
@@ -16,7 +16,7 @@
         </form>
       </div>
       <div class="large-4 columns button-row">
-        <button id="publish-button" class="button success small radius" <% if @page.published %>disabled <% end %>ng-disabled="isDirty() || !urlForm.$valid || published" ng-click="publishPage()">Publish</button>
+        <button id="publish-button" class="button success small radius" <% if !@page.published_page.nil? %>disabled <% end %>ng-disabled="isDirty() || !urlForm.$valid || pageId == -1 || published" ng-click="publishPage()">Publish</button>
         <button id="save-button" class="button primary small radius" disabled ng-disabled="!(isDirty() && urlForm.$valid)" ng-click="savePage()">Save</button>
         <a target="_self" class="button secondary small radius" href="<%= admin_pages_path %>">Done</a>
       </div>
@@ -28,11 +28,13 @@
 
 <% provide :js do %>
 <%= javascript_include_tag "tinymce/tinymce.min.js" %>
-<%= javascript_include_tag "pages" %>
+<%= javascript_include_tag "pages", "data-turbolinks-track" => true %>
 <script type="text/javascript">
   angular.module('PageEditorApp').run(function($rootScope) {
-    $rootScope.pageId = <%= @page.id || -1 %>;
-    $rootScope.published = <%= @page.published? %>;
+    $rootScope.versionId = <%= @page.id || -1 %>;
+    $rootScope.pageId = <%= @page.page_id || -1 %>;
+    $rootScope.url = "<%= @page.url %>";
+    $rootScope.published = <%= !@page.published_page.nil? %>;
   });
 </script>
 <% end %>

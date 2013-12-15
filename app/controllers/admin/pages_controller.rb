@@ -18,20 +18,25 @@ class Admin::PagesController < ApplicationController
   end
 
   def create
-    data = page_params.merge(user: current_user, latest: true)
-    Page.where(url: data[:url]).update_all(latest: false)
+    data = page_params.merge(user: current_user)
     page = Page.new(data)
     if page.save
-      render json: {saved: true, id: page.id}
+      CurrentPage.where(page_id: page.page_id).destroy_all
+      page.create_current_page(page_id: page.page_id)
+      render json: {saved: true, version_id: page.id, page_id: page.page_id}
     else
       render json: {saved: false, errors: page.errors.full_messages}
     end
   end
 
   def publish
-    Page.where(url: page_params[:url]).update_all(published: false)
-    page = Page.find(params.permit(:id)[:id])
-    if page.update(published: true)
+    page = PublishedPage.find_by(page_id: publish_params[:page_id])
+    if page.nil?
+      page = PublishedPage.new(publish_params)
+    else
+      page.version_id = publish_params[:version_id]
+    end
+    if page.save
       render json: {published: true}
     else
       render json: {published: false, errors: page.errors.full_messages}
@@ -42,6 +47,10 @@ class Admin::PagesController < ApplicationController
 
   def page_params
     params.permit(:url, :content)
+  end
+
+  def publish_params
+    params.permit(:version_id, :page_id)
   end
 
 end

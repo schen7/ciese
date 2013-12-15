@@ -69,6 +69,51 @@ describe "PageEditorPages" do
     end
   end
 
+  describe "new page" do
+    let(:path) { admin_new_page_path }
+
+    it_behaves_like "a page that requires an active staff or admin user"
+
+    context "when visited by an authorized user" do
+      let(:user) { create(:staff) }
+      before { log_in_and_visit(user, path) }
+
+      it "renders the page editor" do
+        expect(page).to have_content("Page Editor")
+        expect(page).to have_selector("div#content-editor")
+        expect(page).to have_content("Save")
+        expect(page).to have_content("Publish")
+        expect(page).to have_link("Done", href: admin_current_pages_path)
+      end
+
+      context "when the save button is clicked", js: true do
+        before do
+          fill_in "url", with: "/test/url"
+          find_button("save-button").click
+        end
+
+        it "should save the page" do
+          expect(page).to have_content("Page Editor")
+          expect(page).to have_css("#save-button[disabled]")
+          expect(page.current_path).to eq admin_edit_page_path(Page.last.page_id)
+          visit admin_current_pages_path
+          expect(page).to have_link("/test/url")
+        end
+
+        context "when the published button is clicked", js: true do
+          before { find_button("publish-button").click }
+
+          it "should publish the page" do
+            expect(page).to have_content("Page Editor")
+            expect(page).to have_css("#publish-button[disabled]")
+            visit admin_current_pages_path
+            expect(page).to have_selector("i.fi-check")
+          end
+        end
+      end
+    end
+  end
+
   # describe "page editor" do
   #   let(:path) { admin_new_page_path }
 

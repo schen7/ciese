@@ -2,7 +2,6 @@ angular
   .module('PageEditorApp')
   .controller('PageEditorCtrl', ['$scope', '$location', '$http', ($scope, $location, $http) ->
     angular.extend $scope,
-      url: $location.path().replace(/^\/admin\/pages\/(?:new|edit)/, '')
       isDirty: ->
         urlDirty = $scope.urlForm.url.$dirty
         editor = $scope.contentEditor
@@ -18,16 +17,17 @@ angular
         $http.post('/admin/pages', data).success(saveDone).error(saveError)
       publishPage: ->
         data =
-          id: $scope.pageId
-          url: $scope.url
+          version_id: $scope.versionId
+          page_id: $scope.pageId
         $http.post("/admin/pages/#{$scope.pageId}", data)
           .success(publishDone).error(publishError)
 
     saveDone = (data, status, headers, config) ->
-      $location.path('/admin/pages/edit' + $scope.url)
+      $scope.versionId = data.version_id
+      $scope.pageId = data.page_id
+      $location.path("/admin/pages/edit/#{$scope.pageId}")
       $scope.urlForm.$setPristine()
       $scope.contentEditor.startContent = $scope.contentEditor.getContent(format: 'raw')
-      $scope.pageId = data.id
       $scope.published = false
 
     saveError = (data, status, headers, config) ->
