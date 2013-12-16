@@ -13,7 +13,8 @@ class Admin::PagesController < ApplicationController
   end
 
   def edit
-    @page = Page.find_by(url: page_params[:url], latest: true)
+    current_page = CurrentPage.includes(:version).find_by(page_id: page_params[:page_id])
+    @page = current_page.version
     render "editor"
   end
 
@@ -46,7 +47,7 @@ class Admin::PagesController < ApplicationController
   private
 
   def page_params
-    params.permit(:url, :content)
+    params.permit(:page_id, :url, :content)
   end
 
   def publish_params

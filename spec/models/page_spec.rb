@@ -67,6 +67,15 @@ describe Page do
         expect(page.url).to eq "/page"
       end
     end
+
+    context "when only a single slash" do
+      before { page.url = "/" }
+
+      it "remains unaffected" do
+        page.save
+        expect(page.url).to eq "/"
+      end
+    end
   end
 
   describe "#user" do
