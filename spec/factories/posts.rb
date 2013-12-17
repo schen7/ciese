@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :post do
     topic_id 1
-    title "MyString"
-    content "MyText"
+    title "My_title"
+    content "My_content"
     author 1
   end
 end

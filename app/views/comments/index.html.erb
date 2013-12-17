@@ -1,0 +1,21 @@
+<% provide(:title, 'Comments') %>
+
+<h1>Comments</h1>
+
+<table id="comments">
+  <thead>
+    <tr>
+      <th>Post ID</th>
+      <th>Comment Content</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= link_to comment.post_id, post_path(comment.post_id) %></td>
+        <td><%= link_to comment.content, comment_path(comment) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -72,7 +72,14 @@ shared_examples "a page that rejects a non-active admin user" do
     it { should have_content(not_authorized_message) }
   end
 end
-
+=begin
+shared_examples "a page that requires an active regular user" do
+  it_behaves_like "a page that requires a logged-in user"
+  it_behaves_like "a page that rejects a non-active regular user"
+  it_behaves_like "a page that rejects a non-active staff user"
+  it_behaves_like "a page that rejects a non-active admin user"
+end
+=end
 shared_examples "a page that requires an active staff or admin user" do
   it_behaves_like "a page that requires a logged-in user"
   it_behaves_like "a page that rejects a regular user"
@@ -163,7 +170,14 @@ shared_examples "an action that rejects a non-active admin user" do
     it { should render_template("static_pages/403.html") }
   end
 end
-
+=begin
+shared_examples "an action that requires an active regular user" do
+  it_behaves_like "an action that requires a logged-in user"
+  it_behaves_like "an action that rejects a non-active regular user"
+  it_behaves_like "an action that rejects a non-active staff user"
+  it_behaves_like "an action that rejects a non-active admin user"
+end
+=end
 shared_examples "an action that requires an active staff or admin user" do
   it_behaves_like "an action that requires a logged-in user"
   it_behaves_like "an action that rejects a regular user"

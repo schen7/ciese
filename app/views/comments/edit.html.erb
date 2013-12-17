@@ -1,0 +1,20 @@
+<% provide(:title, 'Edit Comment') %>
+
+<h1>Edit Comment</h1>
+
+<%= form_for(@comment) do |f| %>
+<%= render 'shared/comment_error_messages' %>
+
+<table id="comment_edit">
+  <tr>
+    <td><%= f.label :content %></td>
+    <td><%= f.text_field :content %></td>
+  </tr>
+</table>
+
+<p>
+  <%= f.submit "Save changes", class: 'button' %>
+  <%= link_to "Cancel", @comment, class: 'button secondary' %>
+</p>
+
+<% end %>

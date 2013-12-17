@@ -15,7 +15,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update_attributes(post_params)
-      flash[:success] = "Profile updated."
+      flash[:success] = "Post updated."
       redirect_to @post
     else
       render 'edit'
@@ -25,7 +25,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:name)
+    params.require(:post).permit(:title, :content)
   end
 
   def get_post
