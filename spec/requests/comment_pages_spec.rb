@@ -22,8 +22,8 @@ describe "CommentPages" do
         expect(page.all('table tr').count).to eq 3
 
         comments.each do |comment|
-          expect(page).to have_link(comment.content, href: comment_path(comment))
-          expect(page).to have_link(comment.post_id, href: post_path(comment.post_id))
+          expect(page).to have_link(comment.content, href: discussion_comment_path(comment))
+          expect(page).to have_link(comment.post_id, href: discussion_post_path(comment.post_id))
         end
       end
     end
@@ -40,7 +40,7 @@ describe "CommentPages" do
         expect(page).to have_title(full_title('Comment Info'))
         expect(page).to have_selector('h1', 'Comment Info')
         expect(page).to have_content(comment.content)
-        expect(page).to have_link('Edit', edit_comment_path(comment))
+        expect(page).to have_link('Edit', discussion_edit_comment_path(comment))
 
       end
     end
@@ -48,7 +48,7 @@ describe "CommentPages" do
 
   describe "edit comment page" do
     let(:comment) { create(:comment) }
-    let(:path) { edit_comment_path(comment) }
+    let(:path) { discussion_edit_comment_path(comment) }
 
     #it_behaves_like "a page that requires an active admin user"
 

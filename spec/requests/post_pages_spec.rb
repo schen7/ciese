@@ -22,8 +22,8 @@ describe "PostPages" do
         expect(page.all('table tr').count).to eq 3
 
         posts.each do |post|
-          expect(page).to have_link(post.title, href: post_path(post))
-          expect(page).to have_link('Edit', href: edit_post_path(post))
+          expect(page).to have_link(post.title, href: discussion_post_path(post))
+          expect(page).to have_link('Edit', href: discussion_edit_post_path(post))
         end
       end
     end
@@ -31,7 +31,7 @@ describe "PostPages" do
 
   describe "show post page" do
     let(:post) { create(:post) }
-    let(:path) { post_path(post) }
+    let(:path) { discussion_post_path(post) }
 
     let!(:comment1) { create(:comment, post_id: post.id) }
     let!(:comment2) { create(:comment, post_id: post.id) }
@@ -44,20 +44,20 @@ describe "PostPages" do
         expect(page).to have_selector('h1', 'Post Info')
         expect(page).to have_content(post.title)
         expect(page).to have_content(post.content)
-        expect(page).to have_link('Edit', edit_post_path(post))
+        expect(page).to have_link('Edit', discussion_edit_post_path(post))
         expect(page.all('table tr').count).to eq 3
         
         expect(page).to have_content(comment1.content)
-        expect(page).to have_link('Edit', edit_comment_path(comment1))
+        expect(page).to have_link('Edit', discussion_edit_comment_path(comment1))
         expect(page).to have_content(comment2.content)
-        expect(page).to have_link('Edit', edit_comment_path(comment2))
+        expect(page).to have_link('Edit', discussion_edit_comment_path(comment2))
       end
     end
   end
 
   describe "edit post page" do
     let(:post) { create(:post) }
-    let(:path) { edit_post_path(post) }
+    let(:path) { discussion_edit_post_path(post) }
 
     #it_behaves_like "a page that requires an active admin user"
 

@@ -21,16 +21,20 @@ Ciese::Application.routes.draw do
   end
 
   resources :boards, :topics, :posts, :comments
-  get "/discussion/boards", to: "boards#index"
-  get "/discussion/boards/:id/topics", to: "boards#show"
-  get "/discussion/topics/:id/posts", to: "topics#show"
-  get "/discussion/posts/:id", to: "posts#show"
-  get "/discussion/comments/:id", to: "comments#show"
+  get "/discussion/boards", to: "boards#index", as: "discussion_boards"
+  get "/discussion/board/:id/edit", to: "boards#edit", as: "discussion_edit_board"
+  get "/discussion/board/:id/topics", to: "boards#show", as: "discussion_board"
 
-  get "/discussion/posts/:id/edit", to: "posts#edit"
-  put "/discussion/posts/:id", to: "posts#update"
+  get "/discussion/topic/:id/posts", to: "topics#show", as: "discussion_topic"
+  get "/discussion/post/:id", to: "posts#show", as: "discussion_post"
+  get "/discussion/topic/:id/edit", to: "topics#edit", as: "discussion_edit_topic"
 
-  get "/discussion/comments/:id/edit", to: "comments#edit"
-  put "/discussion/comments/:id", to: "comments#update"
+  get "/discussion/comment/:id", to: "comments#show", as: "discussion_comment"
+
+  get "/discussion/post/:id/edit", to: "posts#edit", as: "discussion_edit_post"
+  put "/discussion/post/:id", to: "posts#update"
+
+  get "/discussion/comment/:id/edit", to: "comments#edit", as: "discussion_edit_comment"
+  put "/discussion/comment/:id", to: "comments#update"
 
 end

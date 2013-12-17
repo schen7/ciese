@@ -13,9 +13,9 @@
   <tbody>
     <% @topics.each do |topic| %>
       <tr>
-        <td><%= link_to topic.board_id, board_path(topic.board) %></td>
-        <td><%= link_to topic.name, topic_path(topic) %></td>
-        <td><%= link_to "Edit", edit_topic_path(topic) %></td>
+        <td><%= link_to topic.board_id, discussion_board_path(topic.board) %></td>
+        <td><%= link_to topic.name, discussion_topic_path(topic) %></td>
+        <td><%= link_to "Edit", discussion_edit_topic_path(topic) %></td>
       </tr>
     <% end %>
   </tbody>

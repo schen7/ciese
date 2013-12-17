@@ -12,7 +12,7 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= link_to post.title, post_path(post) %></td>
+        <td><%= link_to post.title, discussion_post_path(post) %></td>
         <td><%= @topic.posts.count %></td>
         <td></td>
       </tr>

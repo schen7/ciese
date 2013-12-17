@@ -13,8 +13,8 @@
   <tbody>
     <% @boards.each do |board| %>
       <tr>
-        <td><%= link_to board.name, board_path(board.id) %></td>
-        <td><%= link_to "Edit", edit_board_path(board.id) %></td>
+        <td><%= link_to board.name, discussion_board_path(board.id) %></td>
+        <td><%= link_to "Edit", discussion_edit_board_path(board.id) %></td>
         <td><%= board.topics.count %></td>
       </tr>
     <% end %>

@@ -5,7 +5,7 @@ describe "BoardPages" do
   subject { page }
 
   describe "list boards page" do
-    let(:path) { boards_path }
+    let(:path) { discussion_boards_path }
 
     it_behaves_like "a page that requires an active admin user"
 
@@ -20,8 +20,8 @@ describe "BoardPages" do
         expect(page).to have_selector('table#boards')
         expect(page.all('table tr').count).to eq 3
         boards.each do |board|
-          expect(page).to have_link(board.name, href: board_path(board.id))
-          expect(page).to have_link('Edit', href: edit_board_path(board.id))
+          expect(page).to have_link(board.name, href: discussion_board_path(board.id))
+          expect(page).to have_link('Edit', href: discussion_edit_board_path(board.id))
         end
       end
     end
@@ -47,8 +47,8 @@ describe "BoardPages" do
         expect(page).to have_content(board.name)
         expect(page.all('table tr').count).to eq 3
 
-        expect(page).to have_link(topic1.name, href: topic_path(topic1))
-        expect(page).to have_link(topic2.name, href: topic_path(topic2))
+        expect(page).to have_link(topic1.name, href: discussion_topic_path(topic1))
+        expect(page).to have_link(topic2.name, href: discussion_topic_path(topic2))
       end
     end
   end

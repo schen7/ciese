@@ -13,9 +13,9 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= link_to post.topic_id, topic_path(post.topic_id) %></td>
-        <td><%= link_to post.title, post_path(post) %></td>
-        <td><%= link_to "Edit", edit_post_path(post) %></td>
+        <td><%= link_to post.topic_id, discussion_topic_path(post.topic_id) %></td>
+        <td><%= link_to post.title, discussion_post_path(post) %></td>
+        <td><%= link_to "Edit", discussion_edit_post_path(post) %></td>
       </tr>
     <% end %>
   </tbody>

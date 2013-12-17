@@ -21,8 +21,8 @@ describe "TopicPages" do
         expect(page.all('table tr').count).to eq 3
 
         topics.each do |topic|
-          expect(page).to have_link(topic.name, href: topic_path(topic))
-          expect(page).to have_link('Edit', href: edit_topic_path(topic))
+          expect(page).to have_link(topic.name, href: discussion_topic_path(topic))
+          expect(page).to have_link('Edit', href: discussion_edit_topic_path(topic))
         end
       end
     end
@@ -30,7 +30,7 @@ describe "TopicPages" do
 
   describe "show topic page" do
     let(:topic) { create(:topic) }
-    let(:path) { topic_path(topic) }
+    let(:path) { discussion_topic_path(topic) }
 
     let!(:post1) { create(:post, topic_id: topic.id) }
     let!(:post2) { create(:post, topic_id: topic.id) }
@@ -47,8 +47,8 @@ describe "TopicPages" do
         expect(page).to have_content(topic.name)
         expect(page.all('table tr').count).to eq 3
         
-        expect(page).to have_link(post1.title, href: post_path(post1))
-        expect(page).to have_link(post2.title, href: post_path(post2))
+        expect(page).to have_link(post1.title, href: discussion_post_path(post1))
+        expect(page).to have_link(post2.title, href: discussion_post_path(post2))
       end
     end
   end
