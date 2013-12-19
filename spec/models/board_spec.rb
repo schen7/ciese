@@ -7,6 +7,8 @@ describe Board do
 
   it { should respond_to(:name) }
 
+  it { should respond_to(:topics) }
+
   it { should be_valid }
 
   describe "#board_name" do

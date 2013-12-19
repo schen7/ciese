@@ -10,12 +10,12 @@ describe "CommentPages" do
     #it_behaves_like "a page that requires an active regular user"
 
     context "when visited by an user" do
-      #let(:user) { create(:user) }
+      let(:user) { create(:user) }
 
       it "should list all the comments and have an appropriate header and title" do
         comments = create_list(:comment, 2)
-        #log_in_and_visit(user, path)
-        visit(path)
+        log_in_and_visit(user, path)
+        #visit(path)
         expect(page).to have_title(full_title('Comments'))
         expect(page).to have_selector('h1', 'Comments')
         expect(page).to have_selector('table#comments')
@@ -34,7 +34,9 @@ describe "CommentPages" do
     let(:path) { comment_path(comment) }
 
     context "when visited by an user" do
-      before { visit(path) }
+      let(:user) { create(:user) }
+      before { log_in_and_visit(user, path) }
+      #before { visit(path) }
 
       it "should have comment name and an edit link" do
         expect(page).to have_title(full_title('Comment Info'))
@@ -53,9 +55,9 @@ describe "CommentPages" do
     #it_behaves_like "a page that requires an active admin user"
 
     context "when visited by the author" do
-      #let(:admin) { create(:admin) }
-      #before { log_in_and_visit(admin, path) }
-      before { visit(path) }
+      let(:user) { create(:user) }
+      before { log_in_and_visit(user, path) }
+      #before { visit(path) }
 
       it "should have title, header, and editing form" do
         expect(page).to have_title(full_title("Edit Comment"))
@@ -69,6 +71,15 @@ describe "CommentPages" do
           before { click_button "Save" }
 
           it { should have_selector('.success', text: 'Comment updated.') }
+        end
+
+        context "with invalid information" do
+          before do
+            fill_in "Content", with: ''
+            click_button "Save"
+          end
+
+          it { should have_selector('.alert', text: 'error') }
         end
 
         context "with valid information" do

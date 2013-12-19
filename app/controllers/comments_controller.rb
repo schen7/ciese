@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :require_login
   before_action :get_comment, except: [:index]
 
   def index

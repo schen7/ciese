@@ -8,6 +8,7 @@ describe Topic do
   it { should respond_to(:board_id) } 
   it { should respond_to(:name) }
 
+  it { should respond_to(:posts) }
  
   it { should be_valid }
   

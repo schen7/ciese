@@ -10,6 +10,8 @@ describe Post do
   it { should respond_to(:content) }
   it { should respond_to(:author) }
 
+  it { should respond_to(:comments) }
+
   it { should be_valid }
 
   describe "when topic_id is not present" do

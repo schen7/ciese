@@ -7,15 +7,15 @@ describe "PostPages" do
   describe "list posts page" do
     let(:path) { posts_path }
 
-    #it_behaves_like "a page that requires an active regular user"
+    #it_behaves_like "a page that requires a logged-in user"
 
     context "when visited by an user" do
-      #let(:user) { create(:user) }
+      let(:user) { create(:user) }
 
       it "should list all the posts and have an appropriate header and title" do
         posts = create_list(:post, 2)
-        #log_in_and_visit(user, path)
-        visit(path)
+        log_in_and_visit(user, path)
+        #visit(path)
         expect(page).to have_title(full_title('Posts'))
         expect(page).to have_selector('h1', 'Posts')
         expect(page).to have_selector('table#posts')
@@ -30,6 +30,8 @@ describe "PostPages" do
   end
 
   describe "show post page" do
+    let(:user) { create(:user) }
+
     let(:post) { create(:post) }
     let(:path) { discussion_post_path(post) }
 
@@ -37,7 +39,8 @@ describe "PostPages" do
     let!(:comment2) { create(:comment, post_id: post.id) }
 
     context "when visited by an user" do
-      before { visit(path) }
+      before { log_in_and_visit(user, path) }
+      #before { visit(path) }
 
       it "should have post name and an edit link" do
         expect(page).to have_title(full_title('Post Info'))
@@ -56,15 +59,15 @@ describe "PostPages" do
   end
 
   describe "edit post page" do
+    let(:user) { create(:user) }
     let(:post) { create(:post) }
     let(:path) { discussion_edit_post_path(post) }
 
     #it_behaves_like "a page that requires an active admin user"
 
     context "when visited by the author" do
-      #let(:admin) { create(:admin) }
-      #before { log_in_and_visit(admin, path) }
-      before { visit(path) }
+      before { log_in_and_visit(user, path) }
+      #before { visit(path) }
       
       it "should have title, header, and editing form" do
         expect(page).to have_title(full_title("Edit Post"))
