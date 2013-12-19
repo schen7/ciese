@@ -17,4 +17,8 @@ class Page < ActiveRecord::Base
     page.update(page_id: page.id) if page.page_id.nil?
   end
 
+  def published?
+    !published_page.nil?
+  end
+
 end

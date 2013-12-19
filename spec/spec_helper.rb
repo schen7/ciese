@@ -43,6 +43,10 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+
   config.include FactoryGirl::Syntax::Methods
   config.include Capybara::DSL
 

@@ -7,6 +7,16 @@ class Admin::PagesController < ApplicationController
     @pages = CurrentPage.with_publish_info.joins(:version).includes(version: [:user]).order("pages.url ASC")
   end
 
+  def versions
+    @pages = Page.includes(:published_page)
+                 .where(page_id: page_params[:page_id]).order(id: :desc)
+  end
+
+  def show_version
+    @page = Page.includes(:user, :published_page).find(params.permit(:id)[:id])
+    @versions = Page.where(page_id: @page.page_id).order(:id).ids
+  end
+
   def new
     @page = Page.new(url: '/', content: "<h1>Title</h1>\n<p>Content here.</p>")
     render "editor"
@@ -19,7 +29,7 @@ class Admin::PagesController < ApplicationController
   end
 
   def create
-    data = page_params.merge(user: current_user)
+    data = page_params.merge(user: current_user, page_id: page_params[:page_id])
     page = Page.new(data)
     if page.save
       CurrentPage.where(page_id: page.page_id).destroy_all
@@ -30,7 +40,7 @@ class Admin::PagesController < ApplicationController
     end
   end
 
-  def publish
+  def editor_publish
     page = PublishedPage.find_by(page_id: publish_params[:page_id])
     if page.nil?
       page = PublishedPage.new(publish_params)
@@ -52,6 +62,10 @@ class Admin::PagesController < ApplicationController
 
   def publish_params
     params.permit(:version_id, :page_id)
+  end
+
+  def publish_page
+    PublishedPage.where(page_id: publish_params[:page_id]).destroy_all
   end
 
 end

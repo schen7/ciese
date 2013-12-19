@@ -11,6 +11,7 @@ describe Page do
   it { should respond_to(:user) }
   it { should respond_to(:current_page) }
   it { should respond_to(:published_page) }
+  it { should respond_to(:published?) }
 
   it { should be_valid }
 
@@ -83,4 +84,20 @@ describe Page do
 
     it { should_not be_valid }
   end
+
+  describe "#published?" do
+    context "when page is not published" do
+      its(:published?) { should be_false }
+    end
+
+    context "when page is published" do
+      before do
+        page.save
+        create(:published_page, version: page)
+      end
+
+      its(:published?) { should be_true }
+    end
+  end
+
 end

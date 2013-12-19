@@ -1,0 +1,44 @@
+<% provide(:title, 'Page Version') %>
+
+<% provide :css do %>
+<%= stylesheet_link_tag "pages", media: "all", "data-turbolinks-track" => true %>
+<% end %>
+
+<div id="page-version" ng-controller="PageVersionCtrl">
+  <div id="top-nav-bar">
+    <div class="row">
+      <div class="large-3 columns">
+        <h1>Page Version</h1>
+      </div>
+      <div class="large-4 columns">
+        <h2 <% if @page.published? %> class="published"<% end %>ng-class="{published: page.published}" ng-bind="page.url"><%= @page.url %></h2>
+      </div>
+      <div class="large-5 columns">
+        <div class="button-row">
+          <form name="versionForm">
+            <button id="publish-button" class="button success small radius<%= " hidden" if @page.published? %>" ng-class="{hidden: page.published}" ng-click="publishPage()">Publish</button>
+            <button id="unpublish-button" class="button alert small radius<%= " hidden" if !@page.published? %>" ng-class="{hidden: !page.published}" ng-click="unpublishPage()">Unpublish</button>
+            <a class="button small secondary radius" ng-disabled="!isPrevVersion()" ng-click="isPrevVersion() && getPrevVersion()">&lt;</a>
+            <a class="button small secondary radius" ng-disabled="!isNextVersion()" ng-click="isNextVersion() && getNextVersion()">&gt;</a>
+            <a target="_self" class = "button primary small radius" href="<%= admin_edit_page_path(@page.page_id) %>?vid=<%= @page.id %>">Edit</a>
+            <a target="_self" class="button secondary small radius" href="<%= admin_page_versions_path(@page.page_id) %>">Done</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="version-content" ng-bind-html="page.content"><%= @page.content.html_safe %></div>
+</div>
+
+<% provide :js do %>
+<%= javascript_include_tag "page_version", "data-turbolinks-track" => true %>
+<script type="text/javascript">
+  angular.module('PageVersionApp').run(function($rootScope) {
+    $rootScope.page = <%= @page.to_json.html_safe %>;
+    $rootScope.versions = <%= @versions.to_json.html_safe %>;
+    $rootScope.page.published = <%= @page.published? %>;
+    $rootScope.page.username = "<%= @page.user.username %>";
+  });
+</script>
+<% end %>

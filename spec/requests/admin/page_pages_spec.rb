@@ -163,7 +163,7 @@ describe "PageEditorPages" do
         it "should save the page" do
           expect(page).to have_content("Page Editor")
           expect(page).to have_css("#save-button[disabled]")
-          expect(page.current_path).to eq admin_edit_page_path(Page.last.page_id)
+          expect(page.current_path).to eq admin_edit_page_path(current_page.page_id)
           visit admin_current_pages_path
           expect(page).to have_link("/test/url")
         end
@@ -182,28 +182,88 @@ describe "PageEditorPages" do
     end
   end
 
-  # describe "page versions list" do
-  #   let!(:page1) { create(:page) } 
-  #   let!(:page2) { create(:page, page_id: page1.page_id, url: page1.url) } 
-  #   let(:path) { admin_page_versions_path }
+  describe "page versions list" do
+    let!(:page1) { create(:page) } 
+    let!(:page2) { create(:page, page_id: page1.page_id, url: page1.url) } 
+    let!(:current_page) { create(:current_page, version: page2) }
+    let(:path) { admin_page_versions_path(page1.page_id) }
 
-  #   it_behaves_like "a page that requires an active staff or admin user"
+    it_behaves_like "a page that requires an active staff or admin user"
 
-  #   context "when visited by an authorized user" do
-  #     let(:user) { create(:staff) }
-  #     before { log_in_and_visit(user, admin_page_versions_path(page1.page_id)) }
+    context "when visited by an authorized user" do
+      let(:user) { create(:staff) }
 
-  #     it "should list the page versions" do
-  #       expect(page).to have_content("Page Versions")
-  #       expect(page).to have_link(page1.url, href: admin_page_edit_path(page1.id))
-  #       expect(page).to have_content(current_page.user.username)
-  #       expect(page).not_to have_selector("i.fi-check")
-  #       expect(page).to have_link("Create New Page", href: admin_new_page_path)
-  #     end
-  #   end
-  # end
+      it "should list the page versions" do
+        log_in_and_visit(user, path)
+        expect(page).to have_content("Page Versions")
+        version_path1 = admin_page_version_path(page1.page_id, page1.id)
+        version_path2 = admin_page_version_path(page2.page_id, page2.id)
+        expect(page).to have_link(page1.url, href: version_path1)
+        expect(page).to have_link(page2.url, href: version_path2)
+        expect(page).to have_content(page1.user.username)
+        expect(page).to have_content(page2.user.username)
+        expect(page).to have_link("Done", href: admin_pages_path)
+      end
 
-  # describe "view page version page" do
-  # end
+      context "when the current version is published" do
+        before { create(:published_page, version: page2) }
 
+        it "should indicate the latest version is published" do
+          log_in_and_visit(user, path)
+          expect(page).to have_selector("tbody tr:first i.fi-check")
+          expect(page).not_to have_selector("tbody tr:last i.fi-check")
+        end
+      end
+
+      context "when a previous version is published" do
+        before { create(:published_page, version: page1) }
+
+        it "should indicate the latest version is published" do
+          log_in_and_visit(user, path)
+          expect(page).not_to have_selector("tbody tr:first i.fi-check")
+          expect(page).to have_selector("tbody tr:last i.fi-check")
+        end
+      end
+    end
+  end
+
+  describe "page version" do
+    let!(:page1) { create(:page) }
+    let!(:page2) { create(:page, url: page1.url, page_id: page1.page_id) }
+    let!(:page3) { create(:page, url: page1.url, page_id: page1.page_id) }
+    let(:current_page) { create(:current_page, version: page3) }
+    let(:path) { admin_page_version_path(page3.page_id, page3.id) }
+    let(:versions_path) { admin_page_versions_path(page3.page_id) }
+
+    it_behaves_like "a page that requires an active staff or admin user"
+
+    context "when visited by an authorized user" do
+      let(:user) { create(:staff) }
+
+      it "shows the page version" do
+        log_in_and_visit(user, path)
+        expect(page).to have_content("Page Version")
+        expect(page).to have_content("Edit")
+        expect(page).to have_link("Done", href: versions_path)
+      end
+
+      context "when the current version is not published" do
+        it "should indicate that this version is not published" do
+          log_in_and_visit(user, path)
+          expect(page).not_to have_selector("h2.published")
+          expect(page).to have_selector("#publish-button")
+        end
+      end
+
+      context "when the current version is published" do
+        before { create(:published_page, version: page3) }
+
+        it "should indicate that this version is published" do
+          log_in_and_visit(user, path)
+          expect(page).to have_selector("h2.published")
+          expect(page).to have_selector("#unpublish-button")
+        end
+      end
+    end
+  end
 end

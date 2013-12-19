@@ -14,6 +14,7 @@ angular
         data =
           url: $scope.url
           content: $scope.contentEditor.getContent()
+        data.page_id = $scope.pageId if $scope.pageId != -1
         $http.post('/admin/pages', data).success(saveDone).error(saveError)
       publishPage: ->
         data =

@@ -8,17 +8,19 @@
   <div id="top-nav-bar" ng-controller="PageEditorCtrl">
     <div class="row">
       <div class="large-3 columns">
-        <h4>Page Editor</h4>
+        <h1>Page Editor</h1>
       </div>
       <div class="large-5 columns">
         <form name="urlForm">
           <input type="text" name="url" ng-model="url" required ng-pattern="/^(?:\/|(?:(?:\/[~%\+\-\.\w]+)+\/?))$/" placeholder="Enter url" ng-class="{error: !urlForm.$valid}" value="<%= @page.url %>">
         </form>
       </div>
-      <div class="large-4 columns button-row">
-        <button id="publish-button" class="button success small radius" <% if !@page.published_page.nil? %>disabled <% end %>ng-disabled="isDirty() || !urlForm.$valid || pageId == -1 || published" ng-click="publishPage()">Publish</button>
-        <button id="save-button" class="button primary small radius" disabled ng-disabled="!(isDirty() && urlForm.$valid)" ng-click="savePage()">Save</button>
-        <a target="_self" class="button secondary small radius" href="<%= admin_pages_path %>">Done</a>
+      <div class="large-4 columns">
+          <div class="button-row">
+              <button id="publish-button" class="button success small radius" <% if !@page.published_page.nil? %>disabled <% end %>ng-disabled="isDirty() || !urlForm.$valid || pageId == -1 || published" ng-click="publishPage()">Publish</button>
+              <button id="save-button" class="button primary small radius" disabled ng-disabled="!(isDirty() && urlForm.$valid)" ng-click="savePage()">Save</button>
+              <a target="_self" class="button secondary small radius" href="<%= admin_pages_path %>">Done</a>
+          </div>
       </div>
     </div>
   </div>
@@ -28,7 +30,7 @@
 
 <% provide :js do %>
 <%= javascript_include_tag "tinymce/tinymce.min.js" %>
-<%= javascript_include_tag "pages", "data-turbolinks-track" => true %>
+<%= javascript_include_tag "page_editor", "data-turbolinks-track" => true %>
 <script type="text/javascript">
   angular.module('PageEditorApp').run(function($rootScope) {
     $rootScope.versionId = <%= @page.id || -1 %>;
