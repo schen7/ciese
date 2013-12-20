@@ -23,8 +23,13 @@ class Admin::PagesController < ApplicationController
   end
 
   def edit
-    current_page = CurrentPage.includes(:version).find_by(page_id: page_params[:page_id])
-    @page = current_page.version
+    if !params[:vid].nil?
+      @page = Page.find(params[:vid])
+      current_page = CurrentPage.includes(:version).find_by(page_id: page_params[:page_id])
+    else
+      current_page = CurrentPage.includes(:version).find_by(page_id: page_params[:page_id])
+      @page = current_page.version
+    end
     render "editor"
   end
 

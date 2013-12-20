@@ -144,38 +144,49 @@ describe "PageEditorPages" do
 
     context "when visited by an authorized user" do
       let(:user) { create(:staff) }
-      before { log_in_and_visit(user, path) }
 
       it "renders the page editor" do
+        log_in_and_visit(user, path)
         expect(page).to have_content("Page Editor")
         expect(page).to have_selector("div#content-editor")
         expect(page).to have_content("Save")
         expect(page).to have_content("Publish")
         expect(page).to have_link("Done", href: admin_current_pages_path)
+        expect(page.find("input[name=url]").value).to eq current_page.version.url
       end
 
-      context "when the save button is clicked", js: true do
-        before do
-          fill_in "url", with: "/test/url"
-          find_button("save-button").click
+      context "when a version id is specified in the query string" do
+        let(:version) { create(:page, page_id: current_page.page_id) }
+        before { log_in_and_visit(user, "#{path}?vid=#{version.id}") }
+
+        it "renders the proper version" do
+          expect(page.find("input[name=url]").value).not_to eq current_page.version.url
+          expect(page.find("input[name=url]").value).to eq version.url
         end
 
-        it "should save the page" do
-          expect(page).to have_content("Page Editor")
-          expect(page).to have_css("#save-button[disabled]")
-          expect(page.current_path).to eq admin_edit_page_path(current_page.page_id)
-          visit admin_current_pages_path
-          expect(page).to have_link("/test/url")
-        end
+        context "when the save button is clicked", js: true do
+          before do
+            fill_in "url", with: "/test/url"
+            find_button("save-button").click
+          end
 
-        context "when the published button is clicked", js: true do
-          before { find_button("publish-button").click }
-
-          it "should publish the page" do
+          it "should save the page" do
             expect(page).to have_content("Page Editor")
-            expect(page).to have_css("#publish-button[disabled]")
+            expect(page).to have_css("#save-button[disabled]")
+            expect(page.current_url).to end_with admin_edit_page_path(current_page.page_id)
             visit admin_current_pages_path
-            expect(page).to have_selector("i.fi-check")
+            expect(page).to have_link("/test/url")
+          end
+
+          context "when the published button is clicked", js: true do
+            before { find_button("publish-button").click }
+
+            it "should publish the page" do
+              expect(page).to have_content("Page Editor")
+              expect(page).to have_css("#publish-button[disabled]")
+              visit admin_current_pages_path
+              expect(page).to have_selector("i.fi-check")
+            end
           end
         end
       end
@@ -309,6 +320,8 @@ describe "PageEditorPages" do
           find("#prev-button").click
           expect(page).to have_content(page2.url)
           expect(page.current_path).to end_with(page2.id.to_s)
+          edit_path = "#{admin_edit_page_path(page2.page_id)}?vid=#{page2.id}"
+          expect(page).to have_link("Edit", href: edit_path)
         end
       end
 

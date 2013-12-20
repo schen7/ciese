@@ -76,6 +76,17 @@ body {
 }
 
 #page-version {
+  h2#url-info {
+    line-height: emCalc(18);
+    display: inline-block;
+    vertical-align: middle;
+    span {
+      color: darken($secondary-color, 25%);
+      font-weight: normal;
+      display: block;
+      font-size: .7em;
+    }
+  }
   form {
     button.hidden {
       display: none;
