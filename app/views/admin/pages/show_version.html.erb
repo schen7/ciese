@@ -18,8 +18,8 @@
           <form name="versionForm">
             <button id="publish-button" class="button success small radius<%= " hidden" if @page.published? %>" ng-class="{hidden: page.published}" ng-click="publishPage()">Publish</button>
             <button id="unpublish-button" class="button alert small radius<%= " hidden" if !@page.published? %>" ng-class="{hidden: !page.published}" ng-click="unpublishPage()">Unpublish</button>
-            <a class="button small secondary radius" ng-disabled="!isPrevVersion()" ng-click="isPrevVersion() && getPrevVersion()">&lt;</a>
-            <a class="button small secondary radius" ng-disabled="!isNextVersion()" ng-click="isNextVersion() && getNextVersion()">&gt;</a>
+            <a id="prev-button" class="button small secondary radius" ng-disabled="!isPrevVersion()" ng-click="isPrevVersion() && getPrevVersion()">&lt;</a>
+            <a id="next-button" class="button small secondary radius" ng-disabled="!isNextVersion()" ng-click="isNextVersion() && getNextVersion()">&gt;</a>
             <a target="_self" class = "button primary small radius" href="<%= admin_edit_page_path(@page.page_id) %>?vid=<%= @page.id %>">Edit</a>
             <a target="_self" class="button secondary small radius" href="<%= admin_page_versions_path(@page.page_id) %>">Done</a>
           </form>

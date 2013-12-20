@@ -20,7 +20,7 @@ angular
         data =
           version_id: $scope.versionId
           page_id: $scope.pageId
-        $http.post("/admin/pages/#{$scope.pageId}", data)
+        $http.post("/admin/pages/publish/editor", data)
           .success(publishDone).error(publishError)
 
     saveDone = (data, status, headers, config) ->

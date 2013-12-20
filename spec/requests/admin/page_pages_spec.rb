@@ -243,7 +243,9 @@ describe "PageEditorPages" do
       it "shows the page version" do
         log_in_and_visit(user, path)
         expect(page).to have_content("Page Version")
-        expect(page).to have_content("Edit")
+        edit_link = ("#{admin_edit_page_path(current_page.page_id)}" + 
+                     "?vid=#{current_page.version_id}")
+        expect(page).to have_link("Edit", href: edit_link)
         expect(page).to have_link("Done", href: versions_path)
       end
 
@@ -262,6 +264,52 @@ describe "PageEditorPages" do
           log_in_and_visit(user, path)
           expect(page).to have_selector("h2.published")
           expect(page).to have_selector("#unpublish-button")
+        end
+      end
+
+      context "when there is a previous version", :js do
+        it "should have the previous version button enabled" do
+          log_in_and_visit(user, admin_page_version_path(page3.page_id, page3.id))
+          expect(page).not_to have_selector("#prev-button[disabled]")
+        end
+      end
+
+      context "when there is not a previous version", :js do
+        it "should have the previous version button disabled" do
+          log_in_and_visit(user, admin_page_version_path(page1.page_id, page1.id))
+          expect(page).to have_selector("#prev-button[disabled]")
+        end
+      end
+
+      context "when the previous version button is clicked", :js do
+        it "should show the previous version" do
+          log_in_and_visit(user, admin_page_version_path(page3.page_id, page3.id))
+          find("#prev-button").click
+          expect(page).to have_content(page2.url)
+          expect(page.current_path).to end_with(page2.id.to_s)
+        end
+      end
+
+      context "when there is a next version", :js do
+        it "should have the next version button enabled" do
+          log_in_and_visit(user, admin_page_version_path(page1.page_id, page1.id))
+          expect(page).not_to have_selector("#next-button[disabled]")
+        end
+      end
+
+      context "when there is not a next version", :js do
+        it "should have the next version button disabled" do
+          log_in_and_visit(user, admin_page_version_path(page3.page_id, page3.id))
+          expect(page).to have_selector("#next-button[disabled]")
+        end
+      end
+
+      context "when the next version button is clicked", :js do
+        it "should show the next version" do
+          log_in_and_visit(user, admin_page_version_path(page1.page_id, page1.id))
+          find("#next-button").click
+          expect(page).to have_content(page2.url)
+          expect(page.current_path).to end_with(page2.id.to_s)
         end
       end
     end

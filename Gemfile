@@ -39,7 +39,7 @@ group :development, :test do
   # gem 'meta_request'
   gem 'factory_girl_rails', '4.2.1'
   gem 'database_cleaner', '1.2.0'
-  # gem 'capybara-webkit', '1.0.0'
+  gem 'capybara-webkit'
   # gem 'jasmine'
 end
 
@@ -50,9 +50,9 @@ end
 
 group :test do
     # gem 'selenium-webdriver', '2.0'
-    gem 'capybara', '2.1.0'
+    gem 'capybara'
     gem 'zeus', '0.13.3'
-    gem 'poltergeist', '1.5.0'
+    # gem 'poltergeist', '1.5.0'
 end
 
 # group :doc do
