@@ -267,6 +267,28 @@ describe "PageEditorPages" do
         end
       end
 
+      context "when the publish button is clicked", :js => true do
+        it "should publish this page version" do
+          log_in_and_visit(user, path)
+          find("#publish-button").click
+          expect(page).to have_selector("h2.published")
+          expect(page).to have_selector("#unpublish-button")
+          expect(PublishedPage.count).to eq 1
+        end
+      end
+
+      context "when the unpublish button is clicked", :js => true do
+        before { create(:published_page, version: page3) }
+
+        it "should unpublish this page version" do
+          log_in_and_visit(user, path)
+          find("#unpublish-button").click
+          expect(page).not_to have_selector("h2.published")
+          expect(page).to have_selector("#publish-button")
+          expect(PublishedPage.count).to eq 0
+        end
+      end
+
       context "when there is a previous version", :js do
         it "should have the previous version button enabled" do
           log_in_and_visit(user, admin_page_version_path(page3.page_id, page3.id))
