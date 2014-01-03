@@ -30,4 +30,6 @@ Ciese::Application.routes.draw do
     resources :programs, only: [:index, :create, :show, :update, :destroy]
   end
 
+  get "*url", to: "render_page#show", as: :render_page, constraints: {url: /(?!rails).*/}
+
 end
