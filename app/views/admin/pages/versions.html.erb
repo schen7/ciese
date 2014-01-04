@@ -17,7 +17,7 @@
       <td><a href="<%= admin_page_version_path(page.page_id, page.id) %>"><%= page.url %></a></td>
       <td><%= page.user.username %></td>
       <td><%= page.updated_at.to_formatted_s(:long) %></td>
-      <td><% if !page.published_page.nil? %>yes<i class="fi-check"></i><% end %></td>
+      <td><% if !page.published_page.nil? %><i class="fi-check"></i><% end %></td>
     </tr>
     <% end %>
   </tbody>
