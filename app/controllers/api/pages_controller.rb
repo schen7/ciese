@@ -1,6 +1,18 @@
 class Api::PagesController < ApplicationController
   
+  # before_action :require_login
+  # before_action :require_staff_or_admin
+
   def create
+    data = page_params.merge(user: current_user, page_id: page_params[:page_id])
+    page = Page.new(data)
+    if page.save
+      CurrentPage.where(page_id: page.page_id).destroy_all
+      page.create_current_page(page_id: page.page_id)
+      render json: {saved: true, version_id: page.id, page_id: page.page_id}
+    else
+      render json: {saved: false, errors: page.errors.full_messages}
+    end
   end
 
   def show
@@ -31,6 +43,10 @@ class Api::PagesController < ApplicationController
   end
 
   private
+
+  def page_params
+    params.permit(:page_id, :url, :content)
+  end
 
   def publish_params
     params.permit(:version_id, :page_id)

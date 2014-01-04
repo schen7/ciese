@@ -33,44 +33,10 @@ class Admin::PagesController < ApplicationController
     render "editor"
   end
 
-  def create
-    data = page_params.merge(user: current_user, page_id: page_params[:page_id])
-    page = Page.new(data)
-    if page.save
-      CurrentPage.where(page_id: page.page_id).destroy_all
-      page.create_current_page(page_id: page.page_id)
-      render json: {saved: true, version_id: page.id, page_id: page.page_id}
-    else
-      render json: {saved: false, errors: page.errors.full_messages}
-    end
-  end
-
-  def editor_publish
-    page = PublishedPage.find_by(page_id: publish_params[:page_id])
-    if page.nil?
-      page = PublishedPage.new(publish_params)
-    else
-      page.version_id = publish_params[:version_id]
-    end
-    if page.save
-      render json: {published: true}
-    else
-      render json: {published: false, errors: page.errors.full_messages}
-    end
-  end
-
   private
 
   def page_params
     params.permit(:page_id, :url, :content)
-  end
-
-  def publish_params
-    params.permit(:version_id, :page_id)
-  end
-
-  def publish_page
-    PublishedPage.where(page_id: publish_params[:page_id]).destroy_all
   end
 
 end

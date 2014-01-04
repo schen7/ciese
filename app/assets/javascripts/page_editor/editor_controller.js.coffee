@@ -15,12 +15,9 @@ angular
           url: $scope.url
           content: $scope.contentEditor.getContent()
         data.page_id = $scope.pageId if $scope.pageId != -1
-        $http.post('/admin/pages', data).success(saveDone).error(saveError)
+        $http.post('/api/pages', data).success(saveDone).error(saveError)
       publishPage: ->
-        data =
-          version_id: $scope.versionId
-          page_id: $scope.pageId
-        $http.post("/admin/pages/publish/editor", data)
+        $http.put("/api/pages/#{$scope.versionId}")
           .success(publishDone).error(publishError)
 
     saveDone = (data, status, headers, config) ->
