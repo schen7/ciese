@@ -1,5 +1,9 @@
 <% provide(:title, 'Pages') %>
 
+<% provide :header do %>
+<base href="/admin/pages/">
+<% end %>
+
 <% provide :css do %>
 <%= stylesheet_link_tag "pages", media: "all", "data-turbolinks-track" => true %>
 <% end %>
