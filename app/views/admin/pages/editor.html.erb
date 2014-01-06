@@ -34,6 +34,7 @@
 
 <% provide :js do %>
 <%= javascript_include_tag "tinymce/tinymce.min.js" %>
+<%= javascript_include_tag "tinymce/plugins/mediabrowser/plugin.js" %>
 <%= javascript_include_tag "page_editor", "data-turbolinks-track" => true %>
 <script type="text/javascript">
   angular.module('PageEditorApp').run(function($rootScope) {

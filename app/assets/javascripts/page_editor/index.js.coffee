@@ -17,14 +17,14 @@ catch error
           ["advlist autolink link image lists charmap print preview hr anchor "],
           ["pagebreak spellchecker searchreplace wordcount visualblocks"],
           ["visualchars code fullscreen insertdatetime media nonbreaking"],
-          ["save table contextmenu directionality emoticons template paste"]
+          ["save table contextmenu directionality emoticons template paste mediabrowser"]
         ]
         image_advtab: true
         theme: "modern"
         add_unload_trigger: false
         schema: "html5"
         inline: true
-        toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | media"
+        toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image mediabrowser | media "
         relative_urls: false
         remove_script_host: true
         document_base_url: "http://ciese.org/"
