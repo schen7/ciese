@@ -19,6 +19,7 @@ catch error
           ["visualchars code fullscreen insertdatetime media nonbreaking"],
           ["save table contextmenu directionality emoticons template paste"]
         ]
+        image_advtab: true
         theme: "modern"
         add_unload_trigger: false
         schema: "html5"
