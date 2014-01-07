@@ -5,7 +5,7 @@ describe "PageEditorPages" do
   subject { page }
 
   describe "current pages list" do
-    let(:path) { admin_current_pages_path }
+    let(:path) { admin_pages_path }
 
     it_behaves_like "a page that requires an active staff or admin user"
 
@@ -105,7 +105,7 @@ describe "PageEditorPages" do
         expect(page).to have_selector("div#content-editor")
         expect(page).to have_content("Save")
         expect(page).to have_content("Publish")
-        expect(page).to have_link("Done", href: admin_current_pages_path)
+        expect(page).to have_link("Done", href: admin_pages_path)
       end
 
       context "when the save button is clicked", js: true do
@@ -118,7 +118,7 @@ describe "PageEditorPages" do
           expect(page).to have_content("Page Editor")
           expect(page).to have_css("#save-button[disabled]")
           expect(page.current_path).to eq admin_edit_page_path(Page.last.page_id)
-          visit admin_current_pages_path
+          visit admin_pages_path
           expect(page).to have_link("/test/url")
         end
 
@@ -128,7 +128,7 @@ describe "PageEditorPages" do
           it "should publish the page" do
             expect(page).to have_content("Page Editor")
             expect(page).to have_css("#publish-button[disabled]")
-            visit admin_current_pages_path
+            visit admin_pages_path
             expect(page).to have_selector("i.fi-check")
           end
         end
@@ -151,7 +151,7 @@ describe "PageEditorPages" do
         expect(page).to have_selector("div#content-editor")
         expect(page).to have_content("Save")
         expect(page).to have_content("Publish")
-        expect(page).to have_link("Done", href: admin_current_pages_path)
+        expect(page).to have_link("Done", href: admin_pages_path)
         expect(page.find("input[name=url]").value).to eq current_page.version.url
       end
 
@@ -174,7 +174,7 @@ describe "PageEditorPages" do
             expect(page).to have_content("Page Editor")
             expect(page).to have_css("#save-button[disabled]")
             expect(page.current_url).to end_with admin_edit_page_path(current_page.page_id)
-            visit admin_current_pages_path
+            visit admin_pages_path
             expect(page).to have_link("/test/url")
           end
 
@@ -184,7 +184,7 @@ describe "PageEditorPages" do
             it "should publish the page" do
               expect(page).to have_content("Page Editor")
               expect(page).to have_css("#publish-button[disabled]")
-              visit admin_current_pages_path
+              visit admin_pages_path
               expect(page).to have_selector("i.fi-check")
             end
           end

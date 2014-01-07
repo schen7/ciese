@@ -11,12 +11,9 @@ Ciese::Application.routes.draw do
   end
 
   namespace :admin do
-    get "pages", to: "pages#index", as: :current_pages
+    get "pages", to: "pages#index"
     get "pages/new", to: "pages#new", as: :new_page
-    post "pages", to: "pages#create"
-    get "pages/edit/:page_id", to: "pages#edit", as: :edit_page
-    post "pages/publish/editor", to: "pages#editor_publish", as: :editor_publish_page
-    post "pages/publish/version", to: "pages#version_publish", as: :version_publish_page
+    get "pages/:page_id/edit", to: "pages#edit", as: :edit_page
     get "pages/:page_id/versions", to: "pages#versions", as: :page_versions
     get "pages/:page_id/versions/:id", to: "pages#show_version", as: :page_version
     

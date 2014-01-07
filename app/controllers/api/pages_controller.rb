@@ -1,7 +1,7 @@
 class Api::PagesController < ApplicationController
   
-  # before_action :require_login
-  # before_action :require_staff_or_admin
+  before_action :api_require_login
+  before_action :api_require_staff_or_admin
 
   def create
     data = page_params.merge(user: current_user, page_id: page_params[:page_id])

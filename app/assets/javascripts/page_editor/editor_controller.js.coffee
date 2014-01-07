@@ -23,7 +23,7 @@ angular
     saveDone = (data, status, headers, config) ->
       $scope.versionId = data.version_id
       $scope.pageId = data.page_id
-      $location.url("/edit/#{$scope.pageId}")
+      $location.url("/#{$scope.pageId}/edit")
       $scope.urlForm.$setPristine()
       $scope.contentEditor.startContent = $scope.contentEditor.getContent(format: 'raw')
       $scope.published = false
