@@ -6,7 +6,7 @@ gem 'rails', '4.0.0'
 gem 'pg', '0.17.0'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'will_paginate', '3.0.5'
-gem 'turbolinks', '1.3.0'
+# gem 'turbolinks', '1.3.0'
 gem 'jbuilder', '1.0.2'
 gem 'mini_magick', '3.6.0'
 # gem 'carrierwave', '0.8.0'
@@ -15,7 +15,7 @@ gem 'active_model_serializers', '0.8.1'
 gem 'faker', '1.2.0'
 
 # Assets
-gem 'jquery-rails', '2.2.1'
+gem 'jquery-rails', '3.0.4'
 # gem 'bootstrap-sass', '2.3.1.0'
 # gem 'bootstrap-will_paginate', '0.0.9'
 gem 'sass-rails',   '~> 4.0.0'
@@ -37,7 +37,7 @@ group :development, :test do
   # gem 'meta_request'
   gem 'factory_girl_rails', '4.2.1'
   gem 'database_cleaner', '1.2.0'
-  # gem 'capybara-webkit', '1.0.0'
+  gem 'capybara-webkit'
   # gem 'jasmine'
   gem 'poltergeist', '1.4.1'
 end
@@ -48,9 +48,10 @@ group :development do
 end
 
 group :test do
-    # gem 'selenium-webdriver', '2.37.0'
-    gem 'capybara', '2.1.0'
-    gem 'zeus', '0.13.3'
+  # gem 'selenium-webdriver', '2.0'
+  gem 'capybara'
+  gem 'zeus', '0.13.3'
+  # gem 'poltergeist', '1.5.0'
 end
 
 # group :doc do

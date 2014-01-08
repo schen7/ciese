@@ -1,0 +1,76 @@
+@import "foundation_overrides";
+@import "foundation";
+@import "mixins";
+
+$nav-bar-height: 50px;
+$nav-bar-small-height: 115px;
+$nav-bar-small-row-height: 35px;
+
+body {
+  padding-top: $nav-bar-height;
+}
+
+#top-nav-bar {
+  @include disable-user-select;
+  z-index: 1000;
+  background-color: #222;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $nav-bar-height;
+  line-height: $nav-bar-height;
+  .row {
+    margin: 0 auto;
+    width: 100%;
+    max-width: $row-width;
+    .columns {
+      margin: 0 auto;
+      line-height: $nav-bar-height;
+      h1 {
+        margin: 0;
+        line-height: $nav-bar-height;
+        white-space: nowrap;
+        color: #fff;
+        font-weight: normal;
+        font-size: emCalc(22);
+      }
+      h2 {
+        margin: 0;
+        line-height: $nav-bar-height;
+        font-size: emCalc(14);
+        color: $secondary-color;
+        font-weight: normal;
+        white-space: nowrap;
+        &.published {
+          color: lighten($success-color, 10%);
+        }
+      }
+      #auth-link {
+        text-align: right;
+      }
+      /* form { */
+      /*   margin: 0; */
+      /*   display: inline-block; */
+      /*   width: 100%; */
+      /*   vertical-align: middle; */
+      /*   input[type=text] { */
+      /*     margin: 0; */
+      /*     background-color: $secondary-color; */
+      /*     &.error, &.error:focus { */
+      /*       color: $alert-color; */
+      /*       border-color: $alert-color; */
+      /*     } */
+      /*   } */
+      /* } */
+      /* .button-row { */
+      /*   text-align: right; */
+      /*   .button { */
+      /*     margin: 0 0 0 5px; */
+      /*     padding-left: emCalc(15); */
+      /*     padding-right: emCalc(15); */
+      /*   } */
+      /* } */
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<% provide(:title, 'Page Versions') %>
+
+<h1>Page Versions</h1>
+
+<table id="page-list">
+  <thead>
+    <tr>
+      <th>Url</th>
+      <th>Author</th>
+      <th>Last Modified</th>
+      <th>Published?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pages.each do |page| %>
+    <tr>
+      <td><a href="<%= admin_page_version_path(page.page_id, page.id) %>"><%= page.url %></a></td>
+      <td><%= page.user.username %></td>
+      <td><%= page.date %></td>
+      <td><% if !page.published_page.nil? %><i class="fi-check"></i><% end %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<a class="button small secondary" href="<%= admin_pages_path %>">Done</a>
+

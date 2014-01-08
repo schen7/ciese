@@ -2,6 +2,8 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'capybara/rails'
+require 'capybara/rspec'
 # require 'rspec/autorun'
 require 'capybara/poltergeist'
 
@@ -32,19 +34,6 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = false
 
-  # Database Cleaner
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
-
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
@@ -56,16 +45,30 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+
   config.include FactoryGirl::Syntax::Methods
   config.include Capybara::DSL
 
-  # Rspec filtering
-  config.treat_symbols_as_metadata_keys_with_true_values = true
-  config.filter_run focus: true
-  config.filter_run_excluding :slow unless ENV["SLOW_SPECS"]
-  config.run_all_when_everything_filtered = true
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
 
-  # Garbage collection
-  # config.before(:all) { DeferredGarbageCollection.start }
-  # config.after(:all) { DeferredGarbageCollection.reconsider }
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+
+    <!-- Uncomment to make IE8 render like IE7 -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= full_title(yield(:title)) %></title>
+
+    <%= stylesheet_link_tag "admin", media: "all" %>
+    <%= yield :css %>
+
+    <%= javascript_include_tag "vendor/custom.modernizr" %>
+
+    <%= csrf_meta_tags %>
+
+    <%= yield :header %>
+  </head>
+
+  <body>
+
+    <div id="top-nav-bar">
+      <div class="row">
+        <div class="large-3 columns">
+          <h1>CIESE Admin</h1>
+        </div>
+        <div class="large-5 columns">
+        </div>
+        <div class="large-4 columns">
+          <div id="auth-link">
+            <% if logged_in? %>
+            <%= link_to "Log Out", logout_path, method: "delete" %>
+            <% else %>
+            <%= link_to "Log In", login_path %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div  id="main"class="large-12 columns">
+        <% flash.each do |key, value| %>
+        <div class="alert-box <%= key %>"><%= value %></div>
+        <% end %>
+
+        <%= yield %>
+
+      </div>
+    </div>
+
+    <div id="footer" class="row">
+    </div>
+
+    <%= javascript_include_tag "admin" %>
+    <%= yield :js %>
+  </body>
+</html>
+
