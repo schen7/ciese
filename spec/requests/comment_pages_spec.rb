@@ -96,5 +96,46 @@ describe "CommentPages" do
       end
     end
   end
-  
+=begin
+  describe "new comment page" do
+    let(:user) { create(:user) }
+    let(:post) { create(:post) }
+    let(:path) { discussion_new_comment_path(post) }
+
+    context "when visited by a signed-in user" do
+      before { log_in_and_visit(user, path) }
+
+      it "should have title, header, and new comment form" do
+        expect(page).to have_title(full_title("New Comment"))
+        expect(page).to have_selector('h1', 'New Comment')
+        expect(page).to have_selector('form')
+        expect(page).to have_button('Post')
+      end
+
+      context "when the form is submitted" do
+        context "with invalid information" do
+          before do
+            fill_in "Content", with: ''
+            click_button "Post"
+          end
+
+          it { should have_selector('.alert', text: 'error') }
+        end
+
+        context "with valid information" do
+          before do
+            fill_in "Content", with: 'new.content'
+            click_button "Post"
+          end
+
+          it "should be successful" do
+            expect(page).to have_selector('.success', text: 'Comment created.')
+            expect(page).to have_content('new.content')
+          end
+        end
+      end
+
+    end
+  end
+=end
 end

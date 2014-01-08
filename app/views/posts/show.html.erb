@@ -4,7 +4,7 @@
 <h2><%= @post.title %></h2>
 <p><%= "#{@post.content} / #{@post.author}" %></p>
 <p><%= link_to "Edit", discussion_edit_post_path(@post) %></pi>
-
+<p><%= link_to "New Comment", discussion_new_comment_path(@post) %></p>
 <table id="post">
   <thead>
     <tr>
@@ -15,7 +15,7 @@
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
-        <td><%= "#{comment.content} / #{comment.author}" %></td>
+        <td><%= "#{comment.content} / Author:#{comment.author} / Post:#{comment.post_id}" %></td>
         <td><%= link_to "Edit", discussion_edit_comment_path(comment) %></td>
         <td></td>
       </tr>

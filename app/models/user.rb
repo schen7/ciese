@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   class NotLoggedIn < StandardError; end
   class NotAuthorized < StandardError; end
 
+  #has_many :comments
+
   has_many :profiles, inverse_of: :user
 
   before_save { email.downcase! }

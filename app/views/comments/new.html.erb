@@ -1,0 +1,21 @@
+<% provide(:title, 'New Comment') %>
+
+<h1>New Comment</h1>
+
+<%= form_for :comment, url: discussion_create_comment_path  do |f| %>
+<%= render 'shared/comment_error_messages' %>
+
+<table id="comment_new">
+  <tr>
+    <td><%= f.label :content %></td>
+    <td><%= f.text_field :content %></td>
+  </tr>
+</table>
+
+<p>
+  <%= f.hidden_field :post_id, :value => @post.id %>
+  <%= f.submit "Post", class: 'button' %>
+  <%= link_to "Cancel", @post, class: 'button secondary' %>
+</p>
+
+<% end %>
