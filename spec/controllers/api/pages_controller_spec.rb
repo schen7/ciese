@@ -5,7 +5,7 @@ describe Api::PagesController do
   describe "POST #create" do
     let(:method) { :post }
     let(:action) { :create }
-    let(:params) { }
+    let(:params) { {} }
 
     it_behaves_like "an api action that requires an active staff or admin user"
   end

@@ -39,7 +39,7 @@ group :development, :test do
   gem 'database_cleaner', '1.2.0'
   gem 'capybara-webkit'
   # gem 'jasmine'
-  gem 'poltergeist', '1.4.1'
+  # gem 'poltergeist', '1.4.1'
 end
 
 group :development do

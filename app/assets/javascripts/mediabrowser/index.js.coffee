@@ -1,3 +1,6 @@
+//= require angular/angular.min
+//= require angular/angular-route.min
+//= require angular/angular-resource.min
 //= require angular/angular-cookies.min
 //= require_self
 //= require_directory .
