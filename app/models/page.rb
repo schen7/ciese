@@ -21,4 +21,8 @@ class Page < ActiveRecord::Base
     !published_page.nil?
   end
 
+  def date
+    updated_at.to_formatted_s(:simple)
+  end
+
 end

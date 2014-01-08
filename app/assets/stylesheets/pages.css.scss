@@ -2,7 +2,7 @@
 @import "mixins";
 
 $nav-bar-height: 50px;
-$nav-bar-small-height: 115px;
+$nav-bar-small-height: 150px;
 $nav-bar-small-row-height: 35px;
 
 body {
@@ -50,7 +50,11 @@ body {
         display: inline-block;
         width: 100%;
         vertical-align: middle;
+        h2 {
+          display: inline;
+        }
         input[type=text] {
+          display: inline;
           margin: 0;
           background-color: $secondary-color;
           &.error, &.error:focus {
@@ -60,6 +64,7 @@ body {
         }
       }
       .button-row {
+        white-space: nowrap;
         text-align: right;
         .button {
           margin: 0 0 0 5px;
@@ -101,7 +106,7 @@ body {
 
   #top-nav-bar {
     height: $nav-bar-small-height;
-    padding: ($nav-bar-small-height - $nav-bar-small-row-height * 3) / 2;
+    padding: ($nav-bar-small-height - $nav-bar-small-row-height * 4) / 2;
     .row {
       .columns {
         line-height: $nav-bar-small-row-height;

@@ -34,7 +34,7 @@ describe "PageEditorPages" do
           expect(page).to have_content(version.user.username)
           expect(page).not_to have_selector("i.fi-check")
           expect(page).to have_link(
-            version.updated_at.to_formatted_s(:long),
+            version.date.gsub(/ +/, " "),
             href: admin_page_versions_path(current_page.page_id)
           )
           expect(page).to have_link("Create New Page", href: admin_new_page_path)
@@ -111,6 +111,7 @@ describe "PageEditorPages" do
       context "when the save button is clicked", js: true do
         before do
           fill_in "url", with: "/test/url"
+          fill_in "title", with: "A Test Page"
           find_button("save-button").click
         end
 
@@ -152,6 +153,7 @@ describe "PageEditorPages" do
         expect(page).to have_content("Save")
         expect(page).to have_content("Publish")
         expect(page).to have_link("Done", href: admin_pages_path)
+        expect(page.find("input[name=title]").value).to eq current_page.version.title
         expect(page.find("input[name=url]").value).to eq current_page.version.url
       end
 
@@ -161,12 +163,15 @@ describe "PageEditorPages" do
 
         it "renders the proper version" do
           expect(page.find("input[name=url]").value).not_to eq current_page.version.url
+          expect(page.find("input[name=title]").value).not_to eq current_page.version.title
           expect(page.find("input[name=url]").value).to eq version.url
+          expect(page.find("input[name=title]").value).to eq version.title
         end
 
         context "when the save button is clicked", js: true do
           before do
             fill_in "url", with: "/test/url"
+            fill_in "title", with: "A New Title"
             find_button("save-button").click
           end
 

@@ -5,7 +5,7 @@ describe "RenderPage" do
   subject { page }
 
   describe "view page" do
-    let(:pg) { create(:page, url: "/test", content: "hi there") }
+    let(:pg) { create(:page, url: "/test", title: "testing", content: "hi there") }
 
     context "when not published" do
       it "should not render the page" do
@@ -20,6 +20,7 @@ describe "RenderPage" do
 
       it "should render the page" do
         visit "/test"
+        expect(page).to have_title(full_title("testing"))
         expect(page).to have_content("hi there")
       end
     end

@@ -11,20 +11,27 @@
 <div id="page-editor">
   <div id="top-nav-bar" ng-controller="PageEditorCtrl">
     <div class="row">
-      <div class="large-3 columns">
+      <div class="large-2 columns">
         <h1>Page Editor</h1>
       </div>
-      <div class="large-5 columns">
-        <form name="urlForm">
-          <input type="text" name="url" ng-model="url" required ng-pattern="/^(?:\/|(?:(?:\/[~%\+\-\.\w]+)+\/?))$/" placeholder="Enter url" ng-class="{error: !urlForm.$valid}" value="<%= @page.url %>">
-        </form>
-      </div>
-      <div class="large-4 columns">
-          <div class="button-row">
-              <button id="publish-button" class="button success small radius" <% if !@page.published_page.nil? %>disabled <% end %>ng-disabled="isDirty() || !urlForm.$valid || pageId == -1 || published" ng-click="publishPage()">Publish</button>
-              <button id="save-button" class="button primary small radius" disabled ng-disabled="!(isDirty() && urlForm.$valid)" ng-click="savePage()">Save</button>
-              <a target="_self" class="button secondary small radius" href="<%= admin_pages_path %>">Done</a>
+      <div class="large-10 columns">
+        <form name="pageForm">
+          <div class="row">
+            <div class="large-4 columns">
+              <input type="text" name="url" ng-model="url" required ng-pattern="/^(?:\/|(?:(?:\/[~%\+\-\.\w]+)+\/?))$/" placeholder="Enter url" ng-class="{error: !pageForm.url.$valid}" value="<%= @page.url %>">
+            </div>
+            <div class="large-4 columns">
+              <input type="text" name="title" ng-model="title" placeholder="Enter optional title" ng-class="{error: !pageForm.title.$valid}" value="<%= @page.title %>">
+            </div>
+            <div class="large-4 columns">
+                <div class="button-row">
+                    <button id="publish-button" class="button success small radius" <% if !@page.published_page.nil? %>disabled <% end %>ng-disabled="isDirty() || !pageForm.$valid || pageId == -1 || published" ng-click="publishPage()">Publish</button>
+                    <button id="save-button" class="button primary small radius" disabled ng-disabled="!(isDirty() && pageForm.$valid)" ng-click="savePage()">Save</button>
+                    <a target="_self" class="button secondary small radius" href="<%= admin_pages_path %>">Done</a>
+                </div>
+            </div>
           </div>
+        </form>
       </div>
     </div>
   </div>
@@ -40,6 +47,7 @@
   angular.module('PageEditorApp').run(function($rootScope) {
     $rootScope.versionId = <%= @page.id || -1 %>;
     $rootScope.pageId = <%= @page.page_id || -1 %>;
+    $rootScope.title = "<%= @page.title %>";
     $rootScope.url = "<%= @page.url %>";
     $rootScope.published = <%= !@page.published_page.nil? %>;
   });

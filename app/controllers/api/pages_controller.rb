@@ -45,7 +45,7 @@ class Api::PagesController < ApplicationController
   private
 
   def page_params
-    params.permit(:page_id, :url, :content)
+    params.permit(:page_id, :url, :title, :content)
   end
 
   def publish_params

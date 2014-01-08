@@ -3,15 +3,17 @@ angular
   .controller('PageEditorCtrl', ['$scope', '$location', '$http', ($scope, $location, $http) ->
     angular.extend $scope,
       isDirty: ->
-        urlDirty = $scope.urlForm.url.$dirty
+        titleDirty = $scope.pageForm.title.$dirty
+        urlDirty = $scope.pageForm.url.$dirty
         editor = $scope.contentEditor
         if editor.initialized
           contentDirty = editor.startContent isnt editor.getContent(format: 'raw')
         else
           contentDirty = false
-        urlDirty || contentDirty
+        titleDirty or urlDirty or contentDirty
       savePage: ->
         data =
+          title: $scope.title
           url: $scope.url
           content: $scope.contentEditor.getContent()
         data.page_id = $scope.pageId if $scope.pageId != -1
@@ -24,7 +26,7 @@ angular
       $scope.versionId = data.version_id
       $scope.pageId = data.page_id
       $location.url("/#{$scope.pageId}/edit")
-      $scope.urlForm.$setPristine()
+      $scope.pageForm.$setPristine()
       $scope.contentEditor.startContent = $scope.contentEditor.getContent(format: 'raw')
       $scope.published = false
 

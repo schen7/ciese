@@ -7,22 +7,26 @@
 <div id="page-version" ng-controller="PageVersionCtrl">
   <div id="top-nav-bar">
     <div class="row">
-      <div class="large-3 columns">
+      <div class="large-2 columns">
         <h1>Page Version</h1>
       </div>
-      <div class="large-4 columns">
-        <h2 id="url-info" <% if @page.published? %> class="published"<% end %>ng-class="{published: page.published}" ng-bind-html="page.url + ' <span>' + page.username + ' &ndash; ' + (page.updated_at | date:'MMMM dd, yyyy HH:mm') + '</span>'"><%= @page.url %> <span><%= @page.user.username %> &ndash; <%= @page.updated_at.to_formatted_s(:long) %></span></h2>
-      </div>
-      <div class="large-5 columns">
-        <div class="button-row">
-          <form name="versionForm">
-            <button id="publish-button" class="button success small radius<%= " hidden" if @page.published? %>" ng-class="{hidden: page.published}" ng-click="publishPage()">Publish</button>
-            <button id="unpublish-button" class="button alert small radius<%= " hidden" if !@page.published? %>" ng-class="{hidden: !page.published}" ng-click="unpublishPage()">Unpublish</button>
-            <a id="prev-button" class="button small secondary radius" <% if @versions[0] == @page.id %>disabled<% end %> ng-disabled="!isPrevVersion()" ng-click="isPrevVersion() && getPrevVersion()">&lt;</a>
-            <a id="next-button" class="button small secondary radius" <% if @versions[-1] == @page.id %>disabled<% end %> ng-disabled="!isNextVersion()" ng-click="isNextVersion() && getNextVersion()">&gt;</a>
-            <a id="edit-button" target="_self" class = "button primary small radius" ng-href="<%= admin_edit_page_path(@page.page_id) %>?vid={{ page.id }}" href="<%= admin_edit_page_path(@page.page_id) %>?vid=<%= @page.id %>">Edit</a>
-            <a target="_self" class="button secondary small radius" href="<%= admin_page_versions_path(@page.page_id) %>">Done</a>
-          </form>
+      <div class="large-10 columns">
+        <div class="row">
+          <div class="large-6 columns">
+            <h2 id="url-info" <% if @page.published? %> class="published"<% end %>ng-class="{published: page.published}" ng-bind-html="page.url + ' &nbsp; [ ' + (page.title || '-No Title-') + ' ] <span>' + page.username + ' &ndash; ' + (page.date) + '</span>'"><%= @page.url %> &nbsp; [ <%= @page.title || '-No Title-' %> ] <span><%= @page.user.username %> &ndash; <%= @page.date %></span></h2>
+          </div>
+          <div class="large-6 columns">
+            <form name="versionForm">
+              <div class="button-row">
+                <button id="publish-button" class="button success small radius<%= " hidden" if @page.published? %>" ng-class="{hidden: page.published}" ng-click="publishPage()">Publish</button>
+                <button id="unpublish-button" class="button alert small radius<%= " hidden" if !@page.published? %>" ng-class="{hidden: !page.published}" ng-click="unpublishPage()">Unpublish</button>
+                <a id="prev-button" class="button small secondary radius" <% if @versions[0] == @page.id %>disabled<% end %> ng-disabled="!isPrevVersion()" ng-click="isPrevVersion() && getPrevVersion()">&lt;</a>
+                <a id="next-button" class="button small secondary radius" <% if @versions[-1] == @page.id %>disabled<% end %> ng-disabled="!isNextVersion()" ng-click="isNextVersion() && getNextVersion()">&gt;</a>
+                <a id="edit-button" target="_self" class = "button primary small radius" ng-href="<%= admin_edit_page_path(@page.page_id) %>?vid={{ page.id }}" href="<%= admin_edit_page_path(@page.page_id) %>?vid=<%= @page.id %>">Edit</a>
+                <a target="_self" class="button secondary small radius" href="<%= admin_page_versions_path(@page.page_id) %>">Done</a>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -36,6 +40,7 @@
 <script type="text/javascript">
   angular.module('PageVersionApp').run(function($rootScope) {
     $rootScope.page = <%= @page.to_json.html_safe %>;
+    $rootScope.page.date = "<%= @page.date %>";
     $rootScope.versions = <%= @versions.to_json.html_safe %>;
     $rootScope.page.published = <%= @page.published? %>;
     $rootScope.page.username = "<%= @page.user.username %>";

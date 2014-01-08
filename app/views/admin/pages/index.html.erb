@@ -20,7 +20,7 @@
       <tr>
         <td><a href="<%= admin_edit_page_path(page.page_id) %>"><%= page.version.url %></a></td>
         <td><%= page.version.user.username %></td>
-        <td><a href="<%= admin_page_versions_path(page.page_id) %>"><%= page.version.updated_at.to_formatted_s(:long) %></a></td>
+        <td><a href="<%= admin_page_versions_path(page.page_id) %>"><%= page.version.date %></a></td>
         <td><% if page.published %><i class="fi-check"></i><% end %></td>
         <td><% if page.prev_published %><i class="fi-check"></i><% end %></td>
       </tr>

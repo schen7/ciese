@@ -1,5 +1,5 @@
 class PageSerializer < ActiveModel::Serializer
-  attributes :id, :page_id, :url, :content, :username, :published?, :created_at, :updated_at
+  attributes :id, :page_id, :url, :title, :content, :username, :published?, :date
 
   def username
     object.user.username
