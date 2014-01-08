@@ -1,6 +1,6 @@
 angular
   .module('PageVersionApp')
-  .controller('PageVersionCtrl', ['$scope', '$location', '$http', ($scope, $location, $http) ->
+  .controller('PageVersionCtrl', ['$scope', '$location', '$http', '$document', ($scope, $location, $http, $document) ->
     angular.extend $scope,
       prevVersion: ->
         i = $scope.versions.indexOf($scope.page.id) - 1
@@ -22,6 +22,10 @@ angular
         data = {version_id: $scope.page.id, page_id: $scope.page.page_id}
         $http.delete("/api/pages/#{$scope.page.id}", data)
           .success(publishDone).error(publishError)
+
+    $document.on 'keydown', (evt) ->
+      $scope.getPrevVersion() if evt.which is 37
+      $scope.getNextVersion() if evt.which is 39
     
     updateVersion = (data, status, headers, config) ->
       $scope.page = data.page
