@@ -40,7 +40,6 @@ describe "PostPages" do
 
     context "when visited by an user" do
       before { log_in_and_visit(user, path) }
-      #before { visit(path) }
 
       it "should have post name and an edit link" do
         expect(page).to have_title(full_title('Post Info'))
@@ -63,11 +62,9 @@ describe "PostPages" do
     let(:post) { create(:post) }
     let(:path) { discussion_edit_post_path(post) }
 
-    #it_behaves_like "a page that requires an active admin user"
 
     context "when visited by the author" do
       before { log_in_and_visit(user, path) }
-      #before { visit(path) }
       
       it "should have title, header, and editing form" do
         expect(page).to have_title(full_title("Edit Post"))
@@ -105,6 +102,57 @@ describe "PostPages" do
           end
         end
       end
+    end
+  end
+
+  describe "new post page" do
+    let(:user) { create(:user) }
+    let(:topic) { create(:topic) }
+    let(:path) { discussion_new_post_path(topic) }
+
+    context "when visited by a signed-in user" do
+      before { log_in_and_visit(user, path) }
+
+      it "should have title, header, and new post form" do
+        expect(page).to have_title(full_title("New Post"))
+        expect(page).to have_selector('h1', 'New Post')
+        expect(page).to have_selector('form')
+        expect(page).to have_button('Post')
+      end
+
+      context "when the form is submitted" do
+        context "with invalid information no title" do
+          before do
+            fill_in "Title", with: ''
+            click_button "Post"
+          end
+
+          it { should have_selector('.alert', text: 'error') }
+        end
+
+        context "with invalid information title too long" do
+          before do
+            fill_in "Title", with: 'X' * 101
+            click_button "Post"
+          end
+
+          it { should have_selector('.alert', text: 'error') }
+        end
+
+        context "with valid information" do
+          before do
+            fill_in "Title", with: 'new title'
+            fill_in "Content", with: 'new content'
+            click_button "Post"
+          end
+
+          it "should be successful" do
+            expect(page).to have_selector('.success', text: 'Post created.')
+            #expect(page).to have_content('new title')
+          end
+        end
+      end
+
     end
   end
 

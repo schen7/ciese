@@ -39,4 +39,7 @@ Ciese::Application.routes.draw do
 
   get "/discussion/post/:id/comment/new", to: "comments#new", as: "discussion_new_comment"
   post "/discussion/post/:id", to: "comments#create", as: "discussion_create_comment"
+
+  get "/discussion/topic/:id/post/new", to: "posts#new", as: "discussion_new_post"
+  post "/discussion/topic/:id", to: "posts#create", as: "discussion_create_post"
 end
