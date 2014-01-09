@@ -55,7 +55,6 @@ describe Api::MediabrowserController do
         it "should render a json list of files in the path" do
           expect(response.code).to eq "200"
           data = ActiveSupport::JSON.decode(response.body)
-          puts data
           url = "/media/#{File.basename(@test_dir)}/#{File.basename(@test_file)}"
           expect(data["files"][0]["url"]).to eq url
           expect(data["files"][0]["size"]).to eq 0

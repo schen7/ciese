@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140107225216) do
+ActiveRecord::Schema.define(version: 20140109190344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 20140107225216) do
   add_index "activities", ["detail"], name: "index_activities_on_detail", using: :btree
   add_index "activities", ["program"], name: "index_activities_on_program", using: :btree
 
+  create_table "current_forms", force: true do |t|
+    t.integer  "form_id"
+    t.integer  "form_version_id"
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "current_forms", ["form_version_id"], name: "index_current_forms_on_form_version_id", using: :btree
+
   create_table "current_pages", force: true do |t|
     t.integer "version_id"
     t.integer "page_id"
@@ -36,6 +46,40 @@ ActiveRecord::Schema.define(version: 20140107225216) do
 
   add_index "current_pages", ["page_id"], name: "index_current_pages_on_page_id", unique: true, using: :btree
   add_index "current_pages", ["version_id"], name: "index_current_pages_on_version_id", unique: true, using: :btree
+
+  create_table "form_fields", force: true do |t|
+    t.integer "form_version_id"
+    t.string  "kind"
+    t.boolean "required"
+    t.text    "details"
+  end
+
+  add_index "form_fields", ["form_version_id"], name: "index_form_fields_on_form_version_id", using: :btree
+
+  create_table "form_responses", force: true do |t|
+    t.integer  "form_id"
+    t.integer  "form_version_id"
+    t.integer  "form_field_id"
+    t.integer  "user_id"
+    t.text     "details"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "form_responses", ["form_field_id"], name: "index_form_responses_on_form_field_id", using: :btree
+  add_index "form_responses", ["form_version_id"], name: "index_form_responses_on_form_version_id", using: :btree
+  add_index "form_responses", ["user_id"], name: "index_form_responses_on_user_id", using: :btree
+
+  create_table "form_versions", force: true do |t|
+    t.integer  "form_id"
+    t.string   "slug"
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "form_versions", ["user_id"], name: "index_form_versions_on_user_id", using: :btree
 
   create_table "pages", force: true do |t|
     t.string   "url"
@@ -110,6 +154,16 @@ ActiveRecord::Schema.define(version: 20140107225216) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "published_forms", force: true do |t|
+    t.integer  "form_id"
+    t.integer  "form_version_id"
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "published_forms", ["form_version_id"], name: "index_published_forms_on_form_version_id", using: :btree
 
   create_table "published_pages", force: true do |t|
     t.integer "version_id"
