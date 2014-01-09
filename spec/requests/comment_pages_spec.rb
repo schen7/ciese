@@ -96,7 +96,7 @@ describe "CommentPages" do
       end
     end
   end
-=begin
+
   describe "new comment page" do
     let(:user) { create(:user) }
     let(:post) { create(:post) }
@@ -137,5 +137,5 @@ describe "CommentPages" do
 
     end
   end
-=end
+
 end

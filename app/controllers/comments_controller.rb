@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :require_login
-  before_action :get_comment, except: [:index]
+  #before_action :get_comment, except: [:index]
 
   def index
     @comments = Comment.all
@@ -11,9 +11,11 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    @comment = Comment.find(params[:id])
   end
 
   def update
+    @comment = Comment.find(params[:id])
     if @comment.update_attributes(comment_params)
       flash[:success] = "Comment updated."
       redirect_to discussion_comment_path(@comment)
@@ -54,8 +56,9 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:content)
   end
-
+=begin
   def get_comment
     @comment = Comment.find(params[:id])
   end
+=end
 end
