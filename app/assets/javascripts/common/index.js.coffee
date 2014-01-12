@@ -1,52 +1,58 @@
 //= require_self
 //= require_directory .
 
-try
-    angular.module('Common')
-catch error
-    angular
-        .module('Common', [])
+titleize = (input) ->
+  input ?= ''
+  input.replace(/[_\-]/g, ' ').replace /\w*/g, (txt) ->
+    txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
 
-        .directive 'pagination', ->
-          restrict: 'A'
-          templateUrl: 'pagination.html'
-          replace: true
-          scope:
-            pages: '='
-            page: '='
-          link: (scope, el, attr) ->
+camelize = (input) ->
+  titleize(input).replace(/\s/g, '')
 
-            scope.newPage = scope.page
-            input = el.find('input[type=text]')
+angular
+  .module('Common', [])
+  .filter('titleize', -> titleize)
+  .filter('camelize', -> camelize)
+  .directive 'pagination', ->
+    restrict: 'A'
+    templateUrl: 'pagination.html'
+    replace: true
+    scope:
+      pages: '='
+      page: '='
+    link: (scope, el, attr) ->
 
-            setPage = (page) ->
-              page = 1 if page < 1 or isNaN(parseInt(page))
-              page = scope.pages if page > scope.pages
-              scope.page = scope.newPage = page
+      scope.newPage = scope.page
+      input = el.find('input[type=text]')
 
-            scope.previousPage = -> setPage(scope.page - 1)
+      setPage = (page) ->
+        page = 1 if page < 1 or isNaN(parseInt(page))
+        page = scope.pages if page > scope.pages
+        scope.page = scope.newPage = page
 
-            scope.nextPage = -> setPage(scope.page + 1)
+      scope.previousPage = -> setPage(scope.page - 1)
 
-            scope.firstPage = -> setPage(1)
+      scope.nextPage = -> setPage(scope.page + 1)
 
-            scope.lastPage = -> setPage(scope.pages)
+      scope.firstPage = -> setPage(1)
 
-            setNewPage = ->
-              scope.$apply -> setPage(scope.newPage)
+      scope.lastPage = -> setPage(scope.pages)
 
-            input.bind 'blur', setNewPage
+      setNewPage = ->
+        scope.$apply -> setPage(scope.newPage)
 
-            input.bind 'keydown', (evt) ->
-              switch evt.which
-                when 13 then setNewPage() #enter
-                when 38 then scope.$apply ->
-                  scope.newPage++ if scope.newPage < scope.pages
-                when 40 then scope.$apply ->
-                  scope.newPage-- if scope.newPage > 1
+      input.bind 'blur', setNewPage
 
-        .directive 'stopEvent', ->
-          restrict: 'A'
-          link: (scope, el, attr) ->
-            $(el).on attr.stopEvent, (evt) -> evt.stopPropagation()
+      input.bind 'keydown', (evt) ->
+        switch evt.which
+          when 13 then setNewPage() #enter
+          when 38 then scope.$apply ->
+            scope.newPage++ if scope.newPage < scope.pages
+          when 40 then scope.$apply ->
+            scope.newPage-- if scope.newPage > 1
+
+  .directive 'stopEvent', ->
+    restrict: 'A'
+    link: (scope, el, attr) ->
+      $(el).on attr.stopEvent, (evt) -> evt.stopPropagation()
 

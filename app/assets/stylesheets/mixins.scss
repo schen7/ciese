@@ -6,3 +6,11 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+@mixin border-radius($size...) {
+  -webkit-border-radius: $size;
+  -khtml-border-radius: $size;
+  -moz-border-radius: $size;
+  -ms-border-radius: $size;
+  border-radius: $size;
+}

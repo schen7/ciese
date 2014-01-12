@@ -1,0 +1,75 @@
+@import "foundation_overrides";
+@import "mixins";
+
+#form-editor {
+  .form-field {
+    border: 1px solid #ccc;
+    margin: emCalc(20) 0;
+    /* box-shadow: 3px 3px 6px -5px #000; */
+    @include border-radius(3px);
+    .field-builder {
+      background-color: #eee;
+      @include border-radius(3px 3px 0 0);
+      margin: 0;
+      padding: 10px;
+      .field-builder-header {
+        .field-builder-controls {
+          float: right;
+          span {
+            margin-right: emCalc(30);
+            font-size: emCalc(12);
+            color: #777;
+            vertical-align: top;
+            input {
+              margin: 0;
+              vertical-align: top;
+            }
+          }
+          a {
+            color: #bbb;
+            padding: 0 emCalc(8);
+          }
+        }
+        .field-kind {
+          margin: 0 0 emCalc(10) 0;
+          font-weight: bold;
+          color: darkslategray;
+        }
+      }
+      label {
+        margin-top: emCalc(20);
+        color: lightslategray;
+      }
+    }
+    .field-preview {
+      margin: 0;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+    }
+  }
+
+  .info-field {
+    textarea {
+      height: emCalc(70);
+      resize: vertical;
+      margin-bottom: emCalc(10);
+    }
+  }
+  .short-answer-field {
+    textarea {
+      height: emCalc(70);
+      resize: vertical;
+      margin-bottom: emCalc(10);
+    }
+    .field-preview {
+      input {
+        margin: emCalc(10) 0;
+      }
+    }
+  }
+  .empty {
+    font-style: italic;
+    color: #999;
+  }
+}
+

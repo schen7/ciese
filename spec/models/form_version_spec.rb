@@ -9,6 +9,7 @@ describe FormVersion do
   it { should respond_to(:slug) }
   it { should respond_to(:name) }
   it { should respond_to(:user) }
+  it { should respond_to(:date) }
   it { should respond_to(:current_form) }
   it { should respond_to(:published_form) }
   it { should respond_to(:fields) }

@@ -16,6 +16,12 @@ Ciese::Application.routes.draw do
     get "pages/:page_id/edit", to: "pages#edit", as: :edit_page
     get "pages/:page_id/versions", to: "pages#versions", as: :page_versions
     get "pages/:page_id/versions/:id", to: "pages#show_version", as: :page_version
+
+    get "forms", to: "forms#index"
+    get "forms/new", to: "forms#new", as: :new_form
+    get "forms/:form_id/edit", to: "forms#edit", as: :edit_form
+    get "forms/:form_id/versions", to: "forms#versions", as: :form_versions
+    get "forms/:form_id/versions/:id", to: "forms#show_version", as: :form_version
     
     get "profiles", to: "profiles#index", as: :profiles
     get "profiles/*extra", to: "profiles#index", as: :profiles_sub

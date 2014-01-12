@@ -1,0 +1,99 @@
+<% provide(:title, 'Forms') %>
+
+<% provide :header do %>
+<base href="/admin/forms/">
+<% end %>
+
+<% provide :css do %>
+<%= stylesheet_link_tag "forms", media: "all" %>
+<% end %>
+
+<div id="form-editor" ng-controller="FormEditorCtrl">
+  <div class="row">
+    <div class="large-6 columns">
+      <h1>New Form</h1>
+      <form name="formEditor">
+        <label for="form-name">Name</label>
+        <input id="form-name" type="text" name="name" ng-model="form.name" required ng-class="{error: formEditor.name.$invalid}" placeholder="Enter a name for the form">
+      </form>
+      <div ng-repeat="field in form.fields" ng-include="field.kind + '.html'"></div>
+      <ul class="button-group radius">
+        <li><a class="button small" ng-click="addField('info-field')">Information</a></li>
+        <li><a class="button small" ng-click="addField('short-answer-field')">Short Answer</a></li>
+        <li><a class="button small" ng-click="addField('long-answer-field')">Long Answer</a></li>
+        <li><a class="button small" ng-click="addField('singe-choice-field')">Single Choice</a></li>
+        <li><a class="button small" ng-click="addField('multiple-choice-field')">Multiple Choice</a></li>
+      </ul>
+    </div>
+    <div class="large-6 columns">
+      <pre>{{ form | json }}</pre>
+    </div>
+  </div>
+
+  <script type="text/ng-template" id="field.html">
+  </script>
+
+  <script type="text/ng-template" id="info-field.html">
+    <div class="form-field info-field" ng-controller="InfoFieldCtrl">
+
+      <form class="field-builder info-field" name="infoFieldForm">
+        <div class="field-builder-header">
+          <div class="field-builder-controls">
+            <span>required: <input type="checkbox" ng-model="field.required"></span>
+            <a ng-hide="$first" ng-click="moveUp()"><i class="fi-arrow-up"></i></a>
+            <a ng-hide="$last" ng-click="moveDown()"><i class="fi-arrow-down"></i></a>
+            <a ng-click="removeField()"><i class="fi-x"></i></a>
+          </div>
+          <div class="field-kind">Information Field</div>
+        </div>
+        <label>Information Text</label>
+        <textarea name="text" required ng-class="{error: infoFieldForm.text.$invalid}" ng-model="field.details.text" placeholder="Enter information text here"></textarea>
+      </form>
+
+      <div class="field-preview">
+        <div ng-bind-html="previewInfo()"></div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="short-answer-field.html">
+    <div class="form-field short-answer-field" ng-controller="ShortAnswerFieldCtrl">
+
+      <form class="field-builder short-answer-field" name="shortAnswerFieldForm">
+        <div class="field-builder-header">
+          <div class="field-builder-controls">
+            <span>required: <input type="checkbox" ng-model="field.required"></span>
+            <a ng-hide="$first" ng-click="moveUp()"><i class="fi-arrow-up"></i></a>
+            <a ng-hide="$last" ng-click="moveDown()"><i class="fi-arrow-down"></i></a>
+            <a ng-click="removeField()"><i class="fi-x"></i></a>
+          </div>
+          <div class="field-kind">Short Answer Field</div>
+        </div>
+        <label>Question Text</label>
+        <textarea name="question" required ng-class="{error: shortAnswerFieldForm.question.$invalid}" ng-model="field.details.question" placeholder="Enter question text here"></textarea>
+      </form>
+
+      <div class="field-preview">
+        <div ng-bind-html="previewQuestion()"></div>
+        <input type="text">
+      </div>
+    </div>
+  </script>
+
+</div>
+
+<% provide :js do %>
+<%= javascript_include_tag "form_editor" %>
+<script type="text/javascript">
+  angular.module('FormEditorApp').run(function($rootScope) {
+    $rootScope.form = <%= @form.to_json.html_safe %>;
+    $rootScope.form = {
+      form_version_id: <%= @form.id.to_json %>,
+      form_id: <%= @form.form_id.to_json %>,
+      slug: "<%= @form.slug %>",
+      name: "<%= @form.name %>",
+      fields: <%= @form.fields.to_json.html_safe %>
+    }
+  });
+</script>
+<% end %>

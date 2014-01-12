@@ -1,6 +1,6 @@
 class FormField < ActiveRecord::Base
 
-  KINDS = ['info', 'short_anwer', 'medium_answer', 'long_answer', 'single_choice', 'multiple_choice']
+  KINDS = ['info', 'short-answer', 'medium-answer', 'long-answer', 'single-choice', 'multiple-choice']
 
   belongs_to :form_version, inverse_of: :fields
 

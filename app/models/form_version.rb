@@ -13,4 +13,8 @@ class FormVersion < ActiveRecord::Base
     write_attribute(:slug, slug.nil? ? slug : slug.parameterize)
   end
 
+  def date
+    updated_at.to_formatted_s(:simple)
+  end
+
 end
