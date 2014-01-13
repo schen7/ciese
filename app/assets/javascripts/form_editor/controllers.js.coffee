@@ -37,14 +37,20 @@ angular
       {kind: 'short-answer-field', required: true, details: { label: 'Name' }},
       {kind: 'short-answer-field', required: true, details: { label: 'School' }},
       {kind: 'long-answer-field', required: true, details: { label: 'School Address' }},
-      {kind: 'single-choice-field', required: true, details: { choices: [
-        {label: 'Choice A' }, {label: 'Choice B' }, {label: 'Choice C' },
-        {label: 'Choice D' }, {label: 'Choice E' }, {label: 'Choice F' }
-      ]}},
-      {kind: 'multiple-choice-field', required: true, details: { choices: [
-        {label: 'Choice A' }, {label: 'Choice B' }, {label: 'Choice C' },
-        {label: 'Choice D' }, {label: 'Choice E' }, {label: 'Choice F' }
-      ]}}
+      {kind: 'single-choice-field', required: true, details: {
+        question: "Which one?"
+        choices: [
+          {label: 'Choice A' }, {label: 'Choice B' }, {label: 'Choice C' },
+          {label: 'Choice D' }, {label: 'Choice E' }, {label: 'Choice F' }
+        ]}
+      },
+      {kind: 'multiple-choice-field', required: true, details: {
+        question: "Which one?"
+        choices: [
+          {label: 'Choice A' }, {label: 'Choice B' }, {label: 'Choice C' },
+          {label: 'Choice D' }, {label: 'Choice E' }, {label: 'Choice F' }
+        ]}
+      }
     ]
 
     angular.element($window.document).on 'click', ->
@@ -84,7 +90,11 @@ angular
   ])
   .controller('ChoiceFieldCtrl', ['$scope', ($scope) ->
 
-    $scope.field.details ?= {choices: []}
+    $scope.field.details.choices ?= [
+      {label: 'A'},
+      {label: 'B'},
+      {label: 'C'}
+    ]
 
     angular.extend $scope,
       addChoice: ->

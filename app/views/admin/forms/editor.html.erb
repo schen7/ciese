@@ -125,7 +125,7 @@
 
   <script type="text/ng-template" id="info-field-preview.html">
     <div class="info-text" ng-if="field.details.text" ng-bind-html="renderHtml(field.details.text)"></div>
-    <div class="info-text" ng-if="!field.details.text"><span class="empty">Please enter some information text.</span></div>
+    <div class="info-text" ng-if="!field.details.text"><span class="empty">–Please enter some information text–</span></div>
   </script>
 
   <script type="text/ng-template" id="short-answer-field-preview.html">
@@ -143,14 +143,14 @@
   <script type="text/ng-template" id="single-choice-field-preview.html">
     <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
     <ul>
-      <li ng-repeat="choice in field.details.choices"><input type="radio" value="" disabled> <label>{{ choice.label }}</label></li>
+      <li ng-repeat="choice in field.details.choices"><input type="radio" value="" disabled> <label>{{ choice.label }}<span class="empty" ng-if="!choice.label">-Need Label-</span></label></li>
     </ul>
   </script>
 
   <script type="text/ng-template" id="multiple-choice-field-preview.html">
     <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
     <ul>
-      <li ng-repeat="choice in field.details.choices"><input type="checkbox" value="" disabled> <label>{{ choice.label }}</label></li>
+      <li ng-repeat="choice in field.details.choices"><input type="checkbox" value="" disabled> <label>{{ choice.label }}<span class="empty" ng-if="!choice.label">-Need Label-</span></label></li>
     </ul>
   </script>
 
