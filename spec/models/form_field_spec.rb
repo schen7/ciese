@@ -7,7 +7,6 @@ describe FormField do
 
   it { should respond_to(:form_version) }
   it { should respond_to(:kind) }
-  it { should respond_to(:required) }
   it { should respond_to(:details) }
 
   it { should be_valid }
@@ -21,14 +20,6 @@ describe FormField do
 
     context "when not in KINDS" do
       before { form_field.kind = "invalid" }
-
-      it { should_not be_valid }
-    end
-  end
-
-  describe "#required" do
-    context "when nil" do
-      before { form_field.required = nil }
 
       it { should_not be_valid }
     end

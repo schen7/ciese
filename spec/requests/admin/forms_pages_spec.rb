@@ -106,7 +106,7 @@ describe 'FormBuilderPages' do
 
       context "when the save button is clicked", js: true do
         before do
-          fill_in "title", with: "A Test Form"
+          fill_in "name", with: "A Test Form"
           find_button("save-button").click
         end
 
