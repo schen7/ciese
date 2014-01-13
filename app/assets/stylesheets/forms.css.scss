@@ -2,74 +2,159 @@
 @import "mixins";
 
 #form-editor {
+  .form-builder {
+    margin-bottom: emCalc(20);
+  }
+
   .form-field {
-    border: 1px solid #ccc;
-    margin: emCalc(20) 0;
-    /* box-shadow: 3px 3px 6px -5px #000; */
-    @include border-radius(3px);
-    .field-builder {
-      background-color: #eee;
-      @include border-radius(3px 3px 0 0);
-      margin: 0;
-      padding: 10px;
-      .field-builder-header {
-        .field-builder-controls {
-          float: right;
-          span {
-            margin-right: emCalc(30);
-            font-size: emCalc(12);
-            color: #777;
-            vertical-align: top;
-            input {
-              margin: 0;
-              vertical-align: top;
-            }
-          }
-          a {
-            color: #bbb;
-            padding: 0 emCalc(8);
-          }
-        }
-        .field-kind {
-          margin: 0 0 emCalc(10) 0;
-          font-weight: bold;
-          color: darkslategray;
-        }
+    &.edit-mode {
+      margin-left: -11px;
+      @include border-radius(3px);
+      border: 1px solid #ddd;
+      margin-top: emCalc(10);
+      margin-bottom: emCalc(10);
+      box-shadow: 7px 7px 3px -6px #999;
+      .field-builder {
+        display: block;
       }
-      label {
-        margin-top: emCalc(20);
-        color: lightslategray;
+      .field-preview {
+        background-color: #fafafa;
+        border-top: 1px solid #ddd;
+        margin-bottom: 0;
+        padding: 10px;
       }
     }
-    .field-preview {
-      margin: 0;
-      padding: 10px;
-      border-top: 1px solid #ccc;
+    &.preview-mode {
+      margin-left: -13px;
+      margin-bottom: emCalc(10);
+      border-left: 3px solid transparent;
+      &:hover {
+        /* border: 1px solid #ddd; */
+        border-left: 3px solid $primary-color;
+        /* background-color: #fafafa; */
+        /* box-shadow: 7px 7px 3px -6px #999; */
+      }
+      .field-builder {
+        display: none;
+      }
+      .field-preview {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
     }
   }
 
-  .info-field {
-    textarea {
-      height: emCalc(70);
-      resize: vertical;
-      margin-bottom: emCalc(10);
+  .field-builder {
+    background-color: #eee;
+    @include border-radius(3px 3px 0 0);
+    margin: 0;
+    padding: 10px;
+    label {
+      margin-top: emCalc(20);
+      color: lightslategray;
     }
-  }
-  .short-answer-field {
-    textarea {
-      height: emCalc(70);
-      resize: vertical;
-      margin-bottom: emCalc(10);
+    .field-kind {
+      margin: 0 0 emCalc(10) 0;
+      font-weight: bold;
+      color: darkslategray;
     }
-    .field-preview {
-      input {
-        margin: emCalc(10) 0;
+    .field-builder-controls {
+      float: right;
+      span {
+        margin-right: emCalc(30);
+        font-size: emCalc(12);
+        color: #777;
+        vertical-align: top;
+        input {
+          margin: 0;
+          vertical-align: top;
+        }
+      }
+      a {
+        color: #bbb;
+        padding: 0 emCalc(8);
       }
     }
   }
+  .info-field-builder {
+    textarea {
+      min-height: emCalc(56);
+      height: emCalc(56);
+      resize: vertical;
+      margin-bottom: emCalc(10);
+    }
+  }
+  .short-answer-field-builder {
+    textarea {
+      min-height: emCalc(56);
+      height: emCalc(56);
+      resize: vertical;
+      margin-bottom: emCalc(10);
+    }
+  }
+  .single-choice-field-builder, .multiple-choice-field-builder {
+    input, a {
+      margin-bottom: emCalc(5);
+    }
+  }
+
+
+  .field-preview {
+    margin: 0;
+    padding: 0 10px 10px 10px;
+    h1, h2, h3, h4, h5, h6 { margin: 0; }
+    h1 { font-size: emCalc(28); }
+    h2 { font-size: emCalc(24); }
+    h3 { font-size: emCalc(20); }
+    h4 { font-size: emCalc(18); }
+    h5 { font-size: emCalc(16); }
+    h6 { font-size: emCalc(14); }
+    hr { margin: 0; }
+    input[disabled=disabled], input:disabled,
+    textarea[disabled=disabled], textarea:disabled {
+      background-color: #fff;
+    }
+    .info-text {
+      margin: 0;
+    }
+    .question-text {
+      margin-bottom: emCalc(14);
+    }
+  }
+  .short-answer-field-preview {
+    input {
+      margin: 0;
+    }
+  }
+  .long-answer-field-preview {
+    textarea {
+      height: emCalc(100);
+      resize: none;
+      margin: 0;
+    }
+  }
+  .single-choice-field-preview, .multiple-choice-field-preview {
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      li {
+        display: inline-block;
+        margin-right: emCalc(30);
+        white-space: nowrap;
+        input, label {
+          display: inline;
+          font-weight: normal;
+          margin: 0;
+        }
+      }
+    }
+  }
+
   .empty {
     font-style: italic;
     color: #999;
   }
 }
-

@@ -1,17 +1,24 @@
 angular
   .module('FormEditorApp')
-  .controller('FormEditorCtrl', ['$scope', '$location', '$http', ($scope, $location, $http) ->
+  .controller('FormEditorCtrl', ['$scope', '$location', '$http', '$sce', '$window', ($scope, $location, $http, $sce, $window) ->
 
     angular.extend $scope,
+      selected: null
+      select: ->
+        $window.event.stopPropagation()
+        $scope.selected = @$index
+      getMode: ->
+        if $scope.selected is @$index then 'edit-mode' else 'preview-mode'
       isDirty: ->
         nameDirty = $scope.formEditor.name.$dirty
         nameDirty
       addField: (kind) ->
-        field =
+        $window.event.stopPropagation()
+        $scope.form.fields.push
           kind: kind
           required: true
           details: {}
-        $scope.form.fields.push(field)
+        $scope.selected = $scope.form.fields.length - 1
       moveUp: ->
         field = $scope.form.fields.splice(@$index, 1)[0]
         $scope.form.fields.splice(@$index - 1, 0, field)
@@ -20,8 +27,32 @@ angular
         $scope.form.fields.splice(@$index + 1, 0, field)
       removeField: ->
         $scope.form.fields.splice(@$index, 1)
+      renderHtml: (text) ->
+        if text?
+          text = text.replace(/\n/g, "<br>").replace(/[ ]/g, "&nbsp;")
+        $sce.trustAsHtml(text)
 
-    $scope.addField("info-field")
+    $scope.form.fields = [
+      {kind: 'info-field', required: true, details: { text: 'Form information' }},
+      {kind: 'short-answer-field', required: true, details: { label: 'Name' }},
+      {kind: 'short-answer-field', required: true, details: { label: 'School' }},
+      {kind: 'long-answer-field', required: true, details: { label: 'School Address' }},
+      {kind: 'single-choice-field', required: true, details: { choices: [
+        {label: 'Choice A' }, {label: 'Choice B' }, {label: 'Choice C' },
+        {label: 'Choice D' }, {label: 'Choice E' }, {label: 'Choice F' }
+      ]}},
+      {kind: 'multiple-choice-field', required: true, details: { choices: [
+        {label: 'Choice A' }, {label: 'Choice B' }, {label: 'Choice C' },
+        {label: 'Choice D' }, {label: 'Choice E' }, {label: 'Choice F' }
+      ]}}
+    ]
+
+    angular.element($window.document).on 'click', ->
+      $scope.$apply -> $scope.selected = null
+
+    angular.element($window.document).on 'keydown', (evt) ->
+      if evt.keyCode is 27
+        $scope.$apply -> $scope.selected = null
 
       # saveForm: ->
       #   data =
@@ -51,26 +82,16 @@ angular
     # publishError = (data, status, headers, config) ->
     #   alert("error")
   ])
-  .controller('InfoFieldCtrl', ['$scope', '$sce', ($scope, $sce) ->
+  .controller('ChoiceFieldCtrl', ['$scope', ($scope) ->
 
-    $scope.previewInfo = ->
-      text = $scope.field.details.text
-      if text?
-        text = text.replace(/\n/g, "<br>").replace(/[ ]/g, "&nbsp;")
-      else
-        text = """<span class="empty">Please enter some text.</span>"""
-      $sce.trustAsHtml(text)
+    $scope.field.details ?= {choices: []}
 
-  ])
-  .controller('ShortAnswerFieldCtrl', ['$scope', '$sce', ($scope, $sce) ->
-
-    $scope.previewQuestion = ->
-      text = $scope.field.details.question
-      if text?
-        text = text.replace(/\n/g, "<br>").replace(/[ ]/g, "&nbsp;")
-      else
-        text = """<span class="empty">Please enter some question text.</span>"""
-      $sce.trustAsHtml(text)
+    angular.extend $scope,
+      addChoice: ->
+        $scope.field.details.choices.push
+          label: ""
+      removeChoice: ->
+        $scope.field.details.choices.splice(@$index, 1)
 
   ])
 
