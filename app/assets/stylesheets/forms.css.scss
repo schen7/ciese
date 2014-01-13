@@ -20,8 +20,12 @@
       .field-preview {
         background-color: #fafafa;
         border-top: 1px solid #ddd;
+        margin-top: 0;
         margin-bottom: 0;
         padding: 10px;
+        .question-text {
+          margin-top: 0;
+        }
       }
     }
     &.preview-mode {

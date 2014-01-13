@@ -16,8 +16,8 @@ angular
         $window.event.stopPropagation()
         $scope.form.fields.push
           kind: kind
-          required: true
-          details: {}
+          details:
+            required: true
         $scope.selected = $scope.form.fields.length - 1
       moveUp: ->
         field = $scope.form.fields.splice(@$index, 1)[0]
@@ -33,19 +33,21 @@ angular
         $sce.trustAsHtml(text)
 
     $scope.form.fields = [
-      {kind: 'info-field', required: true, details: { text: 'Form information' }},
-      {kind: 'short-answer-field', required: true, details: { label: 'Name' }},
-      {kind: 'short-answer-field', required: true, details: { label: 'School' }},
-      {kind: 'long-answer-field', required: true, details: { label: 'School Address' }},
-      {kind: 'single-choice-field', required: true, details: {
+      {kind: 'info-field', details: { text: 'Form information' }},
+      {kind: 'short-answer-field', details: { label: 'Name', required: true }},
+      {kind: 'short-answer-field', details: { label: 'School', required: true }},
+      {kind: 'long-answer-field', details: { label: 'School Address', required: true }},
+      {kind: 'single-choice-field', details: {
         question: "Which one?"
+        required: true
         choices: [
           {label: 'Choice A' }, {label: 'Choice B' }, {label: 'Choice C' },
           {label: 'Choice D' }, {label: 'Choice E' }, {label: 'Choice F' }
         ]}
       },
-      {kind: 'multiple-choice-field', required: true, details: {
+      {kind: 'multiple-choice-field', details: {
         question: "Which one?"
+        required: true
         choices: [
           {label: 'Choice A' }, {label: 'Choice B' }, {label: 'Choice C' },
           {label: 'Choice D' }, {label: 'Choice E' }, {label: 'Choice F' }

@@ -46,25 +46,26 @@
 
   <script type="text/ng-template" id="field-builder.html">
     <form name="fieldBuilder">
-      <div class="field-builder-header">
-        <div class="field-builder-controls">
-          <span>required: <input type="checkbox" ng-model="field.required"></span>
-          <a ng-hide="$first" ng-click="moveUp()"><i class="fi-arrow-up"></i></a>
-          <a ng-hide="$last" ng-click="moveDown()"><i class="fi-arrow-down"></i></a>
-          <a ng-click="removeField()"><i class="fi-x"></i></a>
-        </div>
-        <div class="{{ field.kind }}-builder" ng-include="field.kind + '-builder.html'"></div>
-      </div>
+      <div class="{{ field.kind }}-builder" ng-include="field.kind + '-builder.html'"></div>
     </form>
   </script>
 
+  <script type="text/ng-template" id="field-builder-controls.html">
+    <span ng-if="!noRequire">required: <input type="checkbox" ng-model="field.details.required"></span>
+    <a ng-hide="$first" ng-click="moveUp()"><i class="fi-arrow-up"></i></a>
+    <a ng-hide="$last" ng-click="moveDown()"><i class="fi-arrow-down"></i></a>
+    <a ng-click="removeField()"><i class="fi-x"></i></a>
+  </script>
+
   <script type="text/ng-template" id="info-field-builder.html">
+    <div class="field-builder-controls" ng-include="'field-builder-controls.html'" ng-init="noRequire = true"></div>
     <div class="field-kind">Information Field</div>
     <label>Information Text</label>
     <textarea name="text" required ng-class="{error: fieldBuilder.text.$invalid}" ng-model="field.details.text" placeholder="Enter information text here"></textarea>
   </script>
 
   <script type="text/ng-template" id="short-answer-field-builder.html">
+    <div class="field-builder-controls" ng-include="'field-builder-controls.html'"></div>
     <div class="field-kind">Short Answer Field</div>
     <label>Label</label>
     <input type="text" name="label" ng-model="field.details.label" placeholder="Enter optional label">
@@ -73,6 +74,7 @@
   </script>
 
   <script type="text/ng-template" id="long-answer-field-builder.html">
+    <div class="field-builder-controls" ng-include="'field-builder-controls.html'"></div>
     <div class="field-kind">Long Answer Field</div>
     <label>Label</label>
     <input type="text" name="label" ng-model="field.details.label" placeholder="Enter optional label">
@@ -81,6 +83,7 @@
   </script>
 
   <script type="text/ng-template" id="single-choice-field-builder.html">
+    <div class="field-builder-controls" ng-include="'field-builder-controls.html'"></div>
     <div ng-controller="ChoiceFieldCtrl">
       <div class="field-kind">Single Choice Field</div>
       <label>Question Text</label>
@@ -99,6 +102,7 @@
   </script>
 
   <script type="text/ng-template" id="multiple-choice-field-builder.html">
+    <div class="field-builder-controls" ng-include="'field-builder-controls.html'"></div>
     <div ng-controller="ChoiceFieldCtrl">
       <div class="field-kind">Multiple Choice Field</div>
       <label>Question Text</label>
