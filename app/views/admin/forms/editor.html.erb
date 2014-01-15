@@ -8,34 +8,60 @@
 <%= stylesheet_link_tag "forms", media: "all" %>
 <% end %>
 
+<% provide :top_bar do %>
+  <div class="small-2 columns">
+    <h1>Form Builder</h1>
+  </div>
+  <div class="small-10 columns">
+    <div class="button-row">
+      <button id="publish-button" class="button success small radius" <% if @form.id.nil? || !@form.published_form.nil? %>disabled <% end %>ng-disabled="!canPublish()" ng-click="publishPage()">Publish</button>
+      <button id="save-button" class="button primary small radius" disabled ng-disabled="!canSave()" ng-click="savePage()">Save</button>
+      <a target="_self" class="button secondary small radius" href="<%= admin_forms_path %>">Done</a>
+    </div>
+  </div>
+<% end %>
+
 <div id="form-editor" ng-controller="FormEditorCtrl">
   <div class="row">
 
     <div class="large-6 columns">
-      <h1>Form Editor</h1>
       <div class="form-builder">
-        <form name="formPropsBuilder">
-          <label for="form-name">Name</label>
-          <input id="form-name" type="text" name="name" ng-model="form.name" required ng-class="{error: formPropsBuilder.name.$invalid}" placeholder="Enter a name for the form">
-        </form>
-        <div class="form-field" ng-repeat="field in form.fields" ng-class="getMode()" ng-click="select()">
-          <div class="field-builder" ng-include="'field-builder.html'"></div>
-          <div class="field-preview" ng-include="'field-preview.html'"></div>
+        <div ng-form="formBuilder">
+          <div class="form-field" ng-class="getMode(-1)" ng-click="select(-1)">
+            <div class="field-builder">
+              <div class="field-kind">Form Settings</div>
+              <label for="form-name">Form Name</label>
+              <input id="form-name" type="text" name="name" ng-model="form.name" required ng-class="{error: formBuilder.name.$invalid}" placeholder="Enter a name for the form">
+            </div>
+            <div class="field-preview">
+              <h1 ng-if="form.name">{{ form.name }}</h1>
+              <h1 ng-if="!form.name"><span class="empty">Please enter a form name</span></h1>
+            </div>
+          </div>
+          <div class="form-field" ng-repeat="field in form.fields" ng-class="getMode($index)" ng-click="select($index)">
+            <div class="field-builder" ng-include="'field-builder.html'"></div>
+            <div class="field-preview" ng-include="'field-preview.html'"></div>
+          </div>
         </div>
       </div>
-      <ul class="button-group radius even-3">
-        <li><a class="button small" ng-click="addField('info-field')">Information</a></li>
-        <li><a class="button small" ng-click="addField('short-answer-field')">Short Answer</a></li>
-        <li><a class="button small" ng-click="addField('long-answer-field')">Long Answer</a></li>
-      </ul>
-      <ul class="button-group radius even-3">
-        <li><a class="button small" ng-click="addField('single-choice-field')">Single Choice</a></li>
-        <li><a class="button small" ng-click="addField('multiple-choice-field')">Multiple Choice</a></li>
-      </ul>
+      <div id="add-field" ng-form="addFieldForm">
+        <hr>
+        <ul class="button-group radius even-5">
+          <li><a class="button tiny" ng-click="addField('info-field')">Info<br>Field</a></li>
+          <li><a class="button tiny" ng-click="addField('short-answer-field')">Short<br>Answer</a></li>
+          <li><a class="button tiny" ng-click="addField('long-answer-field')">Long<br>Answer</a></li>
+          <li><a class="button tiny" ng-click="addField('single-choice-field')">Single<br>Choice</a></li>
+          <li><a class="button tiny" ng-click="addField('multiple-choice-field')">Multiple<br>Choice</a></li>
+        </ul>
+      </div>
     </div>
 
     <div class="large-6 columns">
       <h1>Debug Info</h1>
+      <p><pre>{{ formBuilder | json }}</pre></p>
+      <p>Dirty?: {{ formBuilder.$dirty }}</p>
+      <p>Valid?: {{ formBuilder.$valid }}</p>
+      <p>Can Save?: {{ canSave() }}</p>
       <p><pre>{{ selected | json }}</pre></p>
       <p><pre>{{ form | json }}</pre></p>
     </div>
@@ -45,41 +71,42 @@
   <!-- Field Builder Templates -->
 
   <script type="text/ng-template" id="field-builder.html">
-    <form name="fieldBuilder">
+    <div ng-form="fieldBuilder">
       <div class="{{ field.kind }}-builder" ng-include="field.kind + '-builder.html'"></div>
-    </form>
+    </div>
   </script>
 
   <script type="text/ng-template" id="field-builder-controls.html">
-    <span ng-if="!noRequire">required: <input type="checkbox" ng-model="field.details.required"></span>
+    <span ng-if="!norequire">required: <input name="required" type="checkbox" ng-model="field.details.required"></span>
     <a ng-hide="$first" ng-click="moveUp()"><i class="fi-arrow-up"></i></a>
     <a ng-hide="$last" ng-click="moveDown()"><i class="fi-arrow-down"></i></a>
     <a ng-click="removeField()"><i class="fi-x"></i></a>
   </script>
 
   <script type="text/ng-template" id="info-field-builder.html">
-    <div class="field-builder-controls" ng-include="'field-builder-controls.html'" ng-init="noRequire = true"></div>
+    <div class="field-builder-controls" ng-include="'field-builder-controls.html'" ng-init="norequire = true"></div>
     <div class="field-kind">Information Field</div>
     <label>Information Text</label>
-    <textarea name="text" required ng-class="{error: fieldBuilder.text.$invalid}" ng-model="field.details.text" placeholder="Enter information text here"></textarea>
+    <p>problem: {{ check() }}</p>
+    <textarea name="text" required ng-class="{error: fieldBuilder.text.$invalid}" ng-model="field.details.text" placeholder="Enter information text"></textarea>
   </script>
 
   <script type="text/ng-template" id="short-answer-field-builder.html">
     <div class="field-builder-controls" ng-include="'field-builder-controls.html'"></div>
     <div class="field-kind">Short Answer Field</div>
-    <label>Label</label>
-    <input type="text" name="label" ng-model="field.details.label" placeholder="Enter optional label">
     <label>Question Text</label>
     <textarea name="question" ng-model="field.details.question" placeholder="Enter optional question text"></textarea>
+    <label>Label</label>
+    <input type="text" name="label" ng-model="field.details.label" placeholder="Enter optional label">
   </script>
 
   <script type="text/ng-template" id="long-answer-field-builder.html">
     <div class="field-builder-controls" ng-include="'field-builder-controls.html'"></div>
     <div class="field-kind">Long Answer Field</div>
+    <label>Question Text</label>
+    <textarea name="question" ng-model="field.details.question" placeholder="Enter question text"></textarea>
     <label>Label</label>
     <input type="text" name="label" ng-model="field.details.label" placeholder="Enter optional label">
-    <label>Question Text</label>
-    <textarea name="question" ng-model="field.details.question" placeholder="Enter question text here"></textarea>
   </script>
 
   <script type="text/ng-template" id="single-choice-field-builder.html">
@@ -87,11 +114,11 @@
     <div ng-controller="ChoiceFieldCtrl">
       <div class="field-kind">Single Choice Field</div>
       <label>Question Text</label>
-      <textarea name="question" ng-model="field.details.question" placeholder="Enter question text here"></textarea>
+      <textarea name="question" ng-model="field.details.question" placeholder="Enter question text"></textarea>
       <label>Choices</label>
       <div class="choice-label row collapse" ng-repeat="choice in field.details.choices">
-        <div class="small-11 columns">
-          <input type="text" name="choice{{$index}}" ng-model="choice.label" placeholder="Choice label">
+        <div ng-form="choiceBuilder" class="small-11 columns">
+          <input type="text" name="choice" ng-model="choice.label" ng-class="{error: choiceBuilder.$invalid}" required placeholder="Enter choice label">
         </div>
         <div class="small-1 columns">
           <a class="button alert radius postfix" ng-click="removeChoice()">-</a>
@@ -106,11 +133,11 @@
     <div ng-controller="ChoiceFieldCtrl">
       <div class="field-kind">Multiple Choice Field</div>
       <label>Question Text</label>
-      <textarea name="question" ng-model="field.details.question" placeholder="Enter question text here"></textarea>
+      <textarea name="question" ng-model="field.details.question" placeholder="Enter question text"></textarea>
       <label>Choices</label>
       <div class="choice-label row collapse" ng-repeat="choice in field.details.choices">
-        <div class="small-11 columns">
-          <input type="text" name="choice{{$index}}" ng-model="choice.label" placeholder="Choice label">
+        <div ng-form="choiceBuilder" class="small-11 columns">
+          <input type="text" name="choice" ng-model="choice.label" ng-class="{error: choiceBuilder.$invalid}" required placeholder="Enter choice label">
         </div>
         <div class="small-1 columns">
           <a class="button alert radius postfix" ng-click="removeChoice()">-</a>
@@ -129,7 +156,7 @@
 
   <script type="text/ng-template" id="info-field-preview.html">
     <div class="info-text" ng-if="field.details.text" ng-bind-html="renderHtml(field.details.text)"></div>
-    <div class="info-text" ng-if="!field.details.text"><span class="empty">–Please enter some information text–</span></div>
+    <div class="info-text" ng-if="!field.details.text"><span class="empty">Please enter some information text</span></div>
   </script>
 
   <script type="text/ng-template" id="short-answer-field-preview.html">
@@ -147,14 +174,14 @@
   <script type="text/ng-template" id="single-choice-field-preview.html">
     <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
     <ul>
-      <li ng-repeat="choice in field.details.choices"><input type="radio" value="" disabled> <label>{{ choice.label }}<span class="empty" ng-if="!choice.label">-Need Label-</span></label></li>
+      <li ng-repeat="choice in field.details.choices"><input type="radio" value="" disabled> <label>{{ choice.label }}<span class="empty" ng-if="!choice.label">Add label</span></label></li>
     </ul>
   </script>
 
   <script type="text/ng-template" id="multiple-choice-field-preview.html">
     <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
     <ul>
-      <li ng-repeat="choice in field.details.choices"><input type="checkbox" value="" disabled> <label>{{ choice.label }}<span class="empty" ng-if="!choice.label">-Need Label-</span></label></li>
+      <li ng-repeat="choice in field.details.choices"><input type="checkbox" value="" disabled> <label>{{ choice.label }}<span class="empty" ng-if="!choice.label">Add label</span></label></li>
     </ul>
   </script>
 
@@ -168,6 +195,7 @@
     $rootScope.form = {
       form_version_id: <%= @form.id.to_json %>,
       form_id: <%= @form.form_id.to_json %>,
+      published: <%= !@form.published_form.nil? %>,
       slug: "<%= @form.slug %>",
       name: "<%= @form.name %>",
       fields: <%= @form.fields.to_json.html_safe %>

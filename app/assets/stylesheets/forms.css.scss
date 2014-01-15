@@ -1,14 +1,24 @@
 @import "foundation_overrides";
 @import "mixins";
 
+.button-row {
+  white-space: nowrap;
+  text-align: right;
+  .button {
+    margin: 0 0 0 5px;
+    padding-left: emCalc(15);
+    padding-right: emCalc(15);
+  }
+}
+
 #form-editor {
   .form-builder {
-    margin-bottom: emCalc(20);
+    margin: emCalc(20) 0;
   }
 
   .form-field {
     &.edit-mode {
-      margin-left: -11px;
+      margin-left: -1px;
       @include border-radius(3px);
       border: 1px solid #ddd;
       margin-top: emCalc(14);
@@ -22,14 +32,14 @@
         border-top: 1px solid #ddd;
         margin-top: 0;
         margin-bottom: 0;
-        padding: 10px;
+        padding: 14px 10px;
         .question-text {
           margin-top: 0;
         }
       }
     }
     &.preview-mode {
-      margin-left: -13px;
+      margin-left: -3px;
       margin-bottom: emCalc(14);
       border-left: 3px solid transparent;
       &:hover {
@@ -144,7 +154,7 @@
     ul {
       list-style-type: none;
       padding: 0;
-      margin: emCalc(-8) 0 0 0;
+      margin: emCalc(14) 0 emCalc(24) 0;
       li {
         display: inline-block;
         margin-right: emCalc(30);
@@ -156,10 +166,16 @@
         }
       }
     }
+    .question-text + ul {
+      margin-top: emCalc(-8);
+    }
   }
 
   .empty {
-    font-style: italic;
-    color: #999;
+    color: #a00;
+  }
+
+  #add-field {
+    padding-left: 10px;
   }
 }

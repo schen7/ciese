@@ -10,5 +10,5 @@ angular
   ])
 
 angular.element(document).ready ->
-  angular.bootstrap(angular.element('#form-editor'), ['FormEditorApp'])
+  angular.bootstrap(angular.element('body'), ['FormEditorApp'])
 

@@ -1,17 +1,22 @@
 angular
   .module('FormEditorApp')
-  .controller('FormEditorCtrl', ['$scope', '$location', '$http', '$sce', '$window', ($scope, $location, $http, $sce, $window) ->
+  .controller('FormEditorCtrl', ['$scope', '$rootScope', '$location', '$http', '$sce', '$window', ($scope, $rootScope, $location, $http, $sce, $window) ->
+
+    angular.extend $rootScope,
+      canSave: ->
+        $scope.formBuilder?.$dirty and $scope.formBuilder?.$valid
+      canPublish: -> (
+        $scope.form.form_version_id? and not $scope.form.published and
+        $scope.formBuilder?.$pristine and $scope.formBuilder?.$valid
+      )
 
     angular.extend $scope,
       selected: null
-      select: ->
+      select: (index) ->
         $window.event.stopPropagation()
-        $scope.selected = @$index
-      getMode: ->
-        if $scope.selected is @$index then 'edit-mode' else 'preview-mode'
-      isDirty: ->
-        nameDirty = $scope.formEditor.name.$dirty
-        nameDirty
+        $scope.selected = index
+      getMode: (index) ->
+        if $scope.selected is index then 'edit-mode' else 'preview-mode'
       addField: (kind) ->
         $window.event.stopPropagation()
         $scope.form.fields.push
@@ -32,6 +37,11 @@ angular
           text = text.replace(/\n/g, "<br>").replace(/[ ]/g, "&nbsp;")
         $sce.trustAsHtml(text)
 
+    $scope.$watch 'form', (newVal, oldVal) ->
+      $scope.formBuilder?.$setDirty() if newVal isnt oldVal
+    , true
+
+    # TODO: Remove this - quick population of initial data for manual testing
     $scope.form.fields = [
       {kind: 'info-field', details: { text: 'Form information' }},
       {kind: 'short-answer-field', details: { label: 'Name', required: true }},

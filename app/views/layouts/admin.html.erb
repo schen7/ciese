@@ -27,6 +27,9 @@
 
     <div id="top-nav-bar">
       <div class="row">
+        <% if content_for?(:top_bar) %>
+        <%= yield(:top_bar) %>
+        <% else %>
         <div class="small-3 columns">
           <h1>CIESE Admin</h1>
         </div>
@@ -41,6 +44,7 @@
             <% end %>
           </div>
         </div>
+        <% end %>
       </div>
     </div>
 
