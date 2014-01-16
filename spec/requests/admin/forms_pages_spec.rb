@@ -32,6 +32,7 @@ describe 'FormBuilderPages' do
             form_version.name, href: admin_edit_form_path(current_form.form_id)
           )
           expect(page).to have_content(form_version.user.username)
+          expect(page).to have_content(form_version.slug)
           expect(page).not_to have_selector("i.fi-check")
           expect(page).to have_link(
             form_version.date.gsub(/ +/, " "),
@@ -54,10 +55,10 @@ describe 'FormBuilderPages' do
           )
           expect(page).to have_content(form_version.user.username)
           expect(page).to have_selector(
-            "tbody tr > td:first + td + td + td > i.fi-check"
+            "tbody tr > td:first + td + td + td + td > i.fi-check"
           )
           expect(page).not_to have_selector(
-            "tbody tr > td:first + td + td + td + td> i.fi-check"
+            "tbody tr > td:first + td + td + td + td + td> i.fi-check"
           )
           expect(page).to have_link("Create New Form", href: admin_new_form_path)
         end
@@ -76,10 +77,10 @@ describe 'FormBuilderPages' do
           )
           expect(page).to have_content(form_version.user.username)
           expect(page).not_to have_selector(
-            "tbody tr > td:first + td + td + td > i.fi-check"
+            "tbody tr > td:first + td + td + td + td > i.fi-check"
           )
           expect(page).to have_selector(
-            "tbody tr > td:first + td + td + td + td> i.fi-check"
+            "tbody tr > td:first + td + td + td + td + td> i.fi-check"
           )
           expect(page).to have_link("Create New Form", href: admin_new_form_path)
         end
@@ -87,7 +88,7 @@ describe 'FormBuilderPages' do
     end
   end
 
-  describe "new form", :focus do
+  describe "new form" do
     let(:path) { admin_new_form_path }
 
     it_behaves_like "a page that requires an active staff or admin user"
@@ -106,6 +107,7 @@ describe 'FormBuilderPages' do
 
       context "when the save button is clicked", js: true do
         before do
+          first(".form-field").click
           fill_in "name", with: "A Test Form"
           find_button("save-button").click
         end
@@ -113,7 +115,7 @@ describe 'FormBuilderPages' do
         it "should save the form" do
           expect(page).to have_content("Form Editor")
           expect(page).to have_css("#save-button[disabled]")
-          expect(page.current_path).to eq admin_edit_form_path(Page.last.form_id)
+          expect(page.current_path).to eq admin_edit_form_path(FormVersion.last.form_id)
           visit admin_forms_path
           expect(page).to have_link("A Test Form")
         end

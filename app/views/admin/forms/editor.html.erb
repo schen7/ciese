@@ -10,18 +10,18 @@
 
 <% provide :top_bar do %>
   <div class="small-2 columns">
-    <h1>Form Builder</h1>
+    <h1>Form Editor</h1>
   </div>
   <div class="small-10 columns">
     <div class="button-row">
-      <button id="publish-button" class="button success small radius" <% if @form.id.nil? || !@form.published_form.nil? %>disabled <% end %>ng-disabled="!canPublish()" ng-click="publishPage()">Publish</button>
-      <button id="save-button" class="button primary small radius" disabled ng-disabled="!canSave()" ng-click="savePage()">Save</button>
+      <button id="publish-button" class="button success small radius" <% if @form.id.nil? || !@form.published_form.nil? %>disabled <% end %>ng-disabled="!canPublish()" ng-click="publishForm()">Publish</button>
+      <button id="save-button" class="button primary small radius" disabled ng-disabled="!canSave()" ng-click="saveForm()">Save</button>
       <a target="_self" class="button secondary small radius" href="<%= admin_forms_path %>">Done</a>
     </div>
   </div>
 <% end %>
 
-<div id="form-editor" ng-controller="FormEditorCtrl">
+<div id="form-editor" ng-controller="FormEditorCtrl" ng-show="editorReady" class="ng-hide">
   <div class="row">
 
     <div class="large-6 columns">
@@ -47,11 +47,11 @@
       <div id="add-field" ng-form="addFieldForm">
         <hr>
         <ul class="button-group radius even-5">
-          <li><a class="button tiny" ng-click="addField('info-field')">Info<br>Field</a></li>
-          <li><a class="button tiny" ng-click="addField('short-answer-field')">Short<br>Answer</a></li>
-          <li><a class="button tiny" ng-click="addField('long-answer-field')">Long<br>Answer</a></li>
-          <li><a class="button tiny" ng-click="addField('single-choice-field')">Single<br>Choice</a></li>
-          <li><a class="button tiny" ng-click="addField('multiple-choice-field')">Multiple<br>Choice</a></li>
+          <li><a class="button tiny" ng-click="addField('info')">Info<br>Field</a></li>
+          <li><a class="button tiny" ng-click="addField('short-answer')">Short<br>Answer</a></li>
+          <li><a class="button tiny" ng-click="addField('long-answer')">Long<br>Answer</a></li>
+          <li><a class="button tiny" ng-click="addField('single-choice')">Single<br>Choice</a></li>
+          <li><a class="button tiny" ng-click="addField('multiple-choice')">Multiple<br>Choice</a></li>
         </ul>
       </div>
     </div>
@@ -72,7 +72,7 @@
 
   <script type="text/ng-template" id="field-builder.html">
     <div ng-form="fieldBuilder">
-      <div class="{{ field.kind }}-builder" ng-include="field.kind + '-builder.html'"></div>
+      <div class="{{ field.kind }}-field-builder" ng-include="field.kind + '-field-builder.html'"></div>
     </div>
   </script>
 
@@ -151,7 +151,7 @@
   <!-- Field Preview Templates -->
 
   <script type="text/ng-template" id="field-preview.html">
-    <div class="{{ field.kind}}-preview" ng-include="field.kind + '-preview.html'"></div>
+    <div class="{{ field.kind}}-field-preview" ng-include="field.kind + '-field-preview.html'"></div>
   </script>
 
   <script type="text/ng-template" id="info-field-preview.html">

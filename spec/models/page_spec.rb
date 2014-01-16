@@ -36,7 +36,6 @@ describe Page do
     end
   end
 
-
   describe "#url" do
     context "when blank" do
       before { page.url = "" }

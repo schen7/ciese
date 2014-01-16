@@ -9,8 +9,18 @@ angular
         $scope.form.form_version_id? and not $scope.form.published and
         $scope.formBuilder?.$pristine and $scope.formBuilder?.$valid
       )
+      saveForm: ->
+        data = form: angular.copy($scope.form)
+        data.form.fields = for field in data.form.fields
+          kind: field.kind
+          details: angular.toJson(field.details)
+        $http.post('/api/forms', data).success(saveDone).error(saveError)
+      publishForm: ->
+        $http.put("/api/forms/#{$scope.form.form_version_id}")
+          .success(publishDone).error(publishError)
 
     angular.extend $scope,
+      editorReady: true
       selected: null
       select: (index) ->
         $window.event.stopPropagation()
@@ -37,17 +47,39 @@ angular
           text = text.replace(/\n/g, "<br>").replace(/[ ]/g, "&nbsp;")
         $sce.trustAsHtml(text)
 
+    saveDone = (data, status, headers, config) ->
+      if data.errors?
+        saveError(data, status, headers, config)
+      else
+        $scope.form = data.form_version
+        $location.url("/#{$scope.form.form_id}/edit")
+        $scope.formBuilder.$setPristine()
+
+    saveError = (data, status, headers, config) ->
+      list = (" - #{e}" for e in data.errors).join('\n')
+      alert("There were errors saving the form:\n" + list)
+
+    publishDone = (data, status, headers, config) ->
+      if data.errors?
+        publishError(data, status, headers, config)
+      else
+        $scope.form = data.form
+
+    publishError = (data, status, headers, config) ->
+      list = (" - #{e}" for e in data.errors).join('\n')
+      alert("There were errors publishing the form:\n" + list)
+
     $scope.$watch 'form', (newVal, oldVal) ->
       $scope.formBuilder?.$setDirty() if newVal isnt oldVal
     , true
 
     # TODO: Remove this - quick population of initial data for manual testing
     $scope.form.fields = [
-      {kind: 'info-field', details: { text: 'Form information' }},
-      {kind: 'short-answer-field', details: { label: 'Name', required: true }},
-      {kind: 'short-answer-field', details: { label: 'School', required: true }},
-      {kind: 'long-answer-field', details: { label: 'School Address', required: true }},
-      {kind: 'single-choice-field', details: {
+      {kind: 'info', details: { text: 'Form information' }},
+      {kind: 'short-answer', details: { label: 'Name', required: true }},
+      {kind: 'short-answer', details: { label: 'School', required: true }},
+      {kind: 'long-answer', details: { label: 'School Address', required: true }},
+      {kind: 'single-choice', details: {
         question: "Which one?"
         required: true
         choices: [
@@ -55,7 +87,7 @@ angular
           {label: 'Choice D' }, {label: 'Choice E' }, {label: 'Choice F' }
         ]}
       },
-      {kind: 'multiple-choice-field', details: {
+      {kind: 'multiple-choice', details: {
         question: "Which one?"
         required: true
         choices: [
@@ -72,33 +104,6 @@ angular
       if evt.keyCode is 27
         $scope.$apply -> $scope.selected = null
 
-      # saveForm: ->
-      #   data =
-      #     title: $scope.title
-      #     url: $scope.url
-      #     content: $scope.contentEditor.getContent()
-      #   data.page_id = $scope.pageId if $scope.pageId != -1
-      #   $http.post('/api/pages', data).success(saveDone).error(saveError)
-      # publishForm: ->
-      #   $http.put("/api/pages/#{$scope.versionId}")
-      #     .success(publishDone).error(publishError)
-
-    # saveDone = (data, status, headers, config) ->
-    #   $scope.versionId = data.version_id
-    #   $scope.pageId = data.page_id
-    #   $location.url("/#{$scope.pageId}/edit")
-    #   $scope.pageForm.$setPristine()
-    #   $scope.contentEditor.startContent = $scope.contentEditor.getContent(format: 'raw')
-    #   $scope.published = false
-
-    # saveError = (data, status, headers, config) ->
-    #   alert("error")
-
-    # publishDone = (data, status, headers, config) ->
-    #   $scope.published = true
-
-    # publishError = (data, status, headers, config) ->
-    #   alert("error")
   ])
   .controller('ChoiceFieldCtrl', ['$scope', ($scope) ->
 

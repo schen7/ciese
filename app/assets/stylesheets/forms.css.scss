@@ -12,6 +12,9 @@
 }
 
 #form-editor {
+  &.ng-hide {
+    display: none;
+  }
   .form-builder {
     margin: emCalc(20) 0;
   }

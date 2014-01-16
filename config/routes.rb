@@ -30,6 +30,7 @@ Ciese::Application.routes.draw do
   end
 
   namespace :api do
+    resources :forms, only: [:create, :show, :update, :destroy]
     resources :pages, only: [:create, :show, :update, :destroy]
     resources :profiles, only: [:index, :create, :show, :update, :destroy]
     resources :programs, only: [:index, :create, :show, :update, :destroy]

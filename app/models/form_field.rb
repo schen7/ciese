@@ -1,9 +1,10 @@
 class FormField < ActiveRecord::Base
 
-  KINDS = ['info', 'short-answer', 'medium-answer', 'long-answer', 'single-choice', 'multiple-choice']
+  KINDS = ['info', 'short-answer', 'long-answer', 'single-choice', 'multiple-choice']
 
   belongs_to :form_version, inverse_of: :fields
 
+  validates :form_version, presence: true
   validates :kind, presence: true, inclusion: { in: KINDS }
 
 end

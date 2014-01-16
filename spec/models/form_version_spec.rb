@@ -16,33 +16,46 @@ describe FormVersion do
 
   it { should be_valid }
 
-  describe "#slug" do
-    context "when nil" do
-      before { form_version.slug = nil }
+  describe "#form_id" do
+    context "when empty and form is saved" do
+      before { form_version.save }
 
-      it { should_not be_valid }
+      it "should equal the form's id" do
+        expect(form_version.form_id).to eq form_version.id
+      end
     end
 
-    context "when blank" do
-      before { form_version.slug = "" }
+    context "when set and form is saved" do
+      before { form_version.form_id = 1000 }
 
-      it { should_not be_valid }
-    end
-
-    context "when contains non-parameterized characters" do
-      let(:slug) { "An Inv@lid Slug!" }
-      before { form_version.slug = slug }
-
-      it "should be paramaterized" do
-        expect(form_version.slug).to eq slug.parameterize
+      it "should not be changed" do
+        form_version.save
+        expect(form_version.form_id).to eq 1000
       end
     end
   end
 
   describe "#name" do
-    before { form_version.name = nil }
+    context "when nil" do
+      before { form_version.name = nil }
 
-    it { should_not be_valid }
+      it { should_not be_valid }
+    end
+    
+    context "when not unique" do
+      let(:other_form) { create(:form_version) }
+      before { form_version.name = other_form.name }
+
+      it { should_not be_valid }
+    end
+
+     context "when saved" do
+       it "should have a slug that is the parameterized name" do
+         form_version.slug = nil
+         form_version.save
+         expect(form_version.slug).to eq form_version.name.parameterize
+       end
+     end
   end
 
   describe "#user" do
@@ -51,5 +64,34 @@ describe FormVersion do
     it { should_not be_valid }
   end
 
+  describe "#published?" do
+    context "when form_version is not published" do
+      its(:published?) { should be_false }
+    end
+
+    context "when form_version is published" do
+      before do
+        form_version.save
+        create(:published_form, form_version: form_version)
+      end
+
+      its(:published?) { should be_true }
+    end
+  end
+
+  describe "#fields" do
+    before do
+      form_version.save
+      form_version.fields.create(kind: 'info')
+    end
+
+    context "when the form version is destroyed" do
+      before { form_version.destroy }
+
+      it "should cause all fields to be destroyed" do
+        expect(FormField.all.count).to eq 0
+      end
+    end
+  end
 end
 
