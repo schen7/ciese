@@ -3,10 +3,10 @@ class FormVersion < ActiveRecord::Base
   belongs_to :user
   has_one :current_form, inverse_of: :form_version
   has_one :published_form, inverse_of: :form_version
-  has_many :fields,
-    class_name: "FormField", inverse_of: :form_version, dependent: :destroy
+  has_many :fields, -> { order(:id) }, class_name: "FormField",
+    inverse_of: :form_version, dependent: :destroy
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true
   validates :user, presence: true
 
   before_save do |form_version|
@@ -26,7 +26,7 @@ class FormVersion < ActiveRecord::Base
   end
   
   def date
-    updated_at.to_formatted_s(:simple)
+    updated_at.nil? ? nil : updated_at.to_formatted_s(:simple)
   end
 
 end

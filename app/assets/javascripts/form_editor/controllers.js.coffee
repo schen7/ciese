@@ -11,9 +11,7 @@ angular
       )
       saveForm: ->
         data = form: angular.copy($scope.form)
-        data.form.fields = for field in data.form.fields
-          kind: field.kind
-          details: angular.toJson(field.details)
+        encodeDetails(data.form)
         $http.post('/api/forms', data).success(saveDone).error(saveError)
       publishForm: ->
         $http.put("/api/forms/#{$scope.form.form_version_id}")
@@ -34,24 +32,36 @@ angular
           details:
             required: true
         $scope.selected = $scope.form.fields.length - 1
+        $scope.formBuilder.$setDirty()
       moveUp: ->
         field = $scope.form.fields.splice(@$index, 1)[0]
         $scope.form.fields.splice(@$index - 1, 0, field)
+        $scope.formBuilder.$setDirty()
       moveDown: ->
         field = $scope.form.fields.splice(@$index, 1)[0]
         $scope.form.fields.splice(@$index + 1, 0, field)
+        $scope.formBuilder.$setDirty()
       removeField: ->
         $scope.form.fields.splice(@$index, 1)
+        $scope.formBuilder.$setDirty()
       renderHtml: (text) ->
         if text?
           text = text.replace(/\n/g, "<br>").replace(/[ ]/g, "&nbsp;")
         $sce.trustAsHtml(text)
 
-    saveDone = (data, status, headers, config) ->
+    decodeDetails = (form) ->
+      field.details = angular.fromJson(field.details) for field in form.fields
+
+    encodeDetails = (form) ->
+      field.details = angular.toJson(field.details) for field in form.fields
+
+    saveDone = (data, status, headers, config) =>
       if data.errors?
         saveError(data, status, headers, config)
       else
-        $scope.form = data.form_version
+        $scope.form.form_version_id = data.form_version_id
+        $scope.form.form_id = data.form_id
+        $scope.form.published = false
         $location.url("/#{$scope.form.form_id}/edit")
         $scope.formBuilder.$setPristine()
 
@@ -63,39 +73,11 @@ angular
       if data.errors?
         publishError(data, status, headers, config)
       else
-        $scope.form = data.form
+        $scope.form.published = true
 
     publishError = (data, status, headers, config) ->
       list = (" - #{e}" for e in data.errors).join('\n')
       alert("There were errors publishing the form:\n" + list)
-
-    $scope.$watch 'form', (newVal, oldVal) ->
-      $scope.formBuilder?.$setDirty() if newVal isnt oldVal
-    , true
-
-    # TODO: Remove this - quick population of initial data for manual testing
-    $scope.form.fields = [
-      {kind: 'info', details: { text: 'Form information' }},
-      {kind: 'short-answer', details: { label: 'Name', required: true }},
-      {kind: 'short-answer', details: { label: 'School', required: true }},
-      {kind: 'long-answer', details: { label: 'School Address', required: true }},
-      {kind: 'single-choice', details: {
-        question: "Which one?"
-        required: true
-        choices: [
-          {label: 'Choice A' }, {label: 'Choice B' }, {label: 'Choice C' },
-          {label: 'Choice D' }, {label: 'Choice E' }, {label: 'Choice F' }
-        ]}
-      },
-      {kind: 'multiple-choice', details: {
-        question: "Which one?"
-        required: true
-        choices: [
-          {label: 'Choice A' }, {label: 'Choice B' }, {label: 'Choice C' },
-          {label: 'Choice D' }, {label: 'Choice E' }, {label: 'Choice F' }
-        ]}
-      }
-    ]
 
     angular.element($window.document).on 'click', ->
       $scope.$apply -> $scope.selected = null
@@ -103,6 +85,8 @@ angular
     angular.element($window.document).on 'keydown', (evt) ->
       if evt.keyCode is 27
         $scope.$apply -> $scope.selected = null
+
+    decodeDetails($scope.form)
 
   ])
   .controller('ChoiceFieldCtrl', ['$scope', ($scope) ->

@@ -42,20 +42,13 @@ describe FormVersion do
       it { should_not be_valid }
     end
     
-    context "when not unique" do
-      let(:other_form) { create(:form_version) }
-      before { form_version.name = other_form.name }
-
-      it { should_not be_valid }
+    context "when saved" do
+      it "should have a slug that is the parameterized name" do
+        form_version.slug = nil
+        form_version.save
+        expect(form_version.slug).to eq form_version.name.parameterize
+      end
     end
-
-     context "when saved" do
-       it "should have a slug that is the parameterized name" do
-         form_version.slug = nil
-         form_version.save
-         expect(form_version.slug).to eq form_version.name.parameterize
-       end
-     end
   end
 
   describe "#user" do
@@ -91,6 +84,12 @@ describe FormVersion do
       it "should cause all fields to be destroyed" do
         expect(FormField.all.count).to eq 0
       end
+    end
+  end
+
+  describe "#date" do
+    context "when updated_at is nil" do
+      specify { expect(form_version.date).to be_nil }
     end
   end
 end

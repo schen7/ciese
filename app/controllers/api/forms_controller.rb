@@ -5,7 +5,7 @@ class Api::FormsController < ApplicationController
 
   def create
     form = FormVersion.new(form_params.merge(user: current_user))
-    fields = field_params.map { |f| form.fields.build(f) }
+    fields = (field_params[:fields] || []).map { |f| form.fields.build(f) }
     errors = []
     if form.valid? && fields.count { |f| !f.valid? } == 0
       begin
@@ -22,7 +22,11 @@ class Api::FormsController < ApplicationController
       errors = form.errors.full_messages.uniq + 
                fields.map { |f| f.errors.full_messages }.flatten.uniq
     end
-    render json: (errors.any? ? {errors: errors} : form)
+    if errors.any?
+      render json: {errors: errors}
+    else
+      render json: {form_version_id: form.id, form_id: form.form_id}
+    end
   end
 
   # def show
@@ -31,20 +35,20 @@ class Api::FormsController < ApplicationController
   #   render json: page, meta: {versions: versions}
   # end
 
-  # def update
-  #   page = Page.find(params.permit(:id)[:id])
-  #   published_page = PublishedPage.find_by(page_id: page.page_id)
-  #   if published_page.nil?
-  #     published_page = PublishedPage.new(version_id: page.id, page_id: page.page_id)
-  #   else
-  #     published_page.version_id = page.id
-  #   end
-  #   if published_page.save
-  #     render json: {published: true}
-  #   else
-  #     render json: {published: false, errors: published_page.errors.full_messages}
-  #   end
-  # end
+  def update
+    form = FormVersion.find(params.permit(:id)[:id])
+    published_form = PublishedForm.find_by(form_id: form.form_id)
+    if published_form.nil?
+      published_form = PublishedForm.new(form_version_id: form.id, form_id: form.form_id)
+    else
+      published_form.form_version_id = form.id
+    end
+    if published_form.save
+      render json: {published: true}
+    else
+      render json: {published: false, errors: published_form.errors.full_messages}
+    end
+  end
 
   # def destroy
   #   page = Page.find(params.permit(:id)[:id])
@@ -55,12 +59,11 @@ class Api::FormsController < ApplicationController
   private
 
   def form_params
-    params.require(:form)
-      .permit(:form_id, :name)
+    params.require(:form).permit(:form_id, :name)
   end
 
   def field_params
-    params.require(:form).permit(fields: [:kind, :details])[:fields]
+    params.require(:form).permit(fields: [:kind, :details])
   end
 
   def publish_params

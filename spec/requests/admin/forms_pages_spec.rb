@@ -99,7 +99,6 @@ describe 'FormBuilderPages' do
 
       it "renders the form editor" do
         expect(page).to have_content("Form Editor")
-        # expect(page).to have_selector("div#content-editor")
         expect(page).to have_content("Save")
         expect(page).to have_content("Publish")
         expect(page).to have_link("Done", href: admin_forms_path)
@@ -128,6 +127,63 @@ describe 'FormBuilderPages' do
             expect(page).to have_css("#publish-button[disabled]")
             visit admin_forms_path
             expect(page).to have_selector("i.fi-check")
+          end
+        end
+      end
+    end
+  end
+
+  describe "edit form" do
+    let(:current_form) { create(:current_form) }
+    let(:path) { admin_edit_form_path(current_form.form_id) }
+
+    it_behaves_like "a page that requires an active staff or admin user"
+
+    context "when visited by an authorized user", :js do
+      let(:user) { create(:staff) }
+
+      it "renders the form editor" do
+        log_in_and_visit(user, path)
+        expect(page).to have_content("Form Editor")
+        expect(page).to have_content("Save")
+        expect(page).to have_content("Publish")
+        expect(page).to have_link("Done", href: admin_forms_path)
+        expect(page.find("input[name=name]", visible: false).value).to eq current_form.form_version.name
+      end
+
+      context "when a version id is specified in the query string" do
+        let(:form_version) { create(:form_version, form_id: current_form.form_id) }
+        before { log_in_and_visit(user, "#{path}?vid=#{form_version.id}") }
+
+        it "renders the proper version" do
+          expect(page.find("input[name=name]", visible: false).value).not_to eq current_form.form_version.name
+          expect(page.find("input[name=name]", visible: false).value).to eq form_version.name
+        end
+
+        context "when the save button is clicked" do
+          before do
+            first(".form-field").click
+            fill_in "name", with: "A New Name"
+            find_button("save-button").click
+          end
+
+          it "should save the page" do
+            expect(page).to have_content("Form Editor")
+            expect(page).to have_css("#save-button[disabled]")
+            expect(page.current_url).to end_with admin_edit_form_path(current_form.form_id)
+            visit admin_forms_path
+            expect(page).to have_content("A New Name")
+          end
+
+          context "when the published button is clicked" do
+            before { find_button("publish-button").click }
+
+            it "should publish the page" do
+              expect(page).to have_content("Form Editor")
+              expect(page).to have_css("#publish-button[disabled]")
+              visit admin_forms_path
+              expect(page).to have_selector("i.fi-check")
+            end
           end
         end
       end

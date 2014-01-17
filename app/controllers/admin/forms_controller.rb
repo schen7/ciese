@@ -22,5 +22,15 @@ class Admin::FormsController < ApplicationController
     render "editor", layout: "admin"
   end
 
+  def edit
+    if !params[:vid].nil?
+      @form = FormVersion.find(params[:vid])
+    else
+      current_form = CurrentForm.includes(:form_version).find_by(params.permit(:form_id))
+      @form = current_form.form_version
+    end
+    render "editor", layout: "admin"
+  end
+
 end
 
