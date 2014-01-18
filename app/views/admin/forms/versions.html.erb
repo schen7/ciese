@@ -1,0 +1,27 @@
+<% provide(:title, 'Form Versions') %>
+
+<h1>Form Versions</h1>
+
+<table id="form-list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Author</th>
+      <th>Last Modified</th>
+      <th>Published?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @forms.each do |form| %>
+    <tr>
+      <td><a href="<%= admin_form_version_path(form.form_id, form.id) %>"><%= form.name %></a></td>
+      <td><%= form.user.username %></td>
+      <td><%= form.date %></td>
+      <td><% if form.published? %><i class="fi-check"></i><% end %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<a class="button small secondary" href="<%= admin_forms_path %>">Done</a>
+

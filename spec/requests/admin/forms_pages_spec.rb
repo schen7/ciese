@@ -189,4 +189,49 @@ describe 'FormBuilderPages' do
       end
     end
   end
+
+  describe "form versions list", :focus do
+    let!(:form_version1) { create(:form_version) } 
+    let!(:form_version2) { create(:form_version, form_id: form_version1.form_id, name: form_version1.name) } 
+    let!(:current_form) { create(:current_form, form_version: form_version2) }
+    let(:path) { admin_form_versions_path(form_version1.form_id) }
+
+    it_behaves_like "a page that requires an active staff or admin user"
+
+    context "when visited by an authorized user" do
+      let(:user) { create(:staff) }
+
+      it "should list the form versions" do
+        log_in_and_visit(user, path)
+        expect(page).to have_content("Form Versions")
+        version_path1 = admin_form_version_path(form_version1.form_id, form_version1.id)
+        version_path2 = admin_form_version_path(form_version2.form_id, form_version2.id)
+        expect(page).to have_link(form_version1.name, href: version_path1)
+        expect(page).to have_link(form_version2.name, href: version_path2)
+        expect(page).to have_content(form_version1.user.username)
+        expect(page).to have_content(form_version2.user.username)
+        expect(page).to have_link("Done", href: admin_forms_path)
+      end
+
+      context "when the current version is published" do
+        before { create(:published_form, form_version: form_version2) }
+
+        it "should indicate the latest version is published" do
+          log_in_and_visit(user, path)
+          expect(page).to have_selector("tbody tr:first i.fi-check")
+          expect(page).not_to have_selector("tbody tr:last i.fi-check")
+        end
+      end
+
+      context "when a previous version is published" do
+        before { create(:published_form, form_version: form_version1) }
+
+        it "should indicate the latest version is published" do
+          log_in_and_visit(user, path)
+          expect(page).not_to have_selector("tbody tr:first i.fi-check")
+          expect(page).to have_selector("tbody tr:last i.fi-check")
+        end
+      end
+    end
+  end
 end

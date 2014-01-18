@@ -17,6 +17,17 @@ class Admin::FormsController < ApplicationController
     render layout: "admin"
   end
 
+  def versions
+    @forms = FormVersion.includes(:published_form)
+      .where(params.permit(:form_id)).order(id: :desc)
+    render layout: "admin"
+  end
+
+  # def show_version
+  #   @page = Page.includes(:user, :published_page).find(params.permit(:id)[:id])
+  #   @versions = Page.where(page_id: @page.page_id).order(:id).ids
+  # end
+
   def new
     @form = FormVersion.new(name: "New Form")
     render "editor", layout: "admin"
