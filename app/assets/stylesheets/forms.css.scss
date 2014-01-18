@@ -11,14 +11,12 @@
   }
 }
 
-#form-editor {
-  &.ng-hide {
-    display: none;
-  }
-  .form-builder {
-    margin: emCalc(20) 0;
-  }
+.ng-hide {
+  display: none;
+}
 
+#form-editor, #form-version {
+  margin: emCalc(20) 0;
   .form-field {
     &.edit-mode {
       margin-left: -1px;
@@ -157,7 +155,7 @@
     ul {
       list-style-type: none;
       padding: 0;
-      margin: emCalc(14) 0 emCalc(24) 0;
+      margin: emCalc(14) 0 0 0;
       li {
         display: inline-block;
         margin-right: emCalc(30);
@@ -182,3 +180,16 @@
     padding-left: 10px;
   }
 }
+
+#top-nav-bar h2#form-info {
+  line-height: emCalc(18);
+  display: inline-block;
+  vertical-align: middle;
+  span {
+    color: darken($secondary-color, 25%);
+    font-weight: normal;
+    display: block;
+    font-size: .7em;
+  }
+}
+

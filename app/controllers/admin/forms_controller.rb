@@ -23,10 +23,11 @@ class Admin::FormsController < ApplicationController
     render layout: "admin"
   end
 
-  # def show_version
-  #   @page = Page.includes(:user, :published_page).find(params.permit(:id)[:id])
-  #   @versions = Page.where(page_id: @page.page_id).order(:id).ids
-  # end
+  def show_version
+    @form = FormVersion.includes(:user, :published_form).find(params[:id])
+    @form_versions = FormVersion.where(form_id: @form.form_id).order(:id).ids
+    render layout: "admin"
+  end
 
   def new
     @form = FormVersion.new(name: "New Form")

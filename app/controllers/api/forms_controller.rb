@@ -29,11 +29,11 @@ class Api::FormsController < ApplicationController
     end
   end
 
-  # def show
-  #   page = Page.includes(:user, :published_page).find(params[:id])
-  #   versions = Page.where(page_id: page.page_id).order(:id).ids
-  #   render json: page, meta: {versions: versions}
-  # end
+  def show
+    form = FormVersion.includes(:user, :published_form).find(params[:id])
+    form_versions = FormVersion.where(form_id: form.form_id).order(:id).ids
+    render json: form, meta: {form_versions: form_versions}
+  end
 
   def update
     form = FormVersion.find(params.permit(:id)[:id])
@@ -50,11 +50,11 @@ class Api::FormsController < ApplicationController
     end
   end
 
-  # def destroy
-  #   page = Page.find(params.permit(:id)[:id])
-  #   PublishedPage.where(page_id: page.page_id).destroy_all
-  #   render json: {unpublished: true}
-  # end
+  def destroy
+    form_version = FormVersion.find(params[:id])
+    PublishedForm.where(form_id: form_version.form_id).destroy_all
+    render json: {unpublished: true}
+  end
 
   private
 

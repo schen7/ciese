@@ -11,9 +11,11 @@ angular
       isPrevVersion: -> $scope.prevVersion() isnt null
       isNextVersion: -> $scope.nextVersion() isnt null
       getPrevVersion: ->
-        $http.get("/api/pages/#{$scope.prevVersion()}").success(updateVersion)
+        prevVersion = $scope.prevVersion()
+        $http.get("/api/pages/#{prevVersion}").success(updateVersion) if prevVersion?
       getNextVersion: ->
-        $http.get("/api/pages/#{$scope.nextVersion()}").success(updateVersion)
+        nextVersion = $scope.nextVersion()
+        $http.get("/api/pages/#{nextVersion}").success(updateVersion) if nextVersion?
       publishPage: ->
         data = {version_id: $scope.page.id, page_id: $scope.page.page_id}
         $http.put("/api/pages/#{$scope.page.id}", data)
