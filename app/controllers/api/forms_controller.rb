@@ -59,7 +59,7 @@ class Api::FormsController < ApplicationController
   private
 
   def form_params
-    params.require(:form).permit(:form_id, :name)
+    params.require(:form).permit(:form_id, :project, :name)
   end
 
   def field_params

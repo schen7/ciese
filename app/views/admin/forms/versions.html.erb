@@ -6,6 +6,8 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Project</th>
+      <th>Slug</th>
       <th>Author</th>
       <th>Last Modified</th>
       <th>Published?</th>
@@ -15,6 +17,8 @@
     <% @forms.each do |form| %>
     <tr>
       <td><a href="<%= admin_form_version_path(form.form_id, form.id) %>"><%= form.name %></a></td>
+      <td><%= form.project %></td>
+      <td><%= form.slug %></td>
       <td><%= form.user.username %></td>
       <td><%= form.date %></td>
       <td><% if form.published? %><i class="fi-check"></i><% end %></td>

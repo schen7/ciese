@@ -31,6 +31,8 @@
             <div class="field-kind">Form Settings</div>
             <label for="form-name">Form Name</label>
             <input id="form-name" type="text" name="name" ng-model="form.name" required ng-class="{error: formBuilder.name.$invalid}" placeholder="Enter a name for the form">
+            <label for="form-project">Project</label>
+            <select id="form-project" name="project" ng-model="form.project" required ng-class="{error: formBuilder.project.$invalid}" ng-options="project for project in projects"></select>
           </div>
           <div class="field-preview">
             <h1 ng-if="form.name">{{ form.name }}</h1>
@@ -188,6 +190,7 @@
 <script type="text/javascript">
   angular.module('FormEditorApp').run(function($rootScope) {
     $rootScope.form = <%= FormVersionSerializer.new(@form).to_json.html_safe %>.form_version;
+    $rootScope.projects = <%= Ciese::PROJECTS.keys.to_json.html_safe %>;
   });
 </script>
 <% end %>

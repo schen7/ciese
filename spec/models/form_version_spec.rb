@@ -6,6 +6,7 @@ describe FormVersion do
   subject { form_version }
 
   it { should respond_to(:form_id) }
+  it { should respond_to(:project) }
   it { should respond_to(:slug) }
   it { should respond_to(:name) }
   it { should respond_to(:user) }
@@ -32,6 +33,20 @@ describe FormVersion do
         form_version.save
         expect(form_version.form_id).to eq 1000
       end
+    end
+  end
+
+  describe "#project" do
+    context "when nil" do
+      before { form_version.project = nil }
+
+      it { should_not be_valid }
+    end
+
+    context "when not in Ciese::PROJECTS" do
+      before { form_version.project = "no_good" }
+
+      it { should_not be_valid }
     end
   end
 

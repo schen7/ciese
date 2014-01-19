@@ -32,6 +32,7 @@ describe 'FormBuilderPages' do
             form_version.name, href: admin_edit_form_path(current_form.form_id)
           )
           expect(page).to have_content(form_version.user.username)
+          expect(page).to have_content(form_version.project)
           expect(page).to have_content(form_version.slug)
           expect(page).not_to have_selector("i.fi-check")
           expect(page).to have_link(
@@ -55,10 +56,10 @@ describe 'FormBuilderPages' do
           )
           expect(page).to have_content(form_version.user.username)
           expect(page).to have_selector(
-            "tbody tr > td:first + td + td + td + td > i.fi-check"
+            "tbody tr > td:first + td + td + td + td + td > i.fi-check"
           )
           expect(page).not_to have_selector(
-            "tbody tr > td:first + td + td + td + td + td> i.fi-check"
+            "tbody tr > td:first + td + td + td + td + td + td> i.fi-check"
           )
           expect(page).to have_link("Create New Form", href: admin_new_form_path)
         end
@@ -77,10 +78,10 @@ describe 'FormBuilderPages' do
           )
           expect(page).to have_content(form_version.user.username)
           expect(page).not_to have_selector(
-            "tbody tr > td:first + td + td + td + td > i.fi-check"
+            "tbody tr > td:first + td + td + td + td + td > i.fi-check"
           )
           expect(page).to have_selector(
-            "tbody tr > td:first + td + td + td + td + td> i.fi-check"
+            "tbody tr > td:first + td + td + td + td + td + td> i.fi-check"
           )
           expect(page).to have_link("Create New Form", href: admin_new_form_path)
         end
@@ -208,6 +209,8 @@ describe 'FormBuilderPages' do
         version_path2 = admin_form_version_path(form_version2.form_id, form_version2.id)
         expect(page).to have_link(form_version1.name, href: version_path1)
         expect(page).to have_link(form_version2.name, href: version_path2)
+        expect(page).to have_content(form_version1.project)
+        expect(page).to have_content(form_version1.slug)
         expect(page).to have_content(form_version1.user.username)
         expect(page).to have_content(form_version2.user.username)
         expect(page).to have_link("Done", href: admin_forms_path)
@@ -255,6 +258,8 @@ describe 'FormBuilderPages' do
                      "?vid=#{current_form.form_version_id}")
         expect(page).to have_link("Edit", href: edit_link)
         expect(page).to have_link("Done", href: versions_path)
+        expect(page).to have_content(current_form.form_version.name)
+        expect(page).to have_content(current_form.form_version.project)
       end
 
       context "when the current version is not published" do

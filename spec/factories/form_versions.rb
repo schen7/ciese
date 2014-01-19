@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :form_version do
     form_id nil
+    project Ciese::PROJECTS.keys.sample
     slug { name.parameterize }
     sequence(:name) { |n| "Form #{n}" }
     association :user, strategy: :build

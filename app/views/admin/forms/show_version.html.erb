@@ -11,7 +11,7 @@
   <div class="small-10 columns">
     <div class="row">
       <div class="large-6 columns">
-        <h2 id="form-info" <% if @form.published? %> class="published"<% end %>ng-class="{published: form.published}" ng-bind-html="form.name + '<span>' + form.username + ' &ndash; ' + (form.date) + '</span>'"><%= @form.name %><span><%= @form.user.username %> &ndash; <%= @form.date %></span></h2>
+        <h2 id="form-info" <% if @form.published? %> class="published"<% end %>ng-class="{published: form.published}" ng-bind-html="form.name + ' &nbsp; [ ' + form.project + ' ] <span>' + form.username + ' &ndash; ' + (form.date) + '</span>'"><%= @form.name %> &nbsp; [ <%= @form.project %> ] <span><%= @form.user.username %> &ndash; <%= @form.date %></span></h2>
       </div>
       <div class="large-6 columns">
         <div ng-form="versionForm">

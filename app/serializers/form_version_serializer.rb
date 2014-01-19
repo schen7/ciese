@@ -1,5 +1,5 @@
 class FormVersionSerializer < ActiveModel::Serializer
-  attributes :form_version_id, :form_id, :name, :username, :published, :date
+  attributes :form_version_id, :form_id, :project, :name, :username, :published, :date
   has_many :fields
 
   def form_version_id
