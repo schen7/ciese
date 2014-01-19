@@ -15,14 +15,75 @@
   display: none;
 }
 
-#form-editor, #form-version {
+@mixin form-preview {
+  margin-left: -3px;
+  margin-bottom: emCalc(14);
+  border-left: 3px solid transparent;
+  .field-preview {
+    padding: 0 10px 0 10px;
+    h1, h2, h3, h4, h5, h6 { margin: 0; }
+    h1 { font-size: emCalc(28); }
+    h2 { font-size: emCalc(24); }
+    h3 { font-size: emCalc(20); }
+    h4 { font-size: emCalc(18); }
+    h5 { font-size: emCalc(16); }
+    h6 { font-size: emCalc(14); }
+    hr { margin: 0; }
+    input[disabled=disabled], input:disabled,
+    textarea[disabled=disabled], textarea:disabled {
+      background-color: #fff;
+    }
+    .info-text {
+      margin: 0;
+    }
+    .question-text {
+      margin-top: emCalc(24);
+      margin-bottom: emCalc(14);
+    }
+  }
+  .short-answer-field-preview {
+    input {
+      margin: 0;
+    }
+  }
+  .long-answer-field-preview {
+    textarea {
+      height: emCalc(100);
+      resize: none;
+      margin: 0;
+    }
+  }
+  .single-choice-field-preview, .multiple-choice-field-preview {
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: emCalc(14) 0 0 0;
+      li {
+        display: inline-block;
+        margin-right: emCalc(30);
+        white-space: nowrap;
+        input, label {
+          display: inline;
+          font-weight: normal;
+          margin: 0;
+        }
+      }
+    }
+    .question-text + ul {
+      margin-top: emCalc(-8);
+    }
+  }
+}
+
+#form-editor {
   margin: emCalc(20) 0;
   .form-field {
+    @include form-preview;
     &.edit-mode {
       margin-left: -1px;
       @include border-radius(3px);
       border: 1px solid #ddd;
-      margin-top: emCalc(14);
+      margin-top: emCalc(20);
       margin-bottom: emCalc(14);
       box-shadow: 7px 7px 3px -6px #999;
       .field-builder {
@@ -40,9 +101,6 @@
       }
     }
     &.preview-mode {
-      margin-left: -3px;
-      margin-bottom: emCalc(14);
-      border-left: 3px solid transparent;
       &:hover {
         /* border: 1px solid #ddd; */
         border-left: 3px solid $primary-color;
@@ -51,12 +109,6 @@
       }
       .field-builder {
         display: none;
-      }
-      .field-preview {
-        padding-top: 0;
-        padding-bottom: 0;
-        margin-top: 0;
-        margin-bottom: 0;
       }
     }
   }
@@ -115,69 +167,19 @@
     }
   }
 
-
-  .field-preview {
-    margin: 0;
-    padding: 0 10px 10px 10px;
-    h1, h2, h3, h4, h5, h6 { margin: 0; }
-    h1 { font-size: emCalc(28); }
-    h2 { font-size: emCalc(24); }
-    h3 { font-size: emCalc(20); }
-    h4 { font-size: emCalc(18); }
-    h5 { font-size: emCalc(16); }
-    h6 { font-size: emCalc(14); }
-    hr { margin: 0; }
-    input[disabled=disabled], input:disabled,
-    textarea[disabled=disabled], textarea:disabled {
-      background-color: #fff;
-    }
-    .info-text {
-      margin: 0;
-    }
-    .question-text {
-      margin-top: emCalc(24);
-      margin-bottom: emCalc(14);
-    }
-  }
-  .short-answer-field-preview {
-    input {
-      margin: 0;
-    }
-  }
-  .long-answer-field-preview {
-    textarea {
-      height: emCalc(100);
-      resize: none;
-      margin: 0;
-    }
-  }
-  .single-choice-field-preview, .multiple-choice-field-preview {
-    ul {
-      list-style-type: none;
-      padding: 0;
-      margin: emCalc(14) 0 0 0;
-      li {
-        display: inline-block;
-        margin-right: emCalc(30);
-        white-space: nowrap;
-        input, label {
-          display: inline;
-          font-weight: normal;
-          margin: 0;
-        }
-      }
-    }
-    .question-text + ul {
-      margin-top: emCalc(-8);
-    }
-  }
-
   .empty {
     color: #a00;
   }
 
   #add-field {
     padding-left: 10px;
+  }
+}
+
+#form-version {
+  margin: emCalc(20) 0;
+  .form-field {
+    @include form-preview;
   }
 }
 

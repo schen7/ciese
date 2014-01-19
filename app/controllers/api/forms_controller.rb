@@ -31,8 +31,8 @@ class Api::FormsController < ApplicationController
 
   def show
     form_version = FormVersion.includes(:user, :published_form).find(params[:id])
-    form_versions = FormVersion.where(form_id: form_version.form_id).order(:id).ids
-    render json: form_version, meta: {form_versions: form_versions}
+    form_version_ids = FormVersion.where(form_id: form_version.form_id).order(:id).ids
+    render json: form_version, meta: {form_version_ids: form_version_ids}
   end
 
   def update
