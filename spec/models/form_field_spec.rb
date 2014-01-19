@@ -33,5 +33,14 @@ describe FormField do
     end
   end
 
+  describe "#details" do
+    it "should be a Hash" do
+      hash = { required: true, question: "What is the answer?" }
+      form_field.details = hash
+      form_field.save
+      expect(form_field.details).to eq hash
+    end
+  end
+
 end
 

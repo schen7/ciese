@@ -11,7 +11,6 @@ angular
       )
       saveForm: ->
         data = form: angular.copy($scope.form)
-        encodeDetails(data.form)
         $http.post('/api/forms', data).success(saveDone).error(saveError)
       publishForm: ->
         $http.put("/api/forms/#{$scope.form.form_version_id}")
@@ -49,12 +48,6 @@ angular
           text = text.replace(/\n/g, "<br>").replace(/[ ]/g, "&nbsp;")
         $sce.trustAsHtml(text)
 
-    decodeDetails = (form) ->
-      field.details = angular.fromJson(field.details) for field in form.fields
-
-    encodeDetails = (form) ->
-      field.details = angular.toJson(field.details) for field in form.fields
-
     saveDone = (data, status, headers, config) =>
       if data.errors?
         saveError(data, status, headers, config)
@@ -85,8 +78,6 @@ angular
     angular.element($window.document).on 'keydown', (evt) ->
       if evt.keyCode is 27
         $scope.$apply -> $scope.selected = null
-
-    decodeDetails($scope.form)
 
   ])
   .controller('ChoiceFieldCtrl', ['$scope', ($scope) ->

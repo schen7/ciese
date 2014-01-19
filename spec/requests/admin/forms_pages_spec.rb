@@ -296,8 +296,8 @@ describe 'FormBuilderPages' do
         it "should unpublish this form version" do
           log_in_and_visit(user, path)
           find("#unpublish-button").click
-          expect(page).not_to have_selector("h2.published")
           expect(page).to have_selector("#publish-button")
+          expect(page).not_to have_selector("h2.published")
           expect(PublishedForm.count).to eq 0
         end
       end

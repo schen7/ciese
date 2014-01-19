@@ -31,19 +31,12 @@ angular
           text = text.replace(/\n/g, "<br>").replace(/[ ]/g, "&nbsp;")
         $sce.trustAsHtml(text)
 
-    decodeDetails = (form) ->
-      field.details = angular.fromJson(field.details) for field in form.fields
-
-    encodeDetails = (form) ->
-      field.details = angular.toJson(field.details) for field in form.fields
-
     $document.on 'keydown', (evt) ->
       $scope.getPrevVersion() if evt.which is 37
       $scope.getNextVersion() if evt.which is 39
     
     updateVersion = (data, status, headers, config) ->
       $rootScope.form = data.form_version
-      decodeDetails($scope.form)
       $rootScope.form_versions = data.meta.form_versions
       $location.path("/admin/forms/#{$scope.form.form_id}/versions/#{$scope.form.form_version_id}")
 
@@ -52,9 +45,8 @@ angular
       publisheError(data, status, headers, config) if data.errors
 
     publishError = (data, status, headers, config) ->
-      alert("error")
-
-    decodeDetails($scope.form)
+      list = (" - #{e}" for e in data.errors).join('\n')
+      alert("There were errors publishing the form:\n" + list)
 
   ])
 

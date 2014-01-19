@@ -4,10 +4,10 @@ require 'spec_helper'
   
 #   subject { page }
 
-#   describe "view form" do
+#   describe "render form page" do
 #     let(:form_version) { create(:form_version, name: "Test Form") }
 #     before do
-#       create(:form_field, form_version: form_version, kind: 'info-field')
+#       create(:form_field, form_version: form_version, kind: 'short-answer-field')
 #     end
 
 #     context "when not published" do

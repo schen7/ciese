@@ -5,7 +5,7 @@ class Api::FormsController < ApplicationController
 
   def create
     form = FormVersion.new(form_params.merge(user: current_user))
-    fields = (field_params[:fields] || []).map { |f| form.fields.build(f) }
+    fields = (field_params || []).map { |f| form.fields.build(f.slice(:kind, :details)) }
     errors = []
     if form.valid? && fields.count { |f| !f.valid? } == 0
       begin
@@ -63,7 +63,7 @@ class Api::FormsController < ApplicationController
   end
 
   def field_params
-    params.require(:form).permit(fields: [:kind, :details])
+    params.require(:form).permit![:fields]
   end
 
   def publish_params
