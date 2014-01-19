@@ -5,11 +5,11 @@ angular
     angular.extend $rootScope,
       versionReady: true
       prevVersion: ->
-        i = $scope.form_versions.indexOf($scope.form.form_version_id) - 1
-        if i >= 0 then $scope.form_versions[i] else null
+        i = $scope.form_version_ids.indexOf($scope.form_version.id) - 1
+        if i >= 0 then $scope.form_version_ids[i] else null
       nextVersion: ->
-        i = $scope.form_versions.indexOf($scope.form.form_version_id) + 1
-        if i < $scope.form_versions.length then $scope.form_versions[i] else null
+        i = $scope.form_version_ids.indexOf($scope.form_version.id) + 1
+        if i < $scope.form_version_ids.length then $scope.form_version_ids[i] else null
       isPrevVersion: -> $scope.prevVersion() isnt null
       isNextVersion: -> $scope.nextVersion() isnt null
       getPrevVersion: ->
@@ -19,12 +19,12 @@ angular
         nextVersion = $scope.nextVersion()
         $http.get("/api/forms/#{nextVersion}").success(updateVersion) if nextVersion?
       publishForm: ->
-        data = {form_version_id: $scope.form.form_version_id, form_id: $scope.form.form_id}
-        $http.put("/api/forms/#{$scope.form.form_version_id}", data)
+        data = {form_version_id: $scope.form_version.id, form_id: $scope.form_version.form_id}
+        $http.put("/api/forms/#{$scope.form_version.id}", data)
           .success(publishDone).error(publishError)
       unpublishForm: ->
-        data = {form_version_id: $scope.form.form_version_id, form_id: $scope.form.form_id}
-        $http.delete("/api/forms/#{$scope.form.form_version_id}", data)
+        data = {form_version_id: $scope.form_version.id, form_id: $scope.form_version.form_id}
+        $http.delete("/api/forms/#{$scope.form_version.id}", data)
           .success(publishDone).error(publishError)
       renderHtml: (text) ->
         if text?
@@ -36,12 +36,12 @@ angular
       $scope.getNextVersion() if evt.which is 39
     
     updateVersion = (data, status, headers, config) ->
-      $rootScope.form = data.form_version
-      $rootScope.form_versions = data.meta.form_versions
-      $location.path("/admin/forms/#{$scope.form.form_id}/versions/#{$scope.form.form_version_id}")
+      $rootScope.form_version = data.form_version
+      $rootScope.form_version_ids = data.meta.form_version_ids
+      $location.path("/admin/forms/#{$scope.form_version.form_id}/versions/#{$scope.form_version.id}")
 
     publishDone = (data, status, headers, config) ->
-      $scope.form.published = data.published
+      $scope.form_version.published = data.published
       publisheError(data, status, headers, config) if data.errors
 
     publishError = (data, status, headers, config) ->

@@ -11,17 +11,17 @@
   <div class="small-10 columns">
     <div class="row">
       <div class="large-6 columns">
-        <h2 id="form-info" <% if @form.published? %> class="published"<% end %>ng-class="{published: form.published}" ng-bind-html="form.name + ' &nbsp; [ ' + form.project + ' ] <span>' + form.username + ' &ndash; ' + (form.date) + '</span>'"><%= @form.name %> &nbsp; [ <%= @form.project %> ] <span><%= @form.user.username %> &ndash; <%= @form.date %></span></h2>
+        <h2 id="form-info" <% if @form_version.published? %> class="published"<% end %>ng-class="{published: form_version.published}" ng-bind-html="form_version.name + ' &nbsp; [ ' + form_version.project + ' ] <span>' + form_version.username + ' &ndash; ' + (form_version.date) + '</span>'"><%= @form_version.name %> &nbsp; [ <%= @form_version.project %> ] <span><%= @form_version.user.username %> &ndash; <%= @form_version.date %></span></h2>
       </div>
       <div class="large-6 columns">
         <div ng-form="versionForm">
           <div class="button-row">
-            <button id="publish-button" class="button success small radius<%= " ng-hide" if @form.published? %>" ng-hide="form.published" ng-click="publishForm()">Publish</button>
-            <button id="unpublish-button" class="button alert small radius<%= " ng-hide" if !@form.published? %>" ng-hide="!form.published" ng-click="unpublishForm()">Unpublish</button>
-            <a id="prev-button" class="button small secondary radius" <% if @form_versions[0] == @form.id %>disabled<% end %> ng-disabled="!isPrevVersion()" ng-click="isPrevVersion() && getPrevVersion()">&lt;</a>
-            <a id="next-button" class="button small secondary radius" <% if @form_versions[-1] == @form.id %>disabled<% end %> ng-disabled="!isNextVersion()" ng-click="isNextVersion() && getNextVersion()">&gt;</a>
-            <a id="edit-button" target="_self" class = "button primary small radius" ng-href="<%= admin_edit_form_path(@form.form_id) %>?vid={{ form.form_version_id }}" href="<%= admin_edit_form_path(@form.form_id) %>?vid=<%= @form.id %>">Edit</a>
-            <a target="_self" class="button secondary small radius" href="<%= admin_form_versions_path(@form.form_id) %>">Done</a>
+            <button id="publish-button" class="button success small radius<%= " ng-hide" if @form_version.published? %>" ng-hide="form_version.published" ng-click="publishForm()">Publish</button>
+            <button id="unpublish-button" class="button alert small radius<%= " ng-hide" if !@form_version.published? %>" ng-hide="!form_version.published" ng-click="unpublishForm()">Unpublish</button>
+            <a id="prev-button" class="button small secondary radius" <% if @form_version_ids[0] == @form_version.id %>disabled<% end %> ng-disabled="!isPrevVersion()" ng-click="isPrevVersion() && getPrevVersion()">&lt;</a>
+            <a id="next-button" class="button small secondary radius" <% if @form_version_ids[-1] == @form_version.id %>disabled<% end %> ng-disabled="!isNextVersion()" ng-click="isNextVersion() && getNextVersion()">&gt;</a>
+            <a id="edit-button" target="_self" class = "button primary small radius" ng-href="<%= admin_edit_form_path(@form_version.form_id) %>?vid={{ form_version.id }}" href="<%= admin_edit_form_path(@form_version.form_id) %>?vid=<%= @form_version.id %>">Edit</a>
+            <a target="_self" class="button secondary small radius" href="<%= admin_form_versions_path(@form_version.form_id) %>">Done</a>
           </div>
         </div>
       </div>
@@ -34,10 +34,10 @@
     <div class="large-6 columns">
       <div class="form-field preview-mode">
         <div class="field-preview">
-          <h1>{{ form.name }}</h1>
+          <h1>{{ form_version.name }}</h1>
         </div>
       </div>
-      <div class="form-field preview-mode" ng-repeat="field in form.fields">
+      <div class="form-field preview-mode" ng-repeat="field in form_version.fields">
         <div class="field-preview" ng-include="'field-preview.html'"></div>
       </div>
     </div>
@@ -48,7 +48,7 @@
       <p>Valid?: {{ formBuilder.$valid }}</p>
       <p>Can Save?: {{ canSave() }}</p>
       <p><pre>{{ selected | json }}</pre></p>
-      <p><pre>{{ form | json }}</pre></p>
+      <p><pre>{{ form_version | json }}</pre></p>
     </div>
   </div>
 
@@ -94,8 +94,8 @@
 <%= javascript_include_tag "form_version" %>
 <script type="text/javascript">
   angular.module('FormVersionApp').run(function($rootScope) {
-    $rootScope.form = <%= FormVersionSerializer.new(@form).to_json.html_safe %>.form_version;
-    $rootScope.form_versions = <%= @form_versions.to_json.html_safe %>;
+    $rootScope.form_version = <%= FormVersionSerializer.new(@form_version).to_json.html_safe %>.form_version;
+    $rootScope.form_version_ids = <%= @form_version_ids.to_json.html_safe %>;
   });
 </script>
 <% end %>

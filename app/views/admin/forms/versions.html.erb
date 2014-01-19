@@ -14,14 +14,14 @@
     </tr>
   </thead>
   <tbody>
-    <% @forms.each do |form| %>
+    <% @form_versions.each do |form_version| %>
     <tr>
-      <td><a href="<%= admin_form_version_path(form.form_id, form.id) %>"><%= form.name %></a></td>
-      <td><%= form.project %></td>
-      <td><%= form.slug %></td>
-      <td><%= form.user.username %></td>
-      <td><%= form.date %></td>
-      <td><% if form.published? %><i class="fi-check"></i><% end %></td>
+      <td><a href="<%= admin_form_version_path(form_version.form_id, form_version.id) %>"><%= form_version.name %></a></td>
+      <td><%= form_version.project %></td>
+      <td><%= form_version.slug %></td>
+      <td><%= form_version.user.username %></td>
+      <td><%= form_version.date %></td>
+      <td><% if form_version.published? %><i class="fi-check"></i><% end %></td>
     </tr>
     <% end %>
   </tbody>

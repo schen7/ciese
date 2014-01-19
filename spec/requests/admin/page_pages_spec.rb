@@ -299,8 +299,8 @@ describe "PageEditorPages" do
         it "should unpublish this page version" do
           log_in_and_visit(user, path)
           find("#unpublish-button").click
-          expect(page).not_to have_selector("h2.published")
           expect(page).to have_selector("#publish-button")
+          expect(page).not_to have_selector("h2.published")
           expect(PublishedPage.count).to eq 0
         end
       end

@@ -18,28 +18,28 @@ class Admin::FormsController < ApplicationController
   end
 
   def versions
-    @forms = FormVersion.includes(:published_form)
+    @form_versions = FormVersion.includes(:published_form)
       .where(params.permit(:form_id)).order(id: :desc)
     render layout: "admin"
   end
 
   def show_version
-    @form = FormVersion.includes(:user, :published_form).find(params[:id])
-    @form_versions = FormVersion.where(form_id: @form.form_id).order(:id).ids
+    @form_version = FormVersion.includes(:user, :published_form).find(params[:id])
+    @form_version_ids = FormVersion.where(form_id: @form_version.form_id).order(:id).ids
     render layout: "admin"
   end
 
   def new
-    @form = FormVersion.new(name: "New Form", project: Ciese::PROJECTS.keys[0])
+    @form_version = FormVersion.new(name: "New Form", project: Ciese::PROJECTS.keys[0])
     render "editor", layout: "admin"
   end
 
   def edit
     if !params[:vid].nil?
-      @form = FormVersion.find(params[:vid])
+      @form_version = FormVersion.find(params[:vid])
     else
       current_form = CurrentForm.includes(:form_version).find_by(params.permit(:form_id))
-      @form = current_form.form_version
+      @form_version = current_form.form_version
     end
     render "editor", layout: "admin"
   end

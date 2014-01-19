@@ -6,14 +6,14 @@ angular
       canSave: ->
         $scope.formBuilder?.$dirty and $scope.formBuilder?.$valid
       canPublish: -> (
-        $scope.form.form_version_id? and not $scope.form.published and
+        $scope.form_version.id? and not $scope.form_version.published and
         $scope.formBuilder?.$pristine and $scope.formBuilder?.$valid
       )
       saveForm: ->
-        data = form: angular.copy($scope.form)
+        data = form_version: angular.copy($scope.form_version)
         $http.post('/api/forms', data).success(saveDone).error(saveError)
       publishForm: ->
-        $http.put("/api/forms/#{$scope.form.form_version_id}")
+        $http.put("/api/forms/#{$scope.form_version.id}")
           .success(publishDone).error(publishError)
 
     angular.extend $scope,
@@ -26,22 +26,22 @@ angular
         if $scope.selected is index then 'edit-mode' else 'preview-mode'
       addField: (kind) ->
         $window.event.stopPropagation()
-        $scope.form.fields.push
+        $scope.form_version.fields.push
           kind: kind
           details:
             required: true
-        $scope.selected = $scope.form.fields.length - 1
+        $scope.selected = $scope.form_version.fields.length - 1
         $scope.formBuilder.$setDirty()
       moveUp: ->
-        field = $scope.form.fields.splice(@$index, 1)[0]
-        $scope.form.fields.splice(@$index - 1, 0, field)
+        field = $scope.form_version.fields.splice(@$index, 1)[0]
+        $scope.form_version.fields.splice(@$index - 1, 0, field)
         $scope.formBuilder.$setDirty()
       moveDown: ->
-        field = $scope.form.fields.splice(@$index, 1)[0]
-        $scope.form.fields.splice(@$index + 1, 0, field)
+        field = $scope.form_version.fields.splice(@$index, 1)[0]
+        $scope.form_version.fields.splice(@$index + 1, 0, field)
         $scope.formBuilder.$setDirty()
       removeField: ->
-        $scope.form.fields.splice(@$index, 1)
+        $scope.form_version.fields.splice(@$index, 1)
         $scope.formBuilder.$setDirty()
       renderHtml: (text) ->
         if text?
@@ -52,10 +52,10 @@ angular
       if data.errors?
         saveError(data, status, headers, config)
       else
-        $scope.form.form_version_id = data.form_version_id
-        $scope.form.form_id = data.form_id
-        $scope.form.published = false
-        $location.url("/#{$scope.form.form_id}/edit")
+        $scope.form_version.id = data.id
+        $scope.form_version.form_id = data.form_id
+        $scope.form_version.published = false
+        $location.url("/#{$scope.form_version.form_id}/edit")
         $scope.formBuilder.$setPristine()
 
     saveError = (data, status, headers, config) ->
@@ -66,7 +66,7 @@ angular
       if data.errors?
         publishError(data, status, headers, config)
       else
-        $scope.form.published = true
+        $scope.form_version.published = true
 
     publishError = (data, status, headers, config) ->
       list = (" - #{e}" for e in data.errors).join('\n')
