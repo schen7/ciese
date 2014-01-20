@@ -13,7 +13,8 @@
         </div>
         <% @form_version.fields.each do |field| %>
           <div class="form-field">
-            <%= render partial: field.kind.underscore, locals: {field: field} %>
+            <%= @responses[field.id].inspect %>
+            <%= render partial: field.kind.underscore, locals: {field: field, response: @responses[field.id]} %>
           </div>
         <% end %>
         <input type="submit" name="submit" value="Submit" class="button small primary radius">

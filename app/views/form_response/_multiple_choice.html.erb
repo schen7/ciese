@@ -3,7 +3,7 @@
   <% field.details[:choices].each do |choice| %>
   <li>
     <input type="hidden" name="responses[<%= field.id %>][responses][<%= choice[:label] %>]" value="0">
-    <input type="checkbox" name="responses[<%= field.id %>][responses][<%= choice[:label] %>]" value="1"> <label><%= choice[:label] %></label>
+    <input type="checkbox" name="responses[<%= field.id %>][responses][<%= choice[:label] %>]" value="1"<% if !response.details[:responses].nil? && response.details[:responses][choice[:label]] == "1" %> checked<% end %>> <label><%= choice[:label] %></label>
   </li>
   <% end %>
 </ul>

@@ -1,6 +1,6 @@
 <div class="question-text"><%= field.details[:question] %></div>
 <ul>
   <% field.details[:choices].each do |choice| %>
-  <li><input type="radio" name="responses[<%= field.id %>][response]" value="<%= choice[:label] %>"> <label><%= choice[:label] %></label></li>
+  <li><input type="radio" name="responses[<%= field.id %>][response]" value="<%= choice[:label] %>"<% if response.details[:response] == choice[:label] %> checked<% end %>> <label><%= choice[:label] %></label></li>
   <% end %>
 </ul>

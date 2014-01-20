@@ -8,6 +8,7 @@ describe FormField do
   it { should respond_to(:form_version) }
   it { should respond_to(:kind) }
   it { should respond_to(:details) }
+  it { should respond_to(:responses) }
 
   it { should be_valid }
 

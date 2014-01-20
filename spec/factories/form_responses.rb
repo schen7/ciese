@@ -4,7 +4,7 @@ FactoryGirl.define do
     form_version { form_field.form_version }
     form_id { form_version.form_id }
     association :user, strategy: :build
-    details {}
+    details { {} }
   end
 end
 
