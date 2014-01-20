@@ -38,6 +38,8 @@ Ciese::Application.routes.draw do
     post "mediabrowser/upload", to: "mediabrowser#upload", as: :mediabrowser_upload
   end
 
+  get "forms/:project/:slug", to: "form_response#new", as: :fill_out_form
+  post "forms/:project/:slug", to: "form_response#create"
   get "*url", to: "render_page#show", as: :render_page, constraints: {url: /(?!rails).*/}
 
 end

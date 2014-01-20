@@ -1,0 +1,9 @@
+<div class="question-text"><%= field.details[:question] %></div>
+<ul>
+  <% field.details[:choices].each do |choice| %>
+  <li>
+    <input type="hidden" name="responses[<%= field.id %>][responses][<%= choice[:label] %>]" value="0">
+    <input type="checkbox" name="responses[<%= field.id %>][responses][<%= choice[:label] %>]" value="1"> <label><%= choice[:label] %></label>
+  </li>
+  <% end %>
+</ul>

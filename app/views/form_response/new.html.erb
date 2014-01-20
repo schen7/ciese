@@ -1,0 +1,25 @@
+<% provide(:title, @form_version.name) %>
+
+<% provide :css do %>
+<%= stylesheet_link_tag "forms", media: "all" %>
+<% end %>
+
+<div id="form-response">
+  <div class="row">
+    <div class="large-6 columns">
+      <%= form_tag do %>
+        <div class="form-field">
+          <h1><%= @form_version.name %></h1>
+        </div>
+        <% @form_version.fields.each do |field| %>
+          <div class="form-field">
+            <%= render partial: field.kind.underscore, locals: {field: field} %>
+          </div>
+        <% end %>
+        <input type="submit" name="submit" value="Submit" class="button small primary radius">
+      <% end %>
+    </div>
+    <div class="large-6 columns">
+    </div>
+  </div>
+</div>

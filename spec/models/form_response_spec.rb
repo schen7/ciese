@@ -14,39 +14,57 @@ describe FormResponse do
   it { should be_valid }
 
   describe "#form_field" do
-    context "when blank" do
+    context "when nil" do
       before { form_response.form_field = nil }
 
       it { should_not be_valid }
     end
-
-    context "when set" do
-      before { form_response.form_field = create(:form_field) }
-
-      it "should also set the form_version and form_id fields" do
-        expect(form_response.form_version).to eq form_response.form_field.form_version
-        expect(form_response.form_id).to eq form_response.form_version.form_id
-      end
-    end
   end
 
   describe "#form_version" do
-    context "when set manually" do
-      it "should be ignored" do
-        old_form_version = form_response.form_version
-        form_response.form_version = create(:form_version)
-        expect(form_response.form_version).to eq old_form_version
+    context "when nil" do
+      before { form_response.form_version = nil }
+
+      context "when #form_field is nil" do
+        before { form_response.form_field = nil }
+
+        it { should_not be_valid }
+      end
+
+      context "when #form_field is not nil" do
+        it "should be valid after validation is run" do
+          expect(form_response).to be_valid
+          expect(form_response.form_version).to eq form_response.form_field.form_version 
+        end
       end
     end
   end
 
   describe "#form_id" do
-    context "when set manually" do
-      it "should be ignored" do
-        old_form_id = form_response.form_id
-        form_response.form_id = old_form_id + 1
-        expect(form_response.form_id).to eq old_form_id
+    context "when nil" do
+      before { form_response.form_id = nil }
+
+      context "when #form_field is nil" do
+        before { form_response.form_field = nil }
+
+        it { should_not be_valid }
       end
+
+      context "when #form_field is not nil" do
+        it "should be valid after validation is run" do
+          expect(form_response).to be_valid
+          expect(form_response.form_id).to eq form_response.form_field.form_version.form_id
+        end
+      end
+    end
+  end
+
+  describe "#details" do
+    it "should be a Hash" do
+      hash = { required: true, question: "What is the answer?" }
+      form_response.details = hash
+      form_response.save
+      expect(form_response.details).to eq hash
     end
   end
 
