@@ -49,7 +49,7 @@ class FormResponse < ActiveRecord::Base
     response = details.fetch(:response, "")
     ok_choices = form_field.details.fetch(:choices, []).map { |choice| choice["label"] }
     if !response.empty? && !ok_choices.include?(response)
-      errors.add(:response, "Must be a valid choice")
+      errors.add(:response, "must be a valid choice")
     end
   end
 
@@ -57,17 +57,17 @@ class FormResponse < ActiveRecord::Base
     responses = details.fetch(:responses, {})
     ok_choices = form_field.details.fetch(:choices, []).map { |choice| choice["label"] }
     if form_field.details[:required] && !responses.values.include?("1")
-      errors.add(:response, "Can't be blank")
+      errors.add(:response, "required")
     end
     if responses.keys.reject { |k| ok_choices.include?(k) }.any?
-      errors.add(:response, "Must be a valid choice")
+      errors.add(:response, "must be a valid choice")
     end
   end
 
   def check_if_response_required_and_blank
     if form_field.details[:required]
       response = details.fetch(:response, "")
-      errors.add(:response, "Can't be blank") if response.empty?
+      errors.add(:response, "required") if response.empty?
     end
   end
 end

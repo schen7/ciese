@@ -5,22 +5,25 @@
 <% end %>
 
 <div id="form-response">
-  <div class="row">
-    <div class="large-6 columns">
-      <%= form_tag do %>
-        <div class="form-field">
-          <h1><%= @form_version.name %></h1>
-        </div>
-        <% @form_version.fields.each do |field| %>
-          <div class="form-field">
-            <%= @responses[field.id].inspect %>
-            <%= render partial: field.kind.underscore, locals: {field: field, response: @responses[field.id]} %>
-          </div>
-        <% end %>
-        <input type="submit" name="submit" value="Submit" class="button small primary radius">
-      <% end %>
-    </div>
-    <div class="large-6 columns">
+
+  <%= form_tag do %>
+  <div class="row collapse">
+    <div class="large-12 columns form-field">
+      <div class="field-render">
+        <h1><%= @form_version.name %></h1>
+      </div>
     </div>
   </div>
+  <% @form_version.fields.each do |field| %>
+  <div class="row collapse">
+    <div class="large-6 columns last form-field">
+      <div class="field-render <%= field.kind %>-field-render">
+        <%= render partial: field.kind.underscore, locals: {field: field, response: @responses[field.id]} %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <input type="submit" name="submit" value="Submit" class="button primary radius">
+  <% end %>
+
 </div>

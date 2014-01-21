@@ -1,5 +1,5 @@
-<div class="question-text"><%= field.details[:question] %></div>
-<ul>
+<div class="question-text"><%= render_html(field.details[:question]).html_safe %></div>
+<ul<% if response.errors.any? %> class="error"<% end %>>
   <% field.details[:choices].each do |choice| %>
   <li>
     <input type="hidden" name="responses[<%= field.id %>][responses][<%= choice[:label] %>]" value="0">
@@ -7,3 +7,12 @@
   </li>
   <% end %>
 </ul>
+<% if response.errors.any? %>
+  <small class="error">
+    <ul>
+    <% response.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </small>
+<% end %>

@@ -324,9 +324,9 @@ describe "PageEditorPages" do
           log_in_and_visit(user, admin_page_version_path(page3.page_id, page3.id))
           find("#prev-button").click
           expect(page).to have_content(page2.url)
-          expect(page.current_path).to end_with(page2.id.to_s)
           edit_path = "#{admin_edit_page_path(page2.page_id)}?vid=#{page2.id}"
           expect(page).to have_link("Edit", href: edit_path)
+          expect(page.current_path).to end_with(page2.id.to_s)
         end
       end
 

@@ -1,3 +1,12 @@
-<div class="question-text"><%= field.details[:question] %></div>
+<div class="question-text"><%= render_html(field.details[:question]).html_safe %></div>
 <label><%= field.details[:label] %></label>
-<textarea name="responses[<%= field.id %>][response]"><%= response.details[:response] %></textarea>
+<textarea name="responses[<%= field.id %>][response]"<% if response.errors.any? %> class="error"<% end %>><%= response.details[:response] %></textarea>
+<% if response.errors.any? %>
+  <small class="error">
+    <ul>
+    <% response.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </small>
+<% end %>

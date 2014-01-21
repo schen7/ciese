@@ -30,54 +30,45 @@
 <% end %>
 
 <div id="form-version" ng-controller="FormVersionCtrl" ng-show="versionReady" class="ng-hide">
-  <div class="row">
-    <div class="large-6 columns">
-      <div class="form-field preview-mode">
-        <div class="field-preview">
-          <h1>{{ form_version.name }}</h1>
-        </div>
-      </div>
-      <div class="form-field preview-mode" ng-repeat="field in form_version.fields">
-        <div class="field-preview" ng-include="'field-preview.html'"></div>
+  <div class="row collapse">
+    <div class="large-6 columns last form-field">
+      <div class="field-render">
+        <h1>{{ form_version.name }}</h1>
       </div>
     </div>
-    <div class="large-6 columns">
-      <h1>Debug Info</h1>
-      <p><pre>{{ form_version | json }}</pre></p>
-      <p><pre>{{ form_version_ids | json }}</pre></p>
+  </div>
+  <div class="row collapse" ng-repeat="field in form_version.fields">
+    <div class="large-6 columns last form-field">
+      <div class="field-render {{ field.kind}}-field-render" ng-include="field.kind + '-field-render.html'"></div>
     </div>
   </div>
 
-  <!-- Field Preview Templates -->
+  <!-- Field Render Templates -->
 
-  <script type="text/ng-template" id="field-preview.html">
-    <div class="{{ field.kind}}-field-preview" ng-include="field.kind + '-field-preview.html'"></div>
-  </script>
-
-  <script type="text/ng-template" id="info-field-preview.html">
+  <script type="text/ng-template" id="info-field-render.html">
     <div class="info-text" ng-bind-html="renderHtml(field.details.text)"></div>
   </script>
 
-  <script type="text/ng-template" id="short-answer-field-preview.html">
+  <script type="text/ng-template" id="short-answer-field-render.html">
     <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
     <label>{{ field.details.label }}</label>
     <input type="text" disabled>
   </script>
 
-  <script type="text/ng-template" id="long-answer-field-preview.html">
+  <script type="text/ng-template" id="long-answer-field-render.html">
     <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
     <label>{{ field.details.label }}</label>
     <textarea disabled></textarea>
   </script>
 
-  <script type="text/ng-template" id="single-choice-field-preview.html">
+  <script type="text/ng-template" id="single-choice-field-render.html">
     <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
     <ul>
       <li ng-repeat="choice in field.details.choices"><input type="radio" value="" disabled> <label>{{ choice.label }}</label></li>
     </ul>
   </script>
 
-  <script type="text/ng-template" id="multiple-choice-field-preview.html">
+  <script type="text/ng-template" id="multiple-choice-field-render.html">
     <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
     <ul>
       <li ng-repeat="choice in field.details.choices"><input type="checkbox" value="" disabled> <label>{{ choice.label }}</label></li>
