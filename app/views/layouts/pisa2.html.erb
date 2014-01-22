@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Uncomment to make IE8 render like IE7 -->
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title><%= full_title(yield(:title)) %></title>
+
+  <%= stylesheet_link_tag "pisa2", media: "all" %>
+  <%= yield :css %>
+
+  <%= yield :js %>
+
+  <%= csrf_meta_tags %>
+
+  <%= yield :header %>
+</head>
+
+<body>
+
+  <div id="header" class="row collapse">
+    <div class="large-12 columns">
+      <div id="header-bg"></div>
+      <div id="ciese_title">The Center for Innovation in Engineering &amp; Science Education</div>
+      <div id="menu-bg" class="large-11 columns"></div>
+      <div id="menu">
+        <ul id="nav">
+          <li><a href="/pisa2">Home</a></li>
+          <li><a href="/pisa2/news">News</a></li>
+          <li><a href="/pisa2/courses">Courses</a></li>
+          <li><a href="/pisa2/pd_materials">PD Materials</a></li>
+          <li><a href="/pisa2/teachers">Teachers</a></li>
+          <li><a href="/pisa2/research">Research</a></li>
+          <li><a href="/pisa2/photos">Photos</a></li>
+          <li><a href="/pisa2/events">Events</a></li>
+          <li><a href="/pisa2/contact">Contact</a></li>
+        </ul>  
+      </div>
+    </div>
+  </div>
+
+	<div id="main" class="row">
+		<div class="large-11 columns last">
+      <% flash.each do |key, value| %>
+      <div class="alert-box <%= key %>"><%= value %></div>
+      <% end %>
+
+      <%= yield %>
+		</div>
+	</div>
+	
+
+	<div id="footer" class="row">
+		<div class="large-11 columns last">
+      <%= link_to image_tag("pisa2/stevensLogo.jpg", alt: "Stevens Logo"), "http://www.stevens.edu", {id: "logo-stevens"} %>
+      <%= link_to image_tag("pisa2/nsfLogo.jpg", alt: "NSF Logo"), "http://www.nsf.gov", {id: "logo-nsf"} %>
+		</div>
+	</div>
+	
+	<div id="copyright" class="row">
+    <div class="large-11 columns last">
+      &copy; Copyright 2014 Stevens Institute of Technology. All rights reserved.<br />
+      The Center for Innovation in Engineering &amp; Science Education
+    </div>
+	</div>
+</div>
+
+</body>
+</html>
+

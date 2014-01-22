@@ -1,0 +1,133 @@
+@import "foundation_overrides";
+
+$row-width: 1024px;
+$block-grid-media-queries: false;
+
+$screen: "only screen";
+$small: "only screen";
+$medium: "only screen";
+$large: "only screen";
+$landscape: "only screen";
+$portrait: "only screen";
+
+
+@import "foundation";
+@import "mixins";
+
+body {
+	font-family: Trebuchet MS, Arial, Helvetica, sans-serif; 
+	background-color: #000;
+}
+
+.row {
+  min-width: $row-width;
+  .large-11 {
+    width: 963px;
+  }
+}
+
+#header {
+  height: 253px;
+  position: relative;
+  z-index: 1;
+  margin-top: 3px;
+  .columns {
+    #header-bg {
+      background: url(<%= asset_path 'pisa2/banner.png' %>) no-repeat top left;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      height: 253px;
+      width: 100%;
+    }
+    #ciese_title {
+      position: absolute;
+      top: 0;
+      right: 200px;
+      color: #ffffff;
+      font-family: Trebuchet MS, Arial, Helvetica, sans-serif; 
+      font-size: 14px;
+      font-style: italic;
+      z-index: 2;
+    }
+    #menu-bg {
+      position: absolute;
+      top: 185px;
+      left: 0;
+      background-color: #e6e6e6;
+      min-height: 48px;
+      height: 48px;
+      border-top: 1px solid #4a79aa;
+      border-bottom: 1px solid #4a79aa;
+      z-index: 0;
+    }
+    #menu {
+      z-index: 3;
+      /* border-top: 1px solid #4a79aa; */
+      position: absolute;
+      left: 0;
+      top: 186px;
+      #nav {
+        padding: 0 0 0 8px;
+        margin: 0;
+        position: relative;
+        list-style: none;
+        li {
+          float: left;
+          margin-top: 12px;
+          margin-bottom: 12px;
+          a {
+            display: block;
+            padding: 0 12px;
+            text-decoration: none;
+            font-size: 14px;
+            font-style: italic;
+            font-weight: bold;
+            color: #0a5ea6;
+            &:hover {
+              color: #c00;
+              font-style: italic;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#main {
+  margin-top: -25px;
+  width: 1100px;
+  & > div {
+    padding: emCalc(10) emCalc(40);
+    background-color: #fff;
+  }
+}
+
+#footer {
+  & > div {
+    background-color: #eaeaea;
+    height: 84px;
+    @include border-radius(0 0 10px 10px);
+  }
+  #logo-stevens {
+    float: right;
+    margin-right: 30px;
+  }
+  #logo-nsf {
+    float: right;
+    margin-right: 10px;
+  }
+}
+
+#copyright {
+  margin: emCalc(30) auto;
+  color: #ffffff;
+	font-family: Trebuchet MS, Arial, Helvetica, sans-serif; 
+  font-size: 12px;
+  font-style:italic;
+  text-align: center;
+  line-height: 20px;
+}
+
