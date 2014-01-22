@@ -1,4 +1,4 @@
-<div class="question-text"><%= render_html(field.details[:question]).html_safe %></div>
+<div class="question-text"><%= render_html(field.details[:question]) %></div>
 <label><%= field.details[:label] %></label>
 <input type="text" name="responses[<%= field.id %>][response]" value="<%= response.details[:response] %>"<% if response.errors.any? %> class="error"<% end %>>
 <% if response.errors.any? %>

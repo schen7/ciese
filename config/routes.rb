@@ -40,6 +40,7 @@ Ciese::Application.routes.draw do
 
   get "forms/:project/:slug", to: "form_response#new", as: :fill_out_form
   post "forms/:project/:slug", to: "form_response#create"
+  get "forms/:project/:slug/done", to: "form_response#show", as: :form_done
   get "*url", to: "render_page#show", as: :render_page, constraints: {url: /(?!rails).*/}
 
 end

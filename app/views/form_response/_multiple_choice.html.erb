@@ -1,4 +1,4 @@
-<div class="question-text"><%= render_html(field.details[:question]).html_safe %></div>
+<div class="question-text"><%= render_html(field.details[:question]) %></div>
 <ul<% if response.errors.any? %> class="error"<% end %>>
   <% field.details[:choices].each do |choice| %>
   <li>

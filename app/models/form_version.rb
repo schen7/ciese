@@ -8,6 +8,7 @@ class FormVersion < ActiveRecord::Base
 
   validates :project, presence: true, inclusion: { in: Ciese::PROJECTS.keys }
   validates :name, presence: true
+  validates :done_message, presence: true
   validates :user, presence: true
 
   before_save do |form_version|

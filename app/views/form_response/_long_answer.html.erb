@@ -1,4 +1,4 @@
-<div class="question-text"><%= render_html(field.details[:question]).html_safe %></div>
+<div class="question-text"><%= render_html(field.details[:question]) %></div>
 <label><%= field.details[:label] %></label>
 <textarea name="responses[<%= field.id %>][response]"<% if response.errors.any? %> class="error"<% end %>><%= response.details[:response] %></textarea>
 <% if response.errors.any? %>

@@ -148,6 +148,11 @@
       }
     }
   }
+  .form-settings-builder {
+    select {
+      margin: 0;
+    }
+  }
   .info-field-builder {
     textarea {
       min-height: emCalc(56);

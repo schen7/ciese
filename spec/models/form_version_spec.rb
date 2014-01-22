@@ -9,6 +9,7 @@ describe FormVersion do
   it { should respond_to(:project) }
   it { should respond_to(:slug) }
   it { should respond_to(:name) }
+  it { should respond_to(:done_message) }
   it { should respond_to(:user) }
   it { should respond_to(:date) }
   it { should respond_to(:current_form) }
@@ -63,6 +64,14 @@ describe FormVersion do
         form_version.save
         expect(form_version.slug).to eq form_version.name.parameterize
       end
+    end
+  end
+
+  describe "#done_message" do
+    context "when nil" do
+      before { form_version.done_message = nil }
+      
+      it { should_not be_valid }
     end
   end
 

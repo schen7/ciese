@@ -30,7 +30,10 @@ class Admin::FormsController < ApplicationController
   end
 
   def new
-    @form_version = FormVersion.new(name: "New Form", project: Ciese::PROJECTS.keys[0])
+    options = { name: "New Form",
+                done_message: "Thank your for filling out this form.",
+                project: Ciese::PROJECTS.keys[0] }
+    @form_version = FormVersion.new(options)
     render "editor", layout: "admin"
   end
 

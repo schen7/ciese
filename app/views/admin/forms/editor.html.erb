@@ -27,12 +27,14 @@
 
     <div class="row collapse">
       <div class="large-6 columns last form-field" ng-class="getMode(-1)" ng-click="select(-1)">
-        <div class="field-builder">
+        <div class="field-builder form-settings-builder">
           <div class="field-kind">Form Settings</div>
           <label for="form-name">Form Name</label>
           <input id="form-name" type="text" name="name" ng-model="form_version.name" required ng-class="{error: formBuilder.name.$invalid}" placeholder="Enter a name for the form">
           <label for="form-project">Project</label>
           <select id="form-project" name="project" ng-model="form_version.project" required ng-class="{error: formBuilder.project.$invalid}" ng-options="project for project in projects"></select>
+          <label for="form-done_message">Done Message</label>
+          <textarea id="form-done_message" name="done_message" ng-model="form_version.done_message" required ng-class="{error: formBuilder.done_message.$invalid}" placeholder="Enter a message that will be displayed after the form is submitted"></textarea>
         </div>
         <div class="field-render">
           <h1 ng-if="form_version.name">{{ form_version.name }}</h1>
@@ -75,7 +77,6 @@
     <div class="field-builder-controls" ng-include="'field-builder-controls.html'" ng-init="norequire = true"></div>
     <div class="field-kind">Information Field</div>
     <label>Information Text</label>
-    <p>problem: {{ check() }}</p>
     <textarea name="text" required ng-class="{error: fieldBuilder.text.$invalid}" ng-model="field.details.text" placeholder="Enter information text"></textarea>
   </script>
 

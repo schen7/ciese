@@ -59,7 +59,7 @@ class Api::FormsController < ApplicationController
   private
 
   def form_version_params
-    params.require(:form_version).permit(:form_id, :project, :name)
+    params.require(:form_version).permit(:form_id, :project, :name, :done_message)
   end
 
   def field_params

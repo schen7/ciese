@@ -4,6 +4,7 @@ FactoryGirl.define do
     project Ciese::PROJECTS.keys.sample
     slug { name.parameterize }
     sequence(:name) { |n| "Form #{n}" }
+    done_message "Thank you for submitting this form."
     association :user, strategy: :build
 
     after(:create) do |form_version|

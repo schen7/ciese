@@ -39,9 +39,10 @@ describe "RenderForm" do
           click_on("Submit")
         end
 
-        it "should save the response" do
-          expect(page.current_url).not_to eq fill_out_form_path(form_version.project, form_version.slug)
-          expect(page.current_path).to eq root_path
+        it "should save the response and print a message" do
+          expect(page.current_path).not_to eq fill_out_form_path(form_version.project, form_version.slug)
+          expect(page.current_path).to eq form_done_path(form_version.project, form_version.slug)
+          expect(page).to have_content(form_version.done_message)
           expect(FormResponse.last.details[:response]).to eq "the answer"
         end
       end
@@ -50,7 +51,7 @@ describe "RenderForm" do
         before { click_on("Submit") }
 
         it "should save the response" do
-          expect(page.current_url).not_to eq fill_out_form_path(form_version.project, form_version.slug)
+          expect(page.current_path).not_to eq fill_out_form_path(form_version.project, form_version.slug)
           expect(FormResponse.last.details[:response]).to be_blank
         end
       end
@@ -65,6 +66,19 @@ describe "RenderForm" do
         it "should not save the response" do
           expect(page).to have_content("Response required")
         end
+      end
+    end
+  end
+
+  describe "form done page" do
+    let(:form_version) { create(:form_version, name: "Test Form") }
+    let!(:published_form) { create(:published_form, form_version: form_version) }
+
+    context "when visited directly without having filled out a form" do
+      before { visit form_done_path(form_version.project, form_version.slug) }
+
+      it "should redirect to the project root path" do
+        expect(page.current_path).to eq Ciese::PROJECTS[form_version.project][:root]
       end
     end
   end
