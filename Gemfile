@@ -45,6 +45,10 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'capistrano', '~> 3.0', require: false
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rbenv', '~> 2.0', require: false
 end
 
 group :test do
@@ -60,7 +64,6 @@ end
 # end
 
 gem 'unicorn'
-gem 'capistrano'#, '~> 2'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
