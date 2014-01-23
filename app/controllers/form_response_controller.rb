@@ -24,7 +24,11 @@ class FormResponseController < ApplicationController
   def show
     form_done = flash[:form_done]
     flash.clear
-    redirect_to get_project_root_path(@form_version.project) unless form_done
+    if form_done
+      render layout: get_layout(@form_version.project)
+    else
+      redirect_to get_project_root_path(@form_version.project) unless form_done
+    end
   end
 
   private
@@ -38,7 +42,7 @@ class FormResponseController < ApplicationController
   end
 
   def response_params
-    @response_params = @response_params || params.require(:responses).permit!
+    @response_params = @response_params || params.permit![:responses] || {}
   end
 
   def get_details(field_id)
