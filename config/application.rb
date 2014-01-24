@@ -29,6 +29,6 @@ module Ciese
     config.assets.precompile += ['common.js', 'profiles.js', 'admin.js',
                                  'admin.css', 'pisa2.css', 'forms.css',
                                  'form_editor.js', 'form_version.js',
-                                 'vendor/assets/fonts/*']
+                                 'vendor/assets/fonts/foundation-icons.*']
   end
 end
