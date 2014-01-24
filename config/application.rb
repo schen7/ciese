@@ -26,6 +26,8 @@ module Ciese
     # config.i18n.default_locale = :de
     config.i18n.enforce_available_locales = false
 
-    config.assets.precompile += ['common.js', 'profiles.js']
+    config.assets.precompile += ['common.js', 'profiles.js', 'admin.js',
+                                 'admin.css', 'pisa2.css', 'forms.css',
+                                 'form_editor.js', 'form_version.js']
   end
 end
