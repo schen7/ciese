@@ -47,7 +47,7 @@ namespace :deploy do
     desc "#{command} unicorn server"
     task command do
       on roles(:app) do |host|
-        run "/etc/init.d/unicorn_#{application} #{command}"
+        execute "/etc/init.d/unicorn_ciese", command
       end
     end
   end

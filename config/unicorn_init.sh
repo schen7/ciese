@@ -5,7 +5,16 @@ set -e
 TIMEOUT=${TIMEOUT-60}
 APP_ROOT=/var/website/rails/ciese/current
 PID=$APP_ROOT/tmp/pids/unicorn.pid
-CMD="cd $APP_ROOT; bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
+
+case "$2" in
+staging)
+    CMD="cd $APP_ROOT; bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb -E staging"
+    ;;
+*)
+    CMD="cd $APP_ROOT; bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
+    ;;
+esac
+
 AS_USER=ciese
 set -u
 
