@@ -10,6 +10,12 @@ test:
   database: ciese-test
   username: ciese
 
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: ciese-stag
+  username: ciese
+
 production:
   adapter: postgresql
   encoding: unicode
