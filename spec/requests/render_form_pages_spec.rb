@@ -43,7 +43,10 @@ describe "RenderForm" do
           expect(page.current_path).not_to eq fill_out_form_path(form_version.project, form_version.slug)
           expect(page.current_path).to eq form_done_path(form_version.project, form_version.slug)
           expect(page).to have_content(form_version.done_message)
-          expect(FormFieldResponse.last.details[:response]).to eq "the answer"
+          form_response = FormResponse.last
+          expect(form_response.form_version_id).to eq form_version.id
+          expect(form_response.field_responses.length).to eq 1
+          expect(form_response.field_responses.last.details[:response]).to eq "the answer"
         end
       end
 
@@ -52,7 +55,10 @@ describe "RenderForm" do
 
         it "should save the response" do
           expect(page.current_path).not_to eq fill_out_form_path(form_version.project, form_version.slug)
-          expect(FormFieldResponse.last.details[:response]).to be_blank
+          form_response = FormResponse.last
+          expect(form_response.form_version_id).to eq form_version.id
+          expect(form_response.field_responses.length).to eq 1
+          expect(form_response.field_responses.last.details[:response]).to be_blank
         end
       end
 

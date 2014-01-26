@@ -1,17 +1,21 @@
 class FormResponseController < ApplicationController
 
   before_action :get_form_version
+  before_action :get_form_response, only: [:new, :create]
 
   def new
     @responses = {}
-    @form_version.fields.each { |field| @responses[field.id] = field.responses.build }
+    @form_version.fields.each do |field|
+      @responses[field.id] = field.responses.build(form_response: @form_response)
+    end
     render layout: get_layout(@form_version.project)
   end
 
   def create
     @responses = {}
     @form_version.fields.each do |field|
-      @responses[field.id] = field.responses.build(get_details(field.id))
+      attrs = { form_response: @form_response, details: response_params[field.id.to_s] }
+      @responses[field.id] = field.responses.build(attrs)
     end
     if save_responses
       url = form_done_path(@form_version.project, @form_version.slug)
@@ -35,6 +39,10 @@ class FormResponseController < ApplicationController
 
   def get_form_version
     @form_version = FormVersion.joins(:published_form).includes(:fields).find_by!(form_params)
+  end
+
+  def get_form_response
+    @form_response = FormResponse.new(form_version: @form_version)
   end
 
   def form_params
