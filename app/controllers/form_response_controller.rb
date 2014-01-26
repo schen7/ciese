@@ -61,7 +61,7 @@ class FormResponseController < ApplicationController
     responses_saved = false
     if @responses.values.reject { |r| r.valid? }.empty?
       begin
-        FormResponse.transaction { @responses.values.each { |r| r.save! } }
+        FormFieldResponse.transaction { @responses.values.each { |r| r.save! } }
         responses_saved = true
       rescue Exception => e
         @global_errors = [e.message]

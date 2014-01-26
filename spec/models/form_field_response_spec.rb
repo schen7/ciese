@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe FormResponse do
-  let(:form_response) { build(:form_response) }
+describe FormFieldResponse do
+  let(:form_response) { build(:form_field_response) }
 
   subject { form_response }
 

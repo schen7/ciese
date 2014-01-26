@@ -1,4 +1,4 @@
-class FormResponse < ActiveRecord::Base
+class FormFieldResponse < ActiveRecord::Base
 
   belongs_to :form_field
   belongs_to :form_version
