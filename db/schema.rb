@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140126061025) do
+ActiveRecord::Schema.define(version: 20140126073359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,18 +48,14 @@ ActiveRecord::Schema.define(version: 20140126061025) do
   add_index "current_pages", ["version_id"], name: "index_current_pages_on_version_id", unique: true, using: :btree
 
   create_table "form_field_responses", force: true do |t|
-    t.integer  "form_id"
-    t.integer  "form_version_id"
     t.integer  "form_field_id"
-    t.integer  "user_id"
     t.text     "details"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "form_response_id"
   end
 
   add_index "form_field_responses", ["form_field_id"], name: "index_form_field_responses_on_form_field_id", using: :btree
-  add_index "form_field_responses", ["form_version_id"], name: "index_form_field_responses_on_form_version_id", using: :btree
-  add_index "form_field_responses", ["user_id"], name: "index_form_field_responses_on_user_id", using: :btree
 
   create_table "form_fields", force: true do |t|
     t.integer "form_version_id"
@@ -68,6 +64,12 @@ ActiveRecord::Schema.define(version: 20140126061025) do
   end
 
   add_index "form_fields", ["form_version_id"], name: "index_form_fields_on_form_version_id", using: :btree
+
+  create_table "form_responses", force: true do |t|
+    t.integer "form_id"
+    t.integer "form_version_id"
+    t.integer "user_id"
+  end
 
   create_table "form_versions", force: true do |t|
     t.integer  "form_id"

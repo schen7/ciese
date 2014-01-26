@@ -1,27 +1,16 @@
 class FormFieldResponse < ActiveRecord::Base
 
-  belongs_to :form_field
-  belongs_to :form_version
-  belongs_to :user
+  belongs_to :form_field, inverse_of: :responses
+  belongs_to :form_response, inverse_of: :field_responses
 
-  before_validation :populate_form_id_and_version
   before_validation :ensure_details_is_set
 
   validates :form_field, presence: true
-  validates :form_id, presence: true
-  validates :form_version, presence: true
   validate :validate_response_details
 
   serialize :details, Hash
 
   protected
-
-  def populate_form_id_and_version
-    unless form_field.nil?
-      self.form_version = form_field.form_version
-      self.form_id = form_field.form_version.form_id
-    end
-  end
 
   def ensure_details_is_set
     self.details = {} if details.nil?

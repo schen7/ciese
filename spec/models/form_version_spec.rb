@@ -15,6 +15,7 @@ describe FormVersion do
   it { should respond_to(:current_form) }
   it { should respond_to(:published_form) }
   it { should respond_to(:fields) }
+  it { should respond_to(:responses) }
 
   it { should be_valid }
 
