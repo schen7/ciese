@@ -5,12 +5,12 @@ class Admin::FormsController < ApplicationController
 
   def index
     @forms = FormVersion
-      .joins("LEFT OUTER JOIN published_forms ON published_forms.form_id = form_versions.form_id")
       .select(
         "form_versions.*, " +
         "(published_forms.form_version_id IS NOT NULL AND published_forms.form_version_id = form_versions.id) as published, " +
         "(published_forms.form_version_id IS NOT NULL AND published_forms.form_version_id != form_versions.id) as prev_published"
       )
+      .joins("LEFT OUTER JOIN published_forms ON published_forms.form_id = form_versions.form_id")
       .joins(:current_form)
       .includes(:user)
       .order(name: :asc)
@@ -18,8 +18,13 @@ class Admin::FormsController < ApplicationController
   end
 
   def versions
-    @form_versions = FormVersion.includes(:published_form)
-      .where(params.permit(:form_id)).order(id: :desc)
+    @form_versions = FormVersion
+      .select("form_versions.*, count(DISTINCT form_responses.id) as num_responses")
+      .joins("LEFT OUTER JOIN form_responses ON form_responses.form_version_id = form_versions.id")
+      .includes(:published_form, :user)
+      .group("form_versions.id")
+      .where(params.permit(:form_id))
+      .order(id: :desc)
     render layout: "admin"
   end
 

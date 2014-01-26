@@ -235,6 +235,27 @@ describe 'FormBuilderPages' do
           expect(page).to have_selector("tbody tr:last i.fi-check")
         end
       end
+
+      context "when there are no responses to any form versions" do
+        let(:form_version) { current_form.form_version }
+        before { log_in_and_visit(user, path) }
+
+        it "should show 0 responses" do
+          expect(page).to have_selector("thead tr th", text: "Responses")
+          expect(page).to have_selector("tbody tr td:last", text: "0")
+        end
+      end
+
+      context "when there is at least one responses to a form version" do
+        let!(:form_response) { form_version2.responses.create }
+        before { log_in_and_visit(user, path) }
+
+        it "should show the number of responses" do
+          expect(page).to have_selector("thead tr th", text: "Responses")
+          expect(page).to have_selector("tbody tr:first td:last", text: "1")
+          expect(page).to have_selector("tbody tr:last td:last", text: "0")
+        end
+      end
     end
   end
 

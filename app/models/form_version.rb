@@ -5,7 +5,7 @@ class FormVersion < ActiveRecord::Base
   has_one :published_form, inverse_of: :form_version
   has_many :fields, -> { order(:id) }, class_name: "FormField",
     inverse_of: :form_version, dependent: :destroy
-  has_many :responses, class_name: 'FormResponse', inverse_of: :form_response
+  has_many :responses, class_name: 'FormResponse', inverse_of: :form_version
 
   validates :project, presence: true, inclusion: { in: Ciese::PROJECTS.keys }
   validates :name, presence: true

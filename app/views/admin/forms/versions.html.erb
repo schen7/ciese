@@ -11,6 +11,7 @@
       <th>Author</th>
       <th>Last Modified</th>
       <th>Published?</th>
+      <th>Responses</th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,7 @@
       <td><%= form_version.user.username %></td>
       <td><%= form_version.date %></td>
       <td><% if form_version.published? %><i class="fi-check"></i><% end %></td>
+      <td><%= form_version.num_responses %></td>
     </tr>
     <% end %>
   </tbody>
