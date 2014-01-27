@@ -9,6 +9,10 @@ class FormResponse < ActiveRecord::Base
   validates :form_id, presence: true
   validates :form_version, presence: true
 
+  def date
+    updated_at.nil? ? nil : updated_at.to_formatted_s(:simple)
+  end
+
   protected
 
   def populate_form_id

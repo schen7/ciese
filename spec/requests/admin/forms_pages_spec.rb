@@ -243,6 +243,7 @@ describe 'FormBuilderPages' do
         it "should show 0 responses" do
           expect(page).to have_selector("thead tr th", text: "Responses")
           expect(page).to have_selector("tbody tr td:last", text: "0")
+          expect(page).not_to have_selector("tbody tr td:last", text: "1")
         end
       end
 
@@ -252,8 +253,10 @@ describe 'FormBuilderPages' do
 
         it "should show the number of responses" do
           expect(page).to have_selector("thead tr th", text: "Responses")
-          expect(page).to have_selector("tbody tr:first td:last", text: "1")
-          expect(page).to have_selector("tbody tr:last td:last", text: "0")
+          response_path1 = admin_form_version_responses_path(form_version1.form_id, form_version1.id)
+          expect(page.find("tbody tr:last td:last")).not_to have_link("0", href: response_path1)
+          response_path2 = admin_form_version_responses_path(form_version2.form_id, form_version2.id)
+          expect(page.find("tbody tr:first td:last")).to have_link("1", href: response_path2)
         end
       end
     end
@@ -368,6 +371,89 @@ describe 'FormBuilderPages' do
           find("#next-button").click
           expect(page).to have_content(form_version2.name)
           expect(page.current_path).to end_with(form_version2.id.to_s)
+        end
+      end
+    end
+  end
+
+  describe "form version responses" do
+    let!(:form_version) { create(:form_version) }
+    let!(:current_form) { create(:current_form, form_version: form_version) }
+    let(:path) { admin_form_version_responses_path(form_version.form_id, form_version.id) }
+
+    it_behaves_like "a page that requires an active staff or admin user"
+
+    context "when visited by an authorized user" do
+      let(:user) { create(:staff) }
+
+      context "when there are no responses" do
+        before { log_in_and_visit(user, path) }
+
+        it "should indicate that there are no responses" do
+          expect(page).to have_content("Form Version Responses")
+          expect(page).to have_content("There are no responses for this form version yet.")
+        end
+      end
+
+      context "when there are responses" do
+        let(:form_response) { form_version.responses.create }
+
+        context "when there are responses to a short-answer field" do
+          let!(:field) { create(:short_answer_field, form_version: form_version) }
+          let!(:field_response) { field.responses.create(form_response: form_response,
+                                                         details: { response: "My answer" }) }
+          before { log_in_and_visit(user, path) }
+
+          it "should show the short-answer responses" do
+            expect(page).to have_content(field.details[:question])
+            expect(page).to have_content(field.details[:label])
+            expect(page).to have_content(field_response.details[:response])
+          end
+        end
+
+        context "when there are responses to a long-answer field" do
+          let!(:field) { create(:long_answer_field, form_version: form_version) }
+          let!(:field_response) { field.responses.create(form_response: form_response,
+                                                         details: { response: "My answer" }) }
+          before { log_in_and_visit(user, path) }
+
+          it "should show the long-answer responses" do
+            expect(page).to have_content(field.details[:question])
+            expect(page).to have_content(field.details[:label])
+            expect(page).to have_content(field_response.details[:response])
+          end
+        end
+
+        context "when there are responses to a single-choice field" do
+          let!(:field) { create(:single_choice_field, form_version: form_version) }
+          let!(:choice) { field.details[:choices][0][:label] }
+          let!(:field_response) { field.responses.create(form_response: form_response,
+                                                         details: { response: choice }) }
+          before { log_in_and_visit(user, path) }
+
+          it "should show the single-choice responses" do
+            expect(page).to have_content(field.details[:question])
+            expect(page).to have_content(field.details[:label])
+            expect(page).to have_selector("tbody td", text: choice)
+          end
+        end
+
+        context "when there are responses to a multiple-choice field" do
+          let!(:field) { create(:multiple_choice_field, form_version: form_version) }
+          let!(:choices) { field.details[:choices].map { |c| c[:label] } }
+          let!(:field_response) { field.responses.create(
+            form_response: form_response,
+            details: { responses: { choices[0] => "1", choices[1] => "0", choices[2] => "1" } }
+          ) }
+          before { log_in_and_visit(user, path) }
+
+          it "should show the multiple-choice responses" do
+            expect(page).to have_content(field.details[:question])
+            expect(page).to have_content(field.details[:label])
+            expect(page).to have_selector("tbody td", text: choices[0])
+            expect(page).not_to have_selector("tbody td", text: choices[1])
+            expect(page).to have_selector("tbody td", text: choices[2])
+          end
         end
       end
     end

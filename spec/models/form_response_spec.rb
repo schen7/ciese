@@ -8,6 +8,7 @@ describe FormResponse do
   it { should respond_to(:form_version) }
   it { should respond_to(:form_id) }
   it { should respond_to(:user) }
+  it { should respond_to(:date) }
   it { should respond_to(:field_responses) }
 
   it { should be_valid }

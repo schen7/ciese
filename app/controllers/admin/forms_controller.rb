@@ -52,5 +52,11 @@ class Admin::FormsController < ApplicationController
     render "editor", layout: "admin"
   end
 
+  def version_responses
+    @form_version = FormVersion.includes(:fields).find(params[:id])
+    @responses = @form_version.responses.includes(:user, field_responses: :form_field)
+    render layout: "admin"
+  end
+
 end
 

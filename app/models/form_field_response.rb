@@ -36,7 +36,7 @@ class FormFieldResponse < ActiveRecord::Base
   def validate_single_choice_response
     check_if_response_required_and_blank
     response = details.fetch(:response, "")
-    ok_choices = form_field.details.fetch(:choices, []).map { |choice| choice["label"] }
+    ok_choices = form_field.details.fetch(:choices, []).map { |choice| choice[:label] }
     if !response.empty? && !ok_choices.include?(response)
       errors.add(:response, "must be a valid choice")
     end
@@ -44,7 +44,7 @@ class FormFieldResponse < ActiveRecord::Base
 
   def validate_multiple_choice_response
     responses = details.fetch(:responses, {})
-    ok_choices = form_field.details.fetch(:choices, []).map { |choice| choice["label"] }
+    ok_choices = form_field.details.fetch(:choices, []).map { |choice| choice[:label] }
     if form_field.details[:required] && !responses.values.include?("1")
       errors.add(:response, "required")
     end

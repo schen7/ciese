@@ -1,0 +1,8 @@
+<ul>
+  <% field_response.details[:responses].each do |label, value| %>
+  <% if value == "1" %>
+  <li><%= label %></li>
+  <% end %>
+  <% end %>
+</ul>
+

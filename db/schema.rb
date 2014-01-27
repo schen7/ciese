@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140126073359) do
+ActiveRecord::Schema.define(version: 20140126230716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,9 +66,11 @@ ActiveRecord::Schema.define(version: 20140126073359) do
   add_index "form_fields", ["form_version_id"], name: "index_form_fields_on_form_version_id", using: :btree
 
   create_table "form_responses", force: true do |t|
-    t.integer "form_id"
-    t.integer "form_version_id"
-    t.integer "user_id"
+    t.integer  "form_id"
+    t.integer  "form_version_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "form_versions", force: true do |t|

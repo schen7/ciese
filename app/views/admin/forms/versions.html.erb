@@ -23,7 +23,12 @@
       <td><%= form_version.user.username %></td>
       <td><%= form_version.date %></td>
       <td><% if form_version.published? %><i class="fi-check"></i><% end %></td>
-      <td><%= form_version.num_responses %></td>
+      <td>
+        <% if form_version.num_responses > 0 %>
+        <a href="<%= admin_form_version_responses_path(form_version.form_id, form_version.id) %>"><%= form_version.num_responses %></a></td>
+        <% else %>
+        0
+        <% end %>
     </tr>
     <% end %>
   </tbody>

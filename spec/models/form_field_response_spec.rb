@@ -97,7 +97,7 @@ describe FormFieldResponse do
 
     describe "single-choice field" do
       let(:form_field) do
-        details = {choices: [{"label"=>"A"}, {"label"=>"B"}, {"label"=>"C"}]}
+        details = {choices: [{label: "A"}, {label: "B"}, {label: "C"}]}
         build(:form_field, kind: "single-choice", details: details)
       end
       let(:response) { form_field.responses.build(details: {}) }
@@ -133,7 +133,7 @@ describe FormFieldResponse do
 
     describe "multiple-choice field" do
       let(:form_field) do
-        details = {choices: [{"label"=>"A"}, {"label"=>"B"}, {"label"=>"C"}]}
+        details = {choices: [{label: "A"}, {label: "B"}, {label: "C"}]}
         build(:form_field, kind: "multiple-choice", details: details)
       end
       let(:response) { form_field.responses.build(details: {}) }
