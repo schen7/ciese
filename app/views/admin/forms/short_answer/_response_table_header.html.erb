@@ -1,6 +1,5 @@
 <% if field.details[:question] %>
-<div><%= field.details[:question] %></div>
-<% end %>
-<% if field.details[:label] %>
-<label><%= field.details[:label] %></label>
+<div><%= render_html(field.details[:question]) %></div>
+<% else %>
+<div><%= field.details[:label] %></div>
 <% end %>

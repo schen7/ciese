@@ -218,6 +218,76 @@
   }
 }
 
+#form-responses {
+  h1 {
+    margin-bottom: emCalc(4);
+  }
+  h3.subheader span {
+    font-size: emCalc(10);
+  }
+  table thead {
+    th, td {
+      vertical-align: top;
+    }
+  }
+  .response-header {
+    .field-kind {
+      font-weight: bold;
+      font-style: normal;
+      margin-bottom: emCalc(8);
+    }
+    font-weight: normal;
+    font-style: italic;
+  }
+  .info-response-header {
+    white-space: nowrap;
+  }
+  .short-answer-response-header, .long-answer-response-header {
+    white-space: nowrap;
+  }
+  .single-choice-response-header, .multiple-choice-response-header {
+    white-space: nowrap;
+    ul {
+      margin: emCalc(8) 0 0 0;
+      font-style: normal;
+      line-height: emCalc(18);
+      li {
+        margin: 0;
+        padding: 0 emCalc(8);
+        display: inline;
+        border-left: 1px solid #555;
+        &:first-child {
+          border-left: none;
+        }
+      }
+    }
+  }
+  .response {
+    br {
+      margin: 0;
+    }
+  }
+  .multiple-choice-response {
+    ul {
+      margin: 0;
+      line-height: emCalc(18);
+      li {
+        margin: 0;
+        padding: 0 emCalc(8);
+        display: inline;
+        border-left: 1px solid #555;
+        &:first-child {
+          border-left: none;
+          padding-left: 0;
+        }
+      }
+    }
+  }
+  .date {
+    white-space: nowrap;
+  }
+}
+
 #top-nav-bar h2#form-info {
   line-height: emCalc(18);
   display: inline-block;

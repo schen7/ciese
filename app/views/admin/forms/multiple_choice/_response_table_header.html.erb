@@ -1,13 +1,13 @@
 <% if field.details[:question] %>
-<div><%= field.details[:question] %></div>
+<div><%= render_html(field.details[:question]) %></div>
 <% end %>
-<div>
-  Choices:
-  <ul>
-    <% field.details[:choices].each do |choice| %>
-    <li><%= choice[:label] %></li>
-    <% end %>
-  </ul>
-</div>
+
+<ul>
+  [
+  <% field.details[:choices].each do |choice| %>
+  <li><%= choice[:label] %></li>
+  <% end %>
+  ]
+</ul>
 
 

@@ -1,36 +1,47 @@
 <% provide(:title, 'Form Version Responses') %>
 
-<h1>Form Version Responses</h1>
-
-<h2 class="subheader">
-  <%= @form_version.name %>
-  <span>(<%= @form_version.project %>, v<%= @form_version.id %>)</span>
-</h2>
-
-<% if @responses.empty? %>
-<p>There are no responses for this form version yet.</p>
-<% else %>
-<table id="form-responses">
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Date</th>
-      <% @form_version.fields.each do |field| %>
-      <td class="field-response-header"><%= render partial: "admin/forms/#{field.kind.underscore}/response_table_header", locals: { field: field } %></td>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% @responses.each do |response| %>
-    <tr>
-      <td><%= response.user.nil? ? "---" : response.user.username %></td>
-      <td><%= response.date %></td>
-      <% response.field_responses.each do |field_response| %>
-      <td class="field-response #{field_response.form_field.kind}-field-response"><%= render partial: "admin/forms/#{field_response.form_field.kind.underscore}/response_table_cell", locals: { field_response: field_response } %></td>
-      <% end %>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<% provide :css do %>
+<%= stylesheet_link_tag "forms", media: "all" %>
 <% end %>
 
+<div id="form-responses">
+
+  <h1>Form Version Responses</h1>
+
+  <h3 class="subheader">
+    <%= @form_version.name %>
+    <span>(<%= @form_version.project %>, v<%= @form_version.id %>)</span>
+  </h3>
+
+  <% if @responses.empty? %>
+  <p>There are no responses for this form version yet.</p>
+  <% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Date</th>
+        <% @form_version.fields.each do |field| %>
+        <td class="response-header <%= field.kind %>-response-header">
+          <div class="field-kind"><%= field.kind.titleize %></div>
+          <%= render partial: "admin/forms/#{field.kind.underscore}/response_table_header", locals: { field: field } %>
+        </td>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @responses.each do |response| %>
+      <tr>
+        <td><%= response.user.nil? ? "---" : response.user.username %></td>
+        <td class="date"><%= response.date %></td>
+        <% response.field_responses.each do |field_response| %>
+        <td class="response <%= field_response.form_field.kind %>-response"><%= render partial: "admin/forms/#{field_response.form_field.kind.underscore}/response_table_cell", locals: { field_response: field_response } %></td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% end %>
+  <a class="button secondary small" href="<%= admin_form_versions_path(@form_version.form_id, @form_version.id) %>">Done</a>
+
+</div>
