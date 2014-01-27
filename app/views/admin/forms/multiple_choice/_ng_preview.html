@@ -1,0 +1,4 @@
+<div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
+<ul>
+  <li ng-repeat="choice in field.details.choices"><input type="checkbox" value="" disabled> <label>{{ choice.label }}<span class="empty" ng-if="!choice.label">Add label</span></label></li>
+</ul>

@@ -40,22 +40,22 @@
       margin-top: emCalc(-8);
     }
   }
-  .field-render {
+  .field-preview, .field-render {
     padding: 0;
   }
-  .short-answer-field-render {
+  .short-answer-field-preview, .short-answer-field-render {
     input {
       margin: 0;
     }
   }
-  .long-answer-field-render {
+  .long-answer-field-preview, .long-answer-field-render {
     textarea {
       height: emCalc(100);
       resize: none;
       margin: 0;
     }
   }
-  .single-choice-field-render, .multiple-choice-field-render {
+  .single-choice-field-preview, .multiple-choice-field-preview, .single-choice-field-render, .multiple-choice-field-render {
     ul {
       list-style-type: none;
       padding: 0 0 0 emCalc(5);
@@ -89,7 +89,7 @@
       .field-builder {
         display: block;
       }
-      .field-render {
+      .field-preview {
         background-color: #fafafa;
         border-top: 1px solid #ddd;
         margin-top: 0;
@@ -110,7 +110,7 @@
       .field-builder {
         display: none;
       }
-      .field-render {
+      .field-preview {
         padding: 0 0 0 10px;
       }
     }
@@ -124,6 +124,12 @@
     label {
       margin-top: emCalc(20);
       color: lightslategray;
+    }
+    textarea {
+      min-height: emCalc(70);
+      height: emCalc(70);
+      resize: vertical;
+      margin-bottom: emCalc(10);
     }
     .field-kind {
       margin: 0 0 emCalc(10) 0;
@@ -151,22 +157,6 @@
   .form-settings-builder {
     select {
       margin: 0;
-    }
-  }
-  .info-field-builder {
-    textarea {
-      min-height: emCalc(56);
-      height: emCalc(56);
-      resize: vertical;
-      margin-bottom: emCalc(10);
-    }
-  }
-  .short-answer-field-builder {
-    textarea {
-      min-height: emCalc(56);
-      height: emCalc(56);
-      resize: vertical;
-      margin-bottom: emCalc(10);
     }
   }
   .single-choice-field-builder, .multiple-choice-field-builder {

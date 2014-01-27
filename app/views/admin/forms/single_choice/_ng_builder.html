@@ -1,0 +1,16 @@
+<div class="field-builder-controls" ng-include="'field-builder-controls.html'"></div>
+<div ng-controller="ChoiceFieldCtrl">
+  <div class="field-kind">Single Choice Field</div>
+  <label>Question Text</label>
+  <textarea name="question" ng-model="field.details.question" placeholder="Enter question text"></textarea>
+  <label>Choices</label>
+  <div class="choice-label row collapse" ng-repeat="choice in field.details.choices">
+    <div ng-form="choiceBuilder" class="small-11 columns">
+      <input type="text" name="choice" ng-model="choice.label" ng-class="{error: choiceBuilder.$invalid}" required placeholder="Enter choice label">
+    </div>
+    <div class="small-1 columns">
+      <a class="button alert radius postfix" ng-click="removeChoice()">-</a>
+    </div>
+  </div>
+  <a class="button tiny success radius" ng-click="addChoice()">Add Choice</a>
+</div>

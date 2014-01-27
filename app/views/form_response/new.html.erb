@@ -18,7 +18,7 @@
   <div class="row collapse">
     <div class="large-6 columns last form-field">
       <div class="field-render <%= field.kind %>-field-render">
-        <%= render partial: field.kind.underscore, locals: {field: field, response: @responses[field.id]} %>
+        <%= render partial: "admin/forms/#{field.kind.underscore}/render", locals: {field: field, response: @responses[field.id]} %>
       </div>
     </div>
   </div>

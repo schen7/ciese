@@ -32,48 +32,26 @@
 <div id="form-version" ng-controller="FormVersionCtrl" ng-show="versionReady" class="ng-hide">
   <div class="row collapse">
     <div class="large-6 columns last form-field">
-      <div class="field-render">
+      <div class="field-preview">
         <h1>{{ form_version.name }}</h1>
       </div>
     </div>
   </div>
   <div class="row collapse" ng-repeat="field in form_version.fields">
     <div class="large-6 columns last form-field">
-      <div class="field-render {{ field.kind}}-field-render" ng-include="field.kind + '-field-render.html'"></div>
+      <div class="field-preview {{ field.kind}}-field-preview" ng-include="field.kind + '-field-preview.html'"></div>
     </div>
   </div>
 
-  <!-- Field Render Templates -->
+  <!-- Angular Templates -->
 
-  <script type="text/ng-template" id="info-field-render.html">
-    <div class="info-text" ng-bind-html="renderHtml(field.details.text)"></div>
-  </script>
+  <% FormField::KINDS.each do |kind| %>
 
-  <script type="text/ng-template" id="short-answer-field-render.html">
-    <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
-    <label>{{ field.details.label }}</label>
-    <input type="text" disabled>
-  </script>
+    <script type="text/ng-template" id="<%= kind %>-field-preview.html">
+      <%= render "admin/forms/#{kind.underscore}/ng_preview" %>
+    </script>
 
-  <script type="text/ng-template" id="long-answer-field-render.html">
-    <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
-    <label>{{ field.details.label }}</label>
-    <textarea disabled></textarea>
-  </script>
-
-  <script type="text/ng-template" id="single-choice-field-render.html">
-    <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
-    <ul>
-      <li ng-repeat="choice in field.details.choices"><input type="radio" value="" disabled> <label>{{ choice.label }}</label></li>
-    </ul>
-  </script>
-
-  <script type="text/ng-template" id="multiple-choice-field-render.html">
-    <div ng-if="field.details.question" class="question-text" ng-bind-html="renderHtml(field.details.question)"></div>
-    <ul>
-      <li ng-repeat="choice in field.details.choices"><input type="checkbox" value="" disabled> <label>{{ choice.label }}</label></li>
-    </ul>
-  </script>
+  <% end %>
 
 </div>
 
