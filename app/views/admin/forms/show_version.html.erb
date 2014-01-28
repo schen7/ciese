@@ -30,14 +30,14 @@
 <% end %>
 
 <div id="form-version" ng-controller="FormVersionCtrl" ng-show="versionReady" class="ng-hide">
-  <div class="row collapse">
+  <div class="row">
     <div class="large-6 columns last form-field">
       <div class="field-preview">
         <h1>{{ form_version.name }}</h1>
       </div>
     </div>
   </div>
-  <div class="row collapse" ng-repeat="field in form_version.fields">
+  <div class="row" ng-repeat="field in form_version.fields">
     <div class="large-6 columns last form-field">
       <div class="field-preview {{ field.kind}}-field-preview" ng-include="field.kind + '-field-preview.html'"></div>
     </div>

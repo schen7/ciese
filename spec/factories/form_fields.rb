@@ -32,6 +32,11 @@ FactoryGirl.define do
         { label: "A" }, { label: "B" }, { label: "C" }
       ]
     end
+
+    factory :address_field do
+      kind "address"
+      details question: "Enter your address"
+    end
   end
 end
 

@@ -7,18 +7,22 @@
 <div id="form-response">
 
   <%= form_tag do %>
-  <div class="row collapse">
-    <div class="large-12 columns form-field">
-      <div class="field-render">
-        <h1><%= @form_version.name %></h1>
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="form-field">
+        <div class="field-render">
+          <h1><%= @form_version.name %></h1>
+        </div>
       </div>
     </div>
   </div>
   <% @form_version.fields.each do |field| %>
-  <div class="row collapse">
-    <div class="large-6 columns last form-field">
-      <div class="field-render <%= field.kind %>-field-render">
-        <%= render partial: "admin/forms/#{field.kind.underscore}/render", locals: {field: field, response: @responses[field.id]} %>
+  <div class="row">
+    <div class="large-6 columns last">
+      <div class="form-field">
+        <div class="field-render <%= field.kind %>-field-render">
+          <%= render partial: "admin/forms/#{field.kind.underscore}/render", locals: {field: field, response: @responses[field.id]} %>
+        </div>
       </div>
     </div>
   </div>

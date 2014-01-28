@@ -1,0 +1,68 @@
+<div class="question-text"><%= render_html(field.details[:question]) %></div>
+
+<label>Address Line 1</label>
+<input type="text" name="responses[<%= field.id %>][address_line_1]" value="<%= response.details[:address_line_1] %>"<% if response.errors.include?(:address_line_1) %> class="error"<% end %>>
+<% if response.errors.include?(:address_line_1) %>
+  <small class="error address_line_1">
+    <ul>
+    <% response.errors.full_messages_for(:address_line_1).each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </small>
+<% end %>
+
+<label>Address Line 2</label>
+<input type="text" name="responses[<%= field.id %>][address_line_2]" value="<%= response.details[:address_line_2] %>"<% if response.errors.include?(:address_line_2) %> class="error"<% end %>>
+<% if response.errors.include?(:address_line_2) %>
+  <small class="error address_line_2">
+    <ul>
+    <% response.errors.full_messages_for(:address_line_2).each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </small>
+<% end %>
+
+<div class="row">
+  <div class="small-6 columns">
+    <label>City</label>
+    <input type="text" name="responses[<%= field.id %>][city]" value="<%= response.details[:city] %>"<% if response.errors.include?(:city) %> class="error"<% end %>>
+    <% if response.errors.include?(:city) %>
+      <small class="error">
+        <ul>
+        <% response.errors.full_messages_for(:city).each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </small>
+    <% end %>
+  </div>
+  <div class="small-3 columns">
+    <label>State</label>
+    <input type="text" name="responses[<%= field.id %>][state]" value="<%= response.details[:state] %>"<% if response.errors.include?(:state) %> class="error"<% end %>>
+    <% if response.errors.include?(:state) %>
+      <small class="error">
+        <ul>
+        <% response.errors.full_messages_for(:state).each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </small>
+    <% end %>
+  </div>
+  <div class="small-3 columns">
+    <label>ZIP</label>
+    <input type="text" name="responses[<%= field.id %>][zip]" value="<%= response.details[:zip] %>"<% if response.errors.include?(:zip) %> class="error"<% end %>>
+    <% if response.errors.include?(:zip) %>
+      <small class="error">
+        <ul>
+        <% response.errors.full_messages_for(:zip).each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </small>
+    <% end %>
+  </div>
+</div>
+

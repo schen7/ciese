@@ -96,6 +96,11 @@ angular
         $scope.field.details.choices.splice(@$index, 1)
 
   ])
+  .controller('AddressFieldCtrl', ['$scope', ($scope) ->
+
+    $scope.field.details.show_labels = true
+
+  ])
 
 
 

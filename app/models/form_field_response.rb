@@ -53,6 +53,14 @@ class FormFieldResponse < ActiveRecord::Base
     end
   end
 
+  def validate_address_response
+    if form_field.details[:required]
+      [:address_line_1, :city, :state, :zip].each do |field|
+        errors.add(field, "required") if details.fetch(field, "").empty?
+      end
+    end
+  end
+
   def check_if_response_required_and_blank
     if form_field.details[:required]
       response = details.fetch(:response, "")

@@ -455,6 +455,23 @@ describe 'FormBuilderPages' do
             expect(page).to have_selector("tbody td", text: choices[2])
           end
         end
+
+        context "when there are responses to an address field" do
+          let!(:field) { create(:address_field, form_version: form_version) }
+          let!(:field_response) { field.responses.create(
+            form_response: form_response,
+            details: { address_line_1: "123 Fake St", city: "Zulu", state: "FL", zip: "00000" }
+          ) }
+          before { log_in_and_visit(user, path) }
+
+          it "should show the address responses" do
+            expect(page).to have_content(field.details[:question])
+            expect(page).to have_content(field_response.details[:address_line_1])
+            expect(page).to have_content(field_response.details[:city])
+            expect(page).to have_content(field_response.details[:state])
+            expect(page).to have_content(field_response.details[:zip])
+          end
+        end
       end
     end
   end
