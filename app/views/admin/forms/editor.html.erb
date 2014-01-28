@@ -60,15 +60,18 @@
 
   </div>
 
-  <div id="add-field" ng-form="addFieldForm">
-    <hr>
-    <ul class="button-group radius even-6">
-      <% FormField::KINDS.each do |kind| %>
-        <li><a class="button tiny" ng-click="addField('<%= kind %>')"><%= kind.titleize.gsub(' ', '<br>').html_safe %></a></li>
-      <% end %>
-    </ul>
+  <div class="row">
+    <div class="large-6 columns last">
+      <div id="add-field" ng-form="addFieldForm">
+        <hr>
+        <ul class="button-group radius">
+          <% FormField::KINDS.each do |kind| %>
+          <li><a class="button small" ng-click="addField('<%= kind %>')"><%= (kind.include?("-") ? kind : "#{kind}-field").titleize.gsub(" ", "<br>").html_safe %></a></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
-
 
   <!-- Angular Templates -->
 

@@ -72,6 +72,11 @@
       }
     }
   }
+  .address-field-preview, .address-field-render {
+    .city-state-zip input {
+      margin: 0;
+    }
+  }
 }
 
 #form-editor {
@@ -186,9 +191,6 @@
   .form-field {
     @include form-field-style;
   }
-  input[type=submit] {
-    margin-top: emCalc(20);
-  }
   .field-render, .single-choice-field-render, .multiple-choice-field-render {
     ul.error {
       border: 1px solid $alert-color;
@@ -212,7 +214,7 @@
     }
   }
   input[type=submit] {
-    margin-top: 0;
+    margin-top: emCalc(14);
   }
 }
 

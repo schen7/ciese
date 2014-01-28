@@ -24,7 +24,7 @@
   </small>
 <% end %>
 
-<div class="row">
+<div class="row city-state-zip">
   <div class="small-6 columns">
     <label>City</label>
     <input type="text" name="responses[<%= field.id %>][city]" value="<%= response.details[:city] %>"<% if response.errors.include?(:city) %> class="error"<% end %>>
