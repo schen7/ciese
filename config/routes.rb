@@ -28,6 +28,8 @@ Ciese::Application.routes.draw do
     get "profiles/*extra", to: "profiles#index", as: :profiles_sub
     get "mediabrowser", to: "mediabrowser#index", as: :mediabrowser
     get "mediabrowser/*extra", to: "mediabrowser#index", as: :mediabrowser_sub
+
+    get "preview/:layout", to: "layout_preview#show", as: :layout_preview
   end
 
   namespace :api do
@@ -42,6 +44,7 @@ Ciese::Application.routes.draw do
   get "forms/:project/:slug", to: "form_response#new", as: :fill_out_form
   post "forms/:project/:slug", to: "form_response#create"
   get "forms/:project/:slug/done", to: "form_response#show", as: :form_done
+
   get "*url", to: "render_page#show", as: :render_page, constraints: {url: /(?!rails).*/}
 
 end
