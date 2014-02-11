@@ -24,34 +24,32 @@
 </head>
 
 <body>
-  <div class="container">
-    <div id="main" class="span-24 last">
-      <div id="header" class="row collapse">
-        <div id="header-bg"></div>
+  <div id="container">
+    <div id="header" class="row collapse">
+      <div id="header-bg"></div>
+    </div>
+
+	<div id="nav">
+	</div>
+
+	<div id="content">
+      <div class="large-11 columns last">
+        <% flash.each do |key, value| %>
+	    <div class="alert-box <%= key %>"><%= value %></div>
+        <% end %>
+
+        <%= yield %>
       </div>
-
-	  <div id="nav">
-	  </div>
-
-	  <div id="content">
-        <div class="large-11 columns last">
-          <% flash.each do |key, value| %>
-	      <div class="alert-box <%= key %>"><%= value %></div>
-          <% end %>
-
-          <%= yield %>
-        </div>
-      </div>
+    </div>
       
-      <div id="bottom">
-      </div>
+    <div id="bottom">
+    </div>
 
-	  <div id="footer">
-        <div class="footer-content" align="right">     
-          <div align="center">
-            &copy; Copyright 2014 Stevens Institute of Technology. All rights reserved.<br />
-            The Center for Innovation in Engineering &amp; Science Education
-          </div>
+    <div id="footer">
+      <div class="footer-content" align="right">     
+        <div align="center">
+          &copy; Copyright 2014 Stevens Institute of Technology. All rights reserved.<br />
+          The Center for Innovation in Engineering &amp; Science Education
         </div>
       </div>
     </div>
