@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Uncomment to make IE8 render like IE7 -->
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title><%= full_title(yield(:title)) %></title>
+
+  <%= stylesheet_link_tag "istem", media: "all" %>
+  <%= yield :css %>
+
+  <%= yield :js %>
+
+  <%= csrf_meta_tags %>
+
+  <%= yield :header %>
+</head>
+
+<body>
+  <div class="container">
+    <div id="main" class="span-24 last">
+      <div id="head">
+	    <%= link_to image_tag("istem/iStemHeader2.jpg", alt: "iSTEM Header"), "/istem", {id: "header-istem"}%>
+      </div>
+    <div id="nav">
+      <ul>
+        <li><a href="/istem/contacts">Contacts</a></li>
+        <li><a href="/istem/collaboration_central/">Share</a></li>
+        <li><a href="/istem/elementary"">Elementary</a></li>
+        <li><a href="/istem/science">Science</a></li>
+        <li><a href="/istem/math">Math</a></li>
+        <li><a href="/istem">Home</a></li>
+      </ul>
+    </div>
+
+    <div id="content">
+      <% flash.each do |key, value| %>
+	    <div class="alert-box <%= key %>"><%= value %></div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+
+    <div id="bottom">
+    </div>
+
+    <div id="footer">
+      <div class="footer-content" align="right">
+	    <%= link_to image_tag("istem/Stevens-Official-Logo.jpg", alt: "Stevens Logo"), "http://www.stevens.edu", {id: "logo-stevens"}%>
+          <div align="center">
+            &copy; Copyright 2014 <a href="http://www.stevens.edu">Stevens Institute of Technology</a>. All rights reserved.<br />
+            <a href="http://www.ciese.org">The Center for Innovation in Engineering &amp; Science Education</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

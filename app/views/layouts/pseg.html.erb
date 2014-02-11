@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Uncomment to make IE8 render like IE7 -->
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title><%= full_title(yield(:title)) %></title>
+
+  <%= stylesheet_link_tag "pseg", media: "all" %>
+  <%= yield :css %>
+
+  <%= yield :js %>
+
+  <%= csrf_meta_tags %>
+
+  <%= yield :header %>
+</head>
+
+<body>
+  <div id="main_display">
+    <div id="titlebar_top">
+      <div id="upper_left_corner"></div>
+      <div id="upper_right_corner"></div>
+    </div>
+    
+    <div id="titlebar_img">
+      <%= image_tag("pseg/titlebar_photo.jpg", alt: "PSEG Header", width: "800", height: "250", border: "0", usemap: "#navigation") %>
+      <map name="navigation">
+        <area shape="rect" coords="299,2,799,43" href="/pseg/" />
+        <area shape="rect" coords="400,42,799,60" href="/" />
+      </map>
+    </div>
+	
+	<div id="titlebar_bottom"></div>
+    
+	<div id="main_area">
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+            <div class="menu">
+              <ul class="menu">
+                <li><a href="/pseg/">Home</a></li>
+                <li><a href="/pseg/resources">Resources</a></li>
+                <li><a href="/pseg/workshops">Workshops</a></li>
+                <li><a href="/pseg/news">News</a></li>
+                <li><a href="/pseg/photos">Photos</a></li>
+                <li><a href="/pseg/discussion/topics/">Discussion</a></li>
+                <li><a href="/pseg/contact">Contact</a></li>
+              </ul>
+            </div>
+          </td>  
+
+          <td>
+            <div id="content">
+              <% flash.each do |key, value| %>
+	          <div class="alert-box <%= key %>"><%= value %></div>
+              <% end %>
+
+              <%= yield %>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <div id="bottom_runner">
+      <div id="bottom_left_corner"></div>
+      <div id="bottom_right_corner"></div>
+    </div>
+	
+    <div id="logos">
+      <%= link_to image_tag("pseg/pseg_logo.jpg", alt: "PSEG Logo", width: "142", height: "40", border: "0"), "http://www.pseg.com", {id: "logo-pseg"} %>
+      <%= link_to image_tag("pseg/stevens_logo.jpg", alt: "Stevens Logo", border: "0"), "http://www.stevens.edu", {id: "logo-stevens"} %>
+    </div>
+	
+    <div id="copyright">
+	  &copy; Copyright 2014 Stevens Institute of Technology. All rights reserved.<br />
+      The Center for Innovation in Engineering &amp; Science Education
+    </div>
+  </div>
+
+</body>
+</html>

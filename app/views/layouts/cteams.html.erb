@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Uncomment to make IE8 render like IE7 -->
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title><%= full_title(yield(:title)) %></title>
+
+  <%= stylesheet_link_tag "cteams", media: "all" %>
+  <%= yield :css %>
+
+  <%= yield :js %>
+
+  <%= csrf_meta_tags %>
+
+  <%= yield :header %>
+</head>
+
+<body>
+  <div class="container">
+    <div class="span-20 prepend-2 append-2 last">
+      <div id="title_img" class="span-20 last">
+        <%= link_to image_tag("cteams/cteams_004.gif", alt: "CTEAMS Logo", width: ""), "/cteams", {id: "logo-cteaqms"}%>
+      </div>
+
+      <div id="nav_bar" class="span-20 last">
+        <ul id="nav">
+          <li><a href="/cteams">Home</a></li>
+          <li><a href="/cteams/about">About</a></li>
+          <li><a href="/cteams/news">News</a></li>
+          <li><a href="/cteams/teachers">Teachers</a></li>
+          <li><a href="/cteams/workshops">Workshops</a>
+            <ul>
+              <li><a href="/cteams/workshops/cohort1">Cohort 1</a></li>
+              <li><a href="/cteams/workshops/cohort2">Cohort 2</a></li>
+              <li><a href="/cteams/workshops/cohort3">Cohort 3</a></li>
+            </ul>
+          </li>
+          <li><a href="/cteams/plc">PLC</a></li>
+          <li><a href="/cteams/research">Research</a></li>
+          <li><a href="/cteams/photos">Photos</a></li>
+          <li><a href="/cteams/contacts">Contacts</a></li>
+        </ul>
+      </div>
+
+      <div id="content" class="span-20 last">
+        <div id="main">
+          <% flash.each do |key, value| %>
+          <div class="alert-box <%= key %>"><%= value %></div>
+          <% end %>
+
+          <%= yield %>
+        </div>
+      </div>
+
+      <div id="footer_img" class="span-20 last">
+        <%= link_to image_tag("cteams/footer.gif", alt: "CTEAMS Footer", width: "790", height: "25"), {id: "footer"}%>
+      </div>
+
+      <div id="footer" class="span-20 last">
+        <%= link_to image_tag("cteams/stevens.jpg", alt: "Stevens Logo"), "http://www.stevens.edu", {id: "logo-stevens"} %>
+        <%= link_to image_tag("cteams/NJDOE.jpg", alt: "NJDOE Logo"), "http://www.state.nj.us/education/", {id: "njdoe"} %>
+      </div>
+
+      <div id="copyright" class="span-20 last">
+        <div align="center">
+          &copy; Copyright 2014 Stevens Institute of Technology. All rights reserved.<br />
+          The Center for Innovation in Engineering &amp; Science Education
+        </div>	  
+      </div>
+    </div>
+  </div> 
+</body>
+</html>

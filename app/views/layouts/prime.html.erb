@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Uncomment to make IE8 render like IE7 -->
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title><%= full_title(yield(:title)) %></title>
+
+  <%= stylesheet_link_tag "prime", media: "all" %>
+  <%= yield :css %>
+
+  <%= yield :js %>
+
+  <%= csrf_meta_tags %>
+
+  <%= yield :header %>
+</head>
+
+<body>
+<div id="container">
+  <div id="header">
+    <h1><a href="/prime">NJ PRIME</a></h1>
+    <h2>Partnership for Research to Improve<br>Mathematics Education</h2>
+    <div class="clear"></div>
+  </div>
+  
+  <div id="nav">
+    <ul>
+      <li><a href="/prime">Home</a></li>
+      <li><a href="/prime/about">About</a></li>
+      <li><a href="/prime/news">News</a></li>
+      <li><a href="/prime/teachers">Teachers</a></li>
+      <li><a href="/prime/workshops">Workshops</a>
+        <ul>
+          <li><a href="/prime/workshops/2013-14">2013-14</a></li>
+          <li><a href="/prime/workshops/2014-15">2014-15</a></li>
+          <li><a href="/prime/workshops/2015-16">2015-16</a></li>
+        </ul>
+      </li>
+      <li><a href="/prime/plc">&nbsp;&nbsp;&nbsp;PLC&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        <ul>
+          <li><a href="/prime/plc/2013-14">2013-14</a></li>
+          <li><a href="/prime/plc/2014-15">2014-15</a></li>
+          <li><a href="/prime/plc/2015-16">2015-16</a></li>
+        </ul>
+      </li>
+      <li><a href="/prime/resources">Resources</a></li>
+      <li><a href="/prime/photos">Photos</a></li>
+      <li><a href="/prime/contacts">Contacts</a></li>
+    </ul>
+  </div>
+  
+    <div id="body">
+      <div id="content">
+        <% flash.each do |key, value| %>
+	    <div class="alert-box <%= key %>"><%= value %></div>
+        <% end %>
+
+        <%= yield %>
+      </div>
+      
+      <div class="clear"></div>
+    </div>
+
+  <div id="footer">
+    <%= link_to image_tag("prime/stevens.jpg", alt: "Stevens Logo"), "http://www.stevens.edu", {id: "logo-stevens"} %>
+    <div id="copyright">
+      &copy; Copyright 2014 <a href="http://www.stevens.edu">Stevens Institute of Technology</a>. All rights reserved.<br />
+      <a href="http://www.ciese.org">The Center for Innovation in Engineering &amp; Science Education</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+

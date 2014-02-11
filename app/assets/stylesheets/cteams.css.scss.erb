@@ -1,0 +1,258 @@
+
+body {
+	margin: 0px;
+	padding: 0px;
+	background-color: #B2BBAF;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0px;
+}
+
+body, th, td, input, textarea, select {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #404040;
+}
+
+p, blockquote, ul, ol, dl {
+	margin-top: 0px;
+	margin-bottom: 1em;
+	text-align: left;
+}
+
+a {
+	color: #404040;
+}
+
+a:hover {
+	color:#009900;
+	text-decoration:none;
+}
+
+.text1 {
+	font-size: 10px;
+	font-weight: bold;
+	color: #088908;
+}
+
+.text2 {
+	font-size: 16px;
+	color: #43A617;
+}
+
+.text3 {
+	font-size: 24px;
+	color: #FF9900;
+}
+
+.text4 {
+	font-size: 16px;
+	color: #278AEF;
+}
+
+.text5 {
+	text-transform: uppercase;
+	font-size: 24px;
+	color: #424242;
+}
+
+.text6 {
+	text-align: center;
+	font-size: 10px;
+	color: #76838B;
+}
+
+.text7 {
+	text-transform: uppercase;
+	font-size: 12px;
+	color: #808080;
+}
+
+.bg1 { 
+	background: url(/static/cteams/img/img10-1.gif) repeat-y left top; 
+}
+
+.bg2 { 
+	background: url(/static/cteams/img/buttonGreen005.gif) no-repeat left top; height: 40px;  
+}
+
+.bg3 { 
+	background: #FFFFCC;
+}
+
+.bg13 { 
+	background: url(/static/cteams/img/img13.jpg) repeat-y left top; 
+}
+
+img { 
+	border: none; 
+}
+
+a#stevens {
+	float: right;
+	margin-right: 20px;
+}
+
+a#njdoe {
+	float: right;
+	margin-right: 10px;
+}
+
+a#copyright {
+	text-decoration: none;
+}
+
+#content {
+    background: #fff;
+	font-size: 13px;
+}
+
+#main {
+    padding: 10px;
+    min-height: 300px;
+}
+
+#page_options {
+    padding: 10px;
+}
+
+#page_options .box {
+    margin-bottom: 0;
+}
+
+#page_options h2 {
+    background: #ddffe9;
+    border-bottom: solid 1px #aaaaaa;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    margin: 0;
+    padding: 3px 0;
+}
+
+#page_options label {
+    display: inline-block;
+    width: 100px;
+}
+
+#page_options hr.space {
+    margin: 0;
+}
+
+#footer {
+    background: #fff;
+    padding: 0 0 30px 0;
+}
+
+#copyright {
+    background: #fff;
+    padding: 0 0 20px 0;
+    margin-bottom: 20px;
+}
+
+/*.link1 and .link1:hover can be deleted if use css buttons*/
+.link1 {
+	text-transform: uppercase;
+	text-decoration: none;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+.link1:hover {
+	text-decoration: underline;
+	color: #FFFFFF;
+}
+
+/*dropdown menu CSS buttons*/
+#nav_bar {
+    background: #fff url('/static/cteams/img/buttonGreenBG.gif') repeat-x left top;
+}
+
+#nav {
+    background: #fff url('/static/cteams/img/buttonGreenSep.gif') repeat-x left top;
+	padding: 0;
+	margin: 0;
+	line-height:100%;
+	float: left;
+}
+
+#nav li {
+	margin: 0 0 0 2px;
+	padding: 0;
+	
+	background: #FFFFFF url('/static/cteams/img/buttonGreen.gif') no-repeat left top;
+	float: left;
+	list-style: none;
+	text-align:center;
+	
+	position: relative;
+}
+
+#nav li:first-child {
+    margin: 0;
+}
+
+/* main level link */
+#nav a {
+	display: block;
+	padding: 10px 5px;
+	margin: 0 9px;
+	/*margin: 0 7.7px;*/
+	text-transform: uppercase;
+	text-decoration: none;
+	font-size: 11px;
+	font-weight: bold;
+	color:#FFFFFF;
+}
+
+#nav a:hover {
+	text-decoration: underline;
+}
+
+/* sub levels link hover */
+#nav ul li:hover a, #nav li:hover li a {
+	border:none;
+	color: #339900;
+}
+
+/* dropdown */
+
+#nav li:hover > ul {
+	display: block;
+}
+
+#nav ul a {
+	font-weight: normal;
+	padding: 3px 5px;
+}
+
+/* level 2 list */
+#nav ul {
+	display: none;
+	background: #FFFFFF;
+	margin: 0 0 0 2px;
+	padding: 0;
+	/*width:90px;*/
+	position:absolute;
+	border: solid 1px #b4b4b4;
+
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0, .3);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0, .3);
+	box-shadow: 0 1px 3px rgba(0,0,0, .3);
+}
+
+#nav ul li:first-child {
+    margin: 5px;
+}
+
+#nav ul li {
+	float: none;
+	margin: 5px;
+	background-image:none;
+}
+

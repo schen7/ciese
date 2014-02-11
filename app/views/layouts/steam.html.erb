@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Uncomment to make IE8 render like IE7 -->
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title><%= full_title(yield(:title)) %></title>
+
+  <%= stylesheet_link_tag "steam", media: "all" %>
+  <%= yield :css %>
+
+  <%= yield :js %>
+
+  <%= csrf_meta_tags %>
+
+  <%= yield :header %>
+</head>
+
+<body>
+  <div id="container">
+    <div id="header">
+      <h1><a href="/steam">STEAM</a></h1>
+      <h2>Art + Engineering</h2>
+      <div class="clear"></div>
+    </div>
+	
+    <div id="nav">
+      <ul>
+        <li><a href="/steam">Home</a></li>
+        <li><a href="/steam/news/">News</a></li>
+        <li><a href="/steam/curriculum/">Resources</a></li>
+        <li><a href="/steam/pd/">Workshops</a></li>
+        <li><a href="/steam/photos/">Photos</a></li>
+        
+		<li onClick="return true">
+          <a class="menu_title">Share</a>
+            <ul>
+              <li><a href="http://ciese.org/steam/discussion/topics/">Collaboration</a></li>
+              <li><a href="http://www.facebook.com/pages/STEAM_Educational-Program/238465186268124" target="_blank">Facebook</a></li>
+            </ul>
+        </li>
+				
+        <li><a href="/steam/contacts/">Contacts</a></li>
+      </ul>
+    </div>
+	
+    <div id="body">
+      <div id="content">
+        <% flash.each do |key, value| %>
+	    <div class="alert-box <%= key %>"><%= value %></div>
+        <% end %>
+
+        <%= yield %>
+      </div>
+      <div class="clear"></div>
+    </div>
+	
+    <div id="footer">
+      <div class="footer-content">
+	    <%= link_to image_tag("steam/GRDodgeLogo.jpg"), "http://www.grdodge.org", {id: "logo-steam"} %>
+        <%= link_to image_tag("steam/Stevens-Official-Logo.jpg", alt: "Stevens Logo"), "http://www.stevens.edu", {id: "logo-stevens"} %>
+				
+        <div id="copyright">
+          &copy; Copyright 2014 <a href="http://www.stevens.edu">Stevens Institute of Technology</a>. All rights reserved.<br />
+          <a href="http://www.ciese.org">The Center for Innovation in Engineering &amp; Science Education</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

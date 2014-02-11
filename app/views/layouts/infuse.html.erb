@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Uncomment to make IE8 render like IE7 -->
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title><%= full_title(yield(:title)) %></title>
+
+  <%= stylesheet_link_tag "infuse", media: "all" %>
+  <%= yield :css %>
+
+  <%= yield :js %>
+
+  <%= csrf_meta_tags %>
+
+  <%= yield :header %>
+</head>
+
+<body>
+  <div class="container">
+    <div id="main" class="span-24 last">
+      <div id="header" class="row collapse">
+        <div id="header-bg"></div>
+      </div>
+
+	  <div id="nav">
+	  </div>
+
+	  <div id="content">
+        <div class="large-11 columns last">
+          <% flash.each do |key, value| %>
+	      <div class="alert-box <%= key %>"><%= value %></div>
+          <% end %>
+
+          <%= yield %>
+        </div>
+      </div>
+      
+      <div id="bottom">
+      </div>
+
+	  <div id="footer">
+        <div class="footer-content" align="right">     
+          <div align="center">
+            &copy; Copyright 2014 Stevens Institute of Technology. All rights reserved.<br />
+            The Center for Innovation in Engineering &amp; Science Education
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
