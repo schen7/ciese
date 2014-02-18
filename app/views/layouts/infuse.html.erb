@@ -28,11 +28,9 @@
     <div id="header" class="row collapse">
       <%= link_to image_tag("infuse/Project_Infuse.jpg", alt: "Infuse header"), "/infuse", {id: "header-infuse"} %>
     </div>
+    <div id="nav"></div>
 
-	<div id="nav">
-	</div>
-
-	<div id="content">
+    <div id="content">
       <div class="large-11 columns last">
         <% flash.each do |key, value| %>
 	    <div class="alert-box <%= key %>"><%= value %></div>
@@ -42,11 +40,10 @@
       </div>
     </div>
       
-    <div id="bottom">
-    </div>
+    <div id="bottom"></div>
 
     <div id="footer">
-      <div class="footer-content" align="right">     
+      <div class="footer-content">     
         <div align="center">
           &copy; Copyright 2014 Stevens Institute of Technology. All rights reserved.<br />
           The Center for Innovation in Engineering &amp; Science Education

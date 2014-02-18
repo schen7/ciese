@@ -1,12 +1,28 @@
+@import "foundation_overrides";
+
+$row-width: 1024px;
+$block-grid-media-queries: false;
+
+$screen: "only screen";
+$small: "only screen";
+$medium: "only screen";
+$large: "only screen";
+$landscape: "only screen";
+$portrait: "only screen";
+
+
+@import "foundation";
+@import "mixins";
+
 body {
-	background-color: #E7F0E4;
-	background-image: url(/static/pseg/img/bg.gif);
-	background-position: top;
-	background-repeat: repeat-x;
-	margin-top: 0;
-	margin-bottom: 0;
-	padding: 0;
-	align: center;
+  background-color: #E7F0E4;
+  background-image: url(<%= asset_path 'pseg/bg.gif' %>);
+  background-position: top;
+  background-repeat: repeat-x;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  align: center;
 }
 
 div#main_display {
@@ -161,27 +177,27 @@ div#copyright a:hover {
 }
 
 div#upper_left_corner {
-	float: left;
-	background-image: url(/static/pseg/img/top_left.jpg);
-	background-position: top left;
+  float: left;
+  background-image: url(<%= asset_path 'pseg/top_left.jpg' %>);
+  background-position: top left;
 }
 
 div#upper_right_corner {
-	float: right;
-	background-image: url(/static/pseg/img/top_right.jpg);
-	background-position: top right;
+  float: right;
+  background-image: url(<%= asset_path 'pseg/top_right.jpg' %>);
+  background-position: top right;
 }
 
 div#bottom_left_corner {
-	float: left;
-	background-image: url(/static/pseg/img/bottom_left.jpg);
-	background-position: bottom left;
+  float: left;
+  background-image: url(<%= asset_path 'pseg/bottom_left.jpg' %>);
+  background-position: bottom left;
 }
 
 div#bottom_right_corner {
-	float: right;
-	background-image: url(/static/pseg/img/bottom_right.jpg);
-	background-position: bottom right;
+  float: right;
+  background-image: url(<%= asset_path 'pseg/bottom_right.jpg' %>);
+  background-position: bottom right;
 }
 
 div#upper_left_corner, #upper_right_corner, #bottom_left_corner, #bottom_right_corner {

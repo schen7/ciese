@@ -1,3 +1,19 @@
+@import "foundation_overrides";
+
+$row-width: 1024px;
+$block-grid-media-queries: false;
+
+$screen: "only screen";
+$small: "only screen";
+$medium: "only screen";
+$large: "only screen";
+$landscape: "only screen";
+$portrait: "only screen";
+
+
+@import "foundation";
+@import "mixins";
+
 body {
 	background-color: #C5BD99;
 }
@@ -20,11 +36,11 @@ body {
 }
 
 #nav {
-	height: 55px;
-	background-image: url(/static/istem/img/line2.jpg);
-	background-repeat: repeat-x;
-	background-position: 0% 100%;
-    line-height: normal;
+  height: 55px;
+  background-image: url(<%= asset_path 'istem/line2.jpg' %>);
+  background-repeat: repeat-x;
+  background-position: 0% 100%;
+  line-height: normal;
 }
 
 #nav ul {
@@ -109,20 +125,20 @@ body {
 }
 
 #bottom {
-   clear: both; 
-   height:25px;
-   background-image: url(/static/istem/img/line.jpg);
-   background-repeat: repeat-x;
+  clear: both; 
+  height:25px;
+  background-image: url(<%= asset_path 'istem/line.jpg' %>);
+  background-repeat: repeat-x;
 
 }
 
 #footer {
-    margin-bottom: 20px;
 }
     
 .footer-content {
-	padding: 0 20px;
-	background: #fff;
+  font-size: 11px;
+  padding: 20px 0 20px;
+  background: #fff;
 }
 
 a {

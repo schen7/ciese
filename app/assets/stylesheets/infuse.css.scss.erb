@@ -1,3 +1,19 @@
+@import "foundation_overrides";
+
+$row-width: 1024px;
+$block-grid-media-queries: false;
+
+$screen: "only screen";
+$small: "only screen";
+$medium: "only screen";
+$large: "only screen";
+$landscape: "only screen";
+$portrait: "only screen";
+
+
+@import "foundation";
+@import "mixins";
+
 body {
 	background-color: #DBDADC;
 }
@@ -20,11 +36,11 @@ body {
 }
 
 #nav {
-	height: 30px;
-	background-image: url(/static/infuse/img/line2.jpg);
-	background-repeat: repeat-x;
-	background-position: 0% 100%;
-	line-height: normal;
+  height: 30px;
+  background-image: url(<%= asset_path 'infuse/line2.jpg' %>);
+  background-repeat: repeat-x;
+  background-position: 0% 100%;
+  line-height: normal;
 }
 
 #content {
@@ -32,19 +48,19 @@ body {
 }
 
 #bottom {
-   clear: both; 
-   height: 24px;
-   background-image: url(/static/infuse/img/line3.jpg);
-   background-repeat: repeat-x;
+  clear: both; 
+  height: 24px;
+  background-image: url(<%= asset_path 'infuse/line3.jpg' %>);
+  background-repeat: repeat-x;
 }
 
 #footer {
-    margin-bottom: 20px;
 }
     
 .footer-content {
-	padding: 0 20px;
-	background: #fff;
+  font-size: 11px;
+  padding: 20px 0px 20px;
+  background: #fff;
 }
 
 a {

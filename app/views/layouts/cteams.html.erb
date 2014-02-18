@@ -29,7 +29,7 @@
       <%= link_to image_tag("cteams/cteams_004.gif", alt: "CTEAMS Logo", width: "790"), "/cteams", {id: "logo-cteaqms"}%>
     </div>
 
-    <div id="nav_bar" class="span-20 last">
+    <div id="nav_bar">
       <ul id="nav">
         <li><a href="/cteams">Home</a></li>
         <li><a href="/cteams/about">About</a></li>
@@ -49,26 +49,23 @@
       </ul>
     </div>
 
-    <div id="content" class="span-20 last">
-      <div id="main">
-        <% flash.each do |key, value| %>
-        <div class="alert-box <%= key %>"><%= value %></div>
-        <% end %>
+    <div id="main">
+      <% flash.each do |key, value| %>
+      <div class="alert-box <%= key %>"><%= value %></div>
+      <% end %>
 
-        <%= yield %>
-      </div>
+      <%= yield %>
     </div>
 
-    <div id="footer_img" class="span-20 last">
-      <%= link_to image_tag("cteams/footer.gif", alt: "CTEAMS Footer", width: "790", height: "25"), {id: "footer"}%>
+    <div id="footer_img">
+      <%= link_to image_tag("cteams/footer.gif", alt: "CTEAMS Footer", width: "790", height: "25") %>
     </div>
 
-    <div id="footer" class="span-20 last">
+    <div id="footer">
       <div id="stevens_logo"><%= link_to image_tag("cteams/stevens.jpg", alt: "Stevens Logo"), "http://www.stevens.edu", {id: "logo-stevens"} %></div>
       <div id="njdoe_logo"><%= link_to image_tag("cteams/NJDOE.jpg", alt: "NJDOE Logo"), "http://www.state.nj.us/education/", {id: "njdoe"} %></div>
     </div>
-
-    <div id="copyright" class="span-20 last">
+    <div id="copyright">
       <div align="center">
         &copy; Copyright 2014 Stevens Institute of Technology. All rights reserved.<br />
         The Center for Innovation in Engineering &amp; Science Education
